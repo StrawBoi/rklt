@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { ContactHero } from "@/components/sections/contact/ContactHero";
 import { ContactCTATier } from "@/components/sections/contact/ContactCTATier";
+import { NoteForm } from "@/components/sections/contact/NoteForm";
 import { HubsAndHours } from "@/components/sections/contact/HubsAndHours";
 import { FullCoverageList } from "@/components/sections/contact/FullCoverageList";
 import { QuotePrepGuide } from "@/components/sections/contact/QuotePrepGuide";
@@ -36,6 +37,7 @@ export default function ContactPage({
     <>
       <ContactHero locale={locale} />
       <ContactCTATier locale={locale} />
+      <NoteForm locale={locale} />
       <HubsAndHours locale={locale} />
       <FullCoverageList locale={locale} />
       <QuotePrepGuide locale={locale} />

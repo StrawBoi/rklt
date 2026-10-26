@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Locale } from "@/lib/i18n";
 import { siteConfig } from "@/content/site";
 import { LanguageToggle } from "./LanguageToggle";
+import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/primitives/Button";
 import { Icon } from "@/components/primitives/Icon";
 import { cn } from "@/lib/cn";
@@ -45,7 +46,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ locale }) => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-sand-100 hover:text-terracotta-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandblue-400"
+        className="p-2 text-role-text hover:text-role-action"
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
       >
@@ -55,16 +56,17 @@ export const MobileNav: React.FC<MobileNavProps> = ({ locale }) => {
       {/* Scrim Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 bg-ink-950/80 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 z-50 bg-ink-950/80"
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
         />
       )}
 
       {/* Drawer */}
-      <div
+        <div
+        data-rklt-overlay
         className={cn(
-          "fixed top-0 bottom-0 z-50 w-4/5 max-w-sm bg-ink-900 border-ink-700 p-6 flex flex-col justify-between transition-transform duration-300 shadow-2xl",
+          "fixed top-0 bottom-0 z-50 w-4/5 max-w-sm bg-role-overlay text-role-text border-role-line p-6 flex flex-col justify-between transition-transform duration-300",
           locale === "ar"
             ? "right-0 border-l translate-x-full"
             : "left-0 border-r -translate-x-full",
@@ -72,14 +74,14 @@ export const MobileNav: React.FC<MobileNavProps> = ({ locale }) => {
         )}
       >
         <div>
-          <div className="flex items-center justify-between pb-6 border-b border-ink-700">
-            <span className="font-display font-extrabold text-2xl text-sand-100">
+          <div className="flex items-center justify-between pb-6 border-b border-role-line">
+            <span className="font-display font-extrabold text-2xl text-role-text">
               RKLT
             </span>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="p-1.5 text-sand-100 hover:text-terracotta-300"
+              className="p-1.5 text-role-text hover:text-role-action"
               aria-label="Close menu"
             >
               <Icon name="close" size={20} />
@@ -94,10 +96,10 @@ export const MobileNav: React.FC<MobileNavProps> = ({ locale }) => {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "text-lg font-bold py-2 px-3 rounded transition-colors",
+                    "text-lg font-bold py-2 px-3 rounded",
                     active
-                      ? "text-terracotta-300 bg-ink-800"
-                      : "text-sand-100 hover:text-terracotta-300 hover:bg-ink-800/50"
+                      ? "text-role-text bg-role-panel"
+                      : "text-role-text rklt-veil"
                   )}
                 >
                   {item.label}
@@ -106,15 +108,18 @@ export const MobileNav: React.FC<MobileNavProps> = ({ locale }) => {
             })}
           </nav>
 
-          <div className="pt-4 border-t border-ink-700 flex items-center justify-between">
-            <span className="text-xs text-ink-600 uppercase tracking-wider font-semibold">
+          <div className="pt-4 border-t border-role-line flex items-center justify-between gap-3">
+            <span className="text-xs text-role-muted uppercase tracking-wider font-semibold">
               {locale === "ar" ? "اللغة" : "Language"}
             </span>
-            <LanguageToggle currentLocale={locale} />
+            <div className="flex items-center gap-2">
+              <LanguageToggle currentLocale={locale} />
+              <ThemeToggle locale={locale} />
+            </div>
           </div>
         </div>
 
-        <div className="space-y-3 pt-6 border-t border-ink-700">
+        <div className="space-y-3 pt-6 border-t border-role-line">
           <Button
             href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
               locale === "ar"

@@ -33,7 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
     size === "md" && "text-sm md:text-base px-5 py-3 gap-2.5",
     size === "lg" && "text-base md:text-lg px-7 py-4 gap-3",
     variant === "primary" &&
-      "bg-terracotta-500 text-ink-950 hover:bg-terracotta-400 active:bg-terracotta-600 hover:-translate-y-0.5 shadow-sm hover:shadow-glow",
+      "rklt-gold-metal text-role-on",
     variant === "ember" &&
       "bg-terracotta-300 text-ink-950 hover:bg-terracotta-400 active:bg-terracotta-500 hover:-translate-y-0.5 shadow-md",
     variant === "outline" &&

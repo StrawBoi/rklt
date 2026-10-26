@@ -25,7 +25,7 @@ export const ArrowLink: React.FC<ArrowLinkProps> = ({
   const linkClass = cn(
     "group inline-flex items-center gap-1.5 font-sans font-semibold text-sm transition-all duration-200 border-b pb-0.5",
     tone === "terracotta" &&
-      "text-terracotta-300 border-terracotta-500/40 hover:text-terracotta-400 hover:border-terracotta-400",
+      "text-role-text border-role-line hover:border-role-action",
     tone === "sand" &&
       "text-sand-100 border-sand-300/40 hover:text-terracotta-300 hover:border-terracotta-300",
     tone === "blue" &&

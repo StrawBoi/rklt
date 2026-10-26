@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Locale } from "@/lib/i18n";
@@ -6,6 +8,7 @@ import { aboutContentAr } from "@/content/ar/about";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Numeral } from "@/components/primitives/Numeral";
+import { useInViewOnce } from "@/components/sections/home/useInViewOnce";
 
 interface StoryNarrativeProps {
   locale: Locale;
@@ -14,59 +17,59 @@ interface StoryNarrativeProps {
 export const StoryNarrative: React.FC<StoryNarrativeProps> = ({ locale }) => {
   const isAr = locale === "ar";
   const content = isAr ? aboutContentAr.story : aboutContentEn.story;
+  const revealRef = useInViewOnce<HTMLDivElement>();
 
   return (
-    <section className="py-20 md:py-28 bg-ink-900 border-b border-ink-800">
+    <section className="py-20 md:py-28 bg-role-field border-b border-role-line">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Main Story Narrative */}
+        <div
+          ref={revealRef}
+          className="rklt-reveal grid grid-cols-1 lg:grid-cols-12 gap-12 items-start"
+        >
           <div className="lg:col-span-7 space-y-6">
-            <Eyebrow tone="terracotta">{content.eyebrow}</Eyebrow>
+            <Eyebrow tone="terracotta" className="text-role-muted">
+              {content.eyebrow}
+            </Eyebrow>
 
-            <h2 className="font-display font-extrabold text-3xl md:text-5xl text-sand-100 tracking-tight leading-tight">
+            <h2 className="font-display font-extrabold text-3xl md:text-5xl text-role-text tracking-tight leading-tight">
               {content.title}
             </h2>
 
-            <div className="space-y-5 text-sm md:text-base text-sand-300/90 leading-relaxed">
+            <div className="space-y-5 text-sm md:text-base text-role-muted leading-relaxed">
               {content.paragraphs.map((p, idx) => (
                 <p key={idx}>{p}</p>
               ))}
             </div>
 
             <div className="pt-6">
-              <blockquote className="p-6 rounded-md bg-ink-950 border-l-4 rtl:border-l-0 rtl:border-r-4 border-terracotta-500">
-                <p className="font-display font-bold text-lg md:text-xl text-sand-100 italic">
+              <blockquote className="p-6 rounded-lg border border-role-line bg-role-panel border-s-4 border-s-role-action">
+                <p className="font-display font-bold text-lg md:text-xl text-role-text italic">
                   {content.quote.text}
                 </p>
-                <footer className="text-xs font-semibold text-terracotta-300 mt-2">
-                  — {content.quote.author}
+                <footer className="text-xs font-semibold text-role-muted mt-2">
+                  {content.quote.author}
                 </footer>
               </blockquote>
             </div>
           </div>
 
-          {/* Visual Column */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-ink-950 border border-ink-700/80 shadow-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden bg-role-dock">
               <Image
-                src="/assets/rklt-visual-board.jpg"
-                alt={
-                  isAr
-                    ? "الهوية الملاحية واللوجستية لشركة ربوع الخير"
-                    : "RKLT Maritime & Cargo Operational Identity"
-                }
+                src="/world/about/night/poster.jpg"
+                alt={isAr ? "رصيف هادئ عند الغسق" : "Quiet quay at dusk"}
                 fill
-                className="object-cover object-top filter saturate-[0.8] contrast-[1.05]"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-transparent" />
             </div>
 
-            <div className="p-6 rounded-lg bg-ink-950 border border-ink-800 flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4 border-t border-role-line pt-6">
               <div>
-                <span className="text-xs uppercase font-bold tracking-eyebrow text-terracotta-400 block mb-1">
+                <span className="text-xs uppercase font-bold tracking-eyebrow text-role-muted block mb-1">
                   {isAr ? "الريادة المتواصلة" : "Operational Continuity"}
                 </span>
-                <span className="text-sm font-semibold text-sand-100">
+                <span className="text-sm font-semibold text-role-text">
                   {isAr
                     ? "ثلاثة عقود من الوجود الميداني في الأردن"
                     : "Three Decades of Continuous On-Ground Service"}

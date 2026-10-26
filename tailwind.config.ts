@@ -39,6 +39,27 @@ const config: Config = {
           400: "#5B98DC",
           500: "#2E7CD1",
         },
+        navy: {
+          950: "#06102A",
+        },
+        gold: {
+          DEFAULT: "#E2B34A",
+          bright: "#F6E2A4",
+        },
+        cream: "#F4F1EA",
+        role: {
+          field: "var(--role-field)",
+          dock: "var(--role-dock)",
+          panel: "var(--role-panel)",
+          overlay: "var(--role-overlay)",
+          text: "var(--role-text)",
+          muted: "var(--role-muted)",
+          action: "var(--role-action)",
+          on: "var(--role-on-action)",
+          signal: "var(--role-signal)",
+          focus: "var(--role-focus)",
+          line: "var(--role-line)",
+        },
       },
       fontFamily: {
         sans: ["var(--font-archivo)", "system-ui", "sans-serif"],

@@ -17,7 +17,7 @@ export async function generateMetadata({
   return {
     title: isAr
       ? "من نحن | ربوع الخير لنقل وشحن البضائع (RKLT)"
-      : "About Us | RKLT — 30+ Years Logistics Heritage",
+      : "About Us | RKLT. 30+ Years Logistics Heritage",
     description: isAr
       ? "قصة شركة ربوع الخير لنقل وشحن البضائع، وقيمها المهنية وتاريخها الممتد لأكثر من 30 عاماً في الأردن."
       : "The heritage, values, and three decades of logistics mastery of RKLT (Rubu' Al-Khair) in Jordan and worldwide.",

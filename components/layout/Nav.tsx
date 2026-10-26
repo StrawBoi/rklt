@@ -9,9 +9,10 @@ import { cn } from "@/lib/cn";
 interface NavProps {
   locale: Locale;
   className?: string;
+  group?: "start" | "end";
 }
 
-export const Nav: React.FC<NavProps> = ({ locale, className }) => {
+export const Nav: React.FC<NavProps> = ({ locale, className, group = "start" }) => {
   const pathname = usePathname();
 
   const navItems = [
@@ -37,6 +38,8 @@ export const Nav: React.FC<NavProps> = ({ locale, className }) => {
     },
   ];
 
+  const links = group === "start" ? navItems.slice(0, 2) : navItems.slice(2);
+
   const isActive = (itemHref: string, exact: boolean) => {
     if (!pathname) return false;
     if (exact) {
@@ -47,32 +50,28 @@ export const Nav: React.FC<NavProps> = ({ locale, className }) => {
 
   return (
     <nav
-      className={cn("hidden md:flex items-center gap-7 lg:gap-9", className)}
+      className={cn("hidden md:flex h-full items-center gap-8 lg:gap-10", className)}
       aria-label={locale === "ar" ? "التنقل الرئيسي" : "Main navigation"}
     >
-      {navItems.map((item) => {
+      {links.map((item) => {
         const active = isActive(item.href, item.exact);
         return (
           <Link
             key={item.href}
             href={item.href}
             className={cn(
-              "relative py-2 text-sm font-semibold transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandblue-400 focus-visible:ring-offset-2",
-              active ? "text-terracotta-300" : "text-sand-100/90 hover:text-terracotta-300"
+              "relative flex h-full items-center text-[0.9375rem] font-semibold transition-colors duration-200 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandblue-400 focus-visible:ring-offset-2",
+              active ? "text-gold" : "text-sand-100/80 hover:text-sand-100"
             )}
           >
             <span>{item.label}</span>
-            {active ? (
-              <span
-                className="absolute inset-x-0 bottom-0 h-0.5 bg-terracotta-500 rounded-full"
-                aria-hidden="true"
-              />
-            ) : (
-              <span
-                className="absolute inset-x-0 bottom-0 h-0.5 bg-terracotta-500/0 scale-x-0 transition-transform duration-200 origin-center group-hover:scale-x-100 group-hover:bg-terracotta-500/60"
-                aria-hidden="true"
-              />
-            )}
+            <span
+              className={cn(
+                "absolute inset-x-0 bottom-0 h-px bg-gold origin-center transition-transform duration-500 ease-confident",
+                active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+              )}
+              aria-hidden="true"
+            />
           </Link>
         );
       })}

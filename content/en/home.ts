@@ -1,35 +1,43 @@
 export const homeContentEn = {
   hero: {
+    headline: "Sea, air, and land.",
+    band: "Freight through Aqaba and Amman.",
     eyebrow: "Connecting places, delivering trust",
     titleLine1: "Million of miles.",
     titleLine2: "Million of smiles.",
+    copyLead: "Freight Forwarding",
+    blurb: "Sea, Air, Land and customs.",
+    copyModes: "Sea, Air & Land",
+    copyEase: "At your convenience",
     subtitle:
       "RKLT moves cargo across sea, air, and land with dependable Jordanian heritage, clear communication, and unwavering care at every handover.",
-    ctaPrimary: "Discuss your shipment",
+    ctaPrimary: "Request a Quote",
+    ctaQuote: "Request a quote",
+    ctaServices: "Discover our services",
     ctaSecondary: "Explore all services",
     statBadge: "30+ Years of Excellence",
   },
   credibility: {
-    experienceNumber: "30+",
-    experienceLabel: "Years of Verified Logistics Heritage",
+    experienceNumber: "30",
+    experienceLabel: "Years of expertise.",
     experienceDetail:
-      "Rooted in Jordan's vital maritime and overland corridors since the 1990s.",
+      "Our teams live with these capabilities on every shipment, from the berth at Aqaba to the last handover.",
     values: [
       {
-        title: "Reliability",
-        desc: "Predictable schedules, transparent updates, and promises kept.",
+        title: "Custody",
+        desc: "Cargo and documents stay in one recorded chain until the handover is signed.",
       },
       {
-        title: "Speed",
-        desc: "Streamlined clearance at Aqaba and rapid cross-border transit.",
+        title: "Clearance",
+        desc: "Licensed brokerage at Aqaba, Amman, and the border, ready before the vessel arrives.",
       },
       {
-        title: "Safety",
-        desc: "Strict chain-of-custody protocols for every container and pallet.",
+        title: "Routing",
+        desc: "Sea, air, or land is chosen for the cargo and the corridor, not from a default lane.",
       },
       {
-        title: "Professionalism",
-        desc: "Licensed freight specialists dedicated to your supply chain.",
+        title: "A direct desk",
+        desc: "The team moving the file is the team that answers.",
       },
     ],
   },
@@ -37,7 +45,7 @@ export const homeContentEn = {
     eyebrow: "Core Capabilities",
     title: "Engineered for your critical shipments.",
     subtitle:
-      "Four core pillars powered by three decades of regional knowledge and international carrier alliances.",
+      "How can we help? Services that cover the shipment, from the booking to the handover.",
     viewAll: "View full service catalog",
     items: [
       {

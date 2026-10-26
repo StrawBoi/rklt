@@ -18,11 +18,11 @@ export async function generateMetadata({
   const isAr = locale === "ar";
   return {
     title: isAr
-      ? "ربوع الخير لنقل وشحن البضائع | RKLT — أميال لا تُحصى. ابتسامات لا تُعد."
-      : "RKLT | Maritime, Air & Land Freight Logistics — Million of miles. Million of smiles.",
+      ? "ربوع الخير لنقل وشحن البضائع | RKLT. أميال لا تُحصى. ابتسامات لا تُعد."
+      : "RKLT | Maritime, Air & Land Freight Logistics. Million of miles. Million of smiles.",
     description: isAr
-      ? "ربوع الخير لنقل وشحن البضائع — خبرة تتجاوز 30 عاماً في الشحن البحري والجوي والبري، والتخليص الجمركي في العقبة وعمّان وحول العالم."
-      : "RKLT (Rubu' Al-Khair) — 30+ years of dependable sea, air, and land freight forwarding and customs clearance across Jordan and global trade routes.",
+      ? "ربوع الخير لنقل وشحن البضائع. خبرة تتجاوز 30 عاماً في الشحن البحري والجوي والبري، والتخليص الجمركي في العقبة وعمّان وحول العالم."
+      : "RKLT (Rubu' Al-Khair). 30+ years of dependable sea, air, and land freight forwarding and customs clearance across Jordan and global trade routes.",
     alternates: {
       canonical: `https://rklt.ltd/${locale}`,
       languages: {

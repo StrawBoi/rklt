@@ -1,16 +1,16 @@
 export const aboutContentEn = {
   hero: {
     eyebrow: "Our Heritage & Philosophy",
-    title: "Over three decades of moving cargo with precision and care.",
+    title: "Thirty years on this corridor.",
     subtitle:
-      "Built from Jordan's historic maritime gateway, RKLT combines veteran customs mastery, multimodal logistics, and direct human accountability.",
+      "RKLT has handled freight through Jordan since the 1990s. The operations desk still answers directly.",
   },
   story: {
     eyebrow: "The Founding Narrative",
     title: "Rooted in Jordan's vital commercial corridors.",
     paragraphs: [
       "RKLT (Rubu' Al-Khair for Transport & Shipping) was founded more than 30 years ago with a resolute focus: providing businesses with dependable, straightforward cargo movement through the Kingdom of Jordan and onward to world markets.",
-      "Jordan sits at one of the world's most critical geopolitical crossroads — connecting the Red Sea maritime arteries of Aqaba with overland transit routes into Saudi Arabia, Iraq, Syria, and the broader Levant. Navigating these routes successfully requires far more than software; it demands deep operational relationships with port authorities, customs departments, shipping lines, and ground carriers.",
+      "Jordan sits at one of the world's most critical geopolitical crossroads, connecting the Red Sea maritime arteries of Aqaba with overland transit routes into Saudi Arabia, Iraq, Syria, and the broader Levant. Navigating these routes successfully requires far more than software; it demands deep operational relationships with port authorities, customs departments, shipping lines, and ground carriers.",
       "Over three decades, while global logistics conglomerates prioritized volume and impersonal automated ticketing, RKLT preserved the ethos of direct personal accountability. When you entrust cargo to RKLT, our senior operations officers know your shipment by name, monitor its border transitions, and stand ready on the phone whenever guidance is needed.",
     ],
     quote: {

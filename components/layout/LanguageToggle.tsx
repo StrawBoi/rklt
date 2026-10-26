@@ -19,6 +19,7 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
 
   const targetLocale: Locale = currentLocale === "en" ? "ar" : "en";
   const label = targetLocale === "ar" ? "العربية" : "English";
+  const shortLabel = targetLocale === "ar" ? "عربي" : "EN";
 
   const handleToggle = () => {
     const nextPath = switchLocalePath(pathname || `/${currentLocale}`, targetLocale);
@@ -36,13 +37,13 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
       type="button"
       onClick={handleToggle}
       className={cn(
-        "inline-flex items-center justify-center px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider transition-all duration-200 border border-sand-300/30 text-sand-100 hover:border-terracotta-500 hover:text-terracotta-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandblue-400",
-        currentLocale === "ar" ? "font-sans" : "font-arabic",
+        "inline-flex h-10 items-center justify-center px-2 text-sm font-semibold transition-colors duration-300 text-sand-100/80 hover:text-sand-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brandblue-400",
+        currentLocale === "ar" ? "font-sans tracking-wider" : "font-arabic",
         className
       )}
       aria-label={`Switch language to ${label}`}
     >
-      <span>{label}</span>
+      <span>{shortLabel}</span>
     </button>
   );
 };

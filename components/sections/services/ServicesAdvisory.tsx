@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Locale } from "@/lib/i18n";
 import { siteConfig } from "@/content/site";
@@ -6,6 +8,7 @@ import { servicesContentAr } from "@/content/ar/services";
 import { Container } from "@/components/primitives/Container";
 import { Button } from "@/components/primitives/Button";
 import { Icon } from "@/components/primitives/Icon";
+import { useInViewOnce } from "@/components/sections/home/useInViewOnce";
 
 interface ServicesAdvisoryProps {
   locale: Locale;
@@ -14,6 +17,7 @@ interface ServicesAdvisoryProps {
 export const ServicesAdvisory: React.FC<ServicesAdvisoryProps> = ({ locale }) => {
   const isAr = locale === "ar";
   const content = isAr ? servicesContentAr.advisory : servicesContentEn.advisory;
+  const revealRef = useInViewOnce<HTMLDivElement>();
 
   const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
     isAr
@@ -22,14 +26,17 @@ export const ServicesAdvisory: React.FC<ServicesAdvisoryProps> = ({ locale }) =>
   )}`;
 
   return (
-    <section className="py-16 bg-ink-900 border-b border-ink-800">
+    <section className="py-16 bg-role-dock border-b border-role-line">
       <Container>
-        <div className="p-8 md:p-12 rounded-lg bg-ink-800/80 border border-ink-700 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-2 max-w-2xl text-center md:text-left rtl:md:text-right">
-            <h3 className="font-display font-bold text-2xl text-sand-100">
+        <div
+          ref={revealRef}
+          className="rklt-reveal flex flex-col items-start justify-between gap-8 border-t border-role-line pt-10 md:flex-row md:items-center"
+        >
+          <div className="space-y-2 max-w-2xl text-center md:text-start">
+            <h3 className="font-display font-bold text-2xl text-role-text">
               {content.title}
             </h3>
-            <p className="text-sm text-sand-300/90 leading-relaxed">
+            <p className="text-sm text-role-muted leading-relaxed">
               {content.subtitle}
             </p>
           </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Locale } from "@/lib/i18n";
 import { aboutContentEn } from "@/content/en/about";
@@ -5,61 +7,61 @@ import { aboutContentAr } from "@/content/ar/about";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Icon } from "@/components/primitives/Icon";
+import { useInViewOnce } from "@/components/sections/home/useInViewOnce";
 
 interface CredentialsModuleProps {
   locale: Locale;
 }
 
-export const CredentialsModule: React.FC<CredentialsModuleProps> = ({ locale }) => {
+export const CredentialsModule: React.FC<CredentialsModuleProps> = ({
+  locale,
+}) => {
   const isAr = locale === "ar";
   const content = isAr ? aboutContentAr.credentials : aboutContentEn.credentials;
+  const revealRef = useInViewOnce<HTMLDivElement>();
 
   return (
-    <section className="py-20 md:py-28 bg-ink-950">
+    <section className="py-20 md:py-28 bg-role-dock">
       <Container>
-        <div className="max-w-3xl mb-14 space-y-3">
-          <Eyebrow tone="ember">{content.eyebrow}</Eyebrow>
-          <h2 className="font-display font-extrabold text-3xl md:text-5xl text-sand-100 tracking-tight">
-            {content.title}
-          </h2>
-          <p className="text-sm md:text-base text-sand-300/80 leading-relaxed">
-            {content.subtitle}
-          </p>
-        </div>
+        <div ref={revealRef} className="rklt-reveal">
+          <div className="max-w-3xl mb-14 space-y-3">
+            <Eyebrow tone="ember" className="text-role-muted">
+              {content.eyebrow}
+            </Eyebrow>
+            <h2 className="font-display font-extrabold text-3xl md:text-5xl text-role-text tracking-tight">
+              {content.title}
+            </h2>
+            <p className="text-sm md:text-base text-role-muted leading-relaxed">
+              {content.subtitle}
+            </p>
+          </div>
 
-        {/* 4 Badges */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {content.badges.map((b) => (
-            <div
-              key={b.title}
-              className="p-6 rounded-lg bg-ink-900 border border-ink-800 flex flex-col justify-between"
-            >
-              <div>
-                <div className="p-3 rounded-md bg-ink-800 text-terracotta-400 w-fit mb-4">
-                  <Icon name="shield-check" size={24} />
-                </div>
-
-                <h3 className="font-display font-bold text-base text-sand-100 mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {content.badges.map((b, idx) => (
+              <div
+                key={b.title}
+                className={`border-role-line py-8 md:px-10 ${
+                  idx === 0 ? "border-t-0 pt-0" : "border-t"
+                } ${idx % 2 === 0 ? "md:ps-0" : "md:border-s"} ${
+                  idx < 2 ? "md:border-t-0 md:pt-0" : ""
+                }`}
+              >
+                <Icon name="shield-check" size={22} className="mb-4 text-role-text" />
+                <h3 className="font-display font-bold text-lg text-role-text mb-2">
                   {b.title}
                 </h3>
-
-                <p className="text-xs text-sand-300/80 leading-relaxed">
-                  {b.detail}
+                <p className="text-sm text-role-muted leading-relaxed">{b.detail}</p>
+                <p className="mt-4 text-[11px] font-semibold text-role-muted">
+                  {isAr ? "ساري ومعتمد" : "Active & Verified"}
                 </p>
               </div>
+            ))}
+          </div>
 
-              <div className="pt-4 mt-6 border-t border-ink-800 text-[11px] font-semibold text-terracotta-400/90 flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-terracotta-500" />
-                <span>{isAr ? "ساري ومعتمد" : "Active & Verified"}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Official verification disclaimer banner */}
-        <div className="p-4 rounded-md bg-ink-900/60 border border-ink-800 text-xs text-sand-300/80 flex items-center gap-3">
-          <Icon name="file-text" size={18} className="text-terracotta-400 flex-shrink-0" />
-          <span>{content.note}</span>
+          <p className="mt-10 flex items-start gap-3 border-t border-role-line pt-6 text-sm text-role-muted">
+            <Icon name="file-text" size={18} className="mt-0.5 flex-shrink-0 text-role-text" />
+            <span>{content.note}</span>
+          </p>
         </div>
       </Container>
     </section>

@@ -1,9 +1,9 @@
 export const contactContentEn = {
   hero: {
     eyebrow: "Direct Communications",
-    title: "Speak with our cargo operations desk directly.",
+    title: "The operations desk.",
     subtitle:
-      "No automated answering mazes or delayed form submissions. Connect straight to veteran freight managers in Jordan via WhatsApp, telephone, or email.",
+      "WhatsApp, a call, or a short note. Sunday to Thursday, 8:00 to 6:00 (GMT+3). Cargo monitoring continues after hours.",
   },
   ctaTier: {
     eyebrow: "Primary Action Channels",

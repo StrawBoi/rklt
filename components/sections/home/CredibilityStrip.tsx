@@ -1,10 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useRef } from "react";
 import { Locale } from "@/lib/i18n";
 import { homeContentEn } from "@/content/en/home";
 import { homeContentAr } from "@/content/ar/home";
 import { Container } from "@/components/primitives/Container";
-import { Numeral } from "@/components/primitives/Numeral";
-import { Icon, IconName } from "@/components/primitives/Icon";
+import { useCredibilityMotion } from "./useCredibilityMotion";
 
 interface CredibilityStripProps {
   locale: Locale;
@@ -13,53 +14,43 @@ interface CredibilityStripProps {
 export const CredibilityStrip: React.FC<CredibilityStripProps> = ({ locale }) => {
   const isAr = locale === "ar";
   const content = isAr ? homeContentAr.credibility : homeContentEn.credibility;
+  const rootRef = useRef<HTMLElement>(null);
 
-  const valueIcons: IconName[] = ["shield-check", "clock", "shield", "globe"];
+  useCredibilityMotion(rootRef);
 
   return (
-    <section className="bg-ink-950 border-y border-ink-800 py-12 md:py-16">
+    <section id="credibility" ref={rootRef} className="rklt-credibility" aria-labelledby="credibility-title">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* 30+ Years Stat Card */}
-          <div className="lg:col-span-4 p-6 md:p-8 rounded-lg bg-ink-900 border border-ink-700/80 flex flex-col justify-center">
-            <span className="text-xs uppercase font-bold tracking-eyebrow text-terracotta-400 mb-2">
-              {isAr ? "سجل الإنجاز والخبرة" : "Operational Track Record"}
-            </span>
-            <div className="flex items-baseline gap-3 my-2">
-              <Numeral size="xl" tone="terracotta">
-                {content.experienceNumber}
-              </Numeral>
-              <span className="text-base md:text-lg font-bold text-sand-100 leading-snug">
-                {content.experienceLabel}
+        <span data-cred-thread aria-hidden="true" className="rklt-cred-thread" />
+
+        <div className="rklt-cred-grid">
+          <div>
+            <h2 id="credibility-title" className="rklt-cred-label" data-cred-claim>
+              {content.experienceLabel}
+            </h2>
+            <p dir="ltr" className="rklt-cred-number">
+              <span data-cred-count>{content.experienceNumber}</span>
+              <span className="rklt-cred-plus" data-cred-plus>
+                +
               </span>
-            </div>
-            <p className="text-xs text-sand-300/80 pt-2 border-t border-ink-800">
-              {content.experienceDetail}
             </p>
           </div>
 
-          {/* 4 Values Grid */}
-          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {content.values.map((v, i) => (
-              <div
-                key={v.title}
-                className="p-5 rounded-md bg-ink-900/60 border border-ink-800/90 hover:border-ink-700 transition-colors"
-              >
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 rounded bg-ink-800 text-terracotta-400">
-                    <Icon name={valueIcons[i]} size={18} />
-                  </div>
-                  <h3 className="font-display font-bold text-base text-sand-100">
-                    {v.title}
-                  </h3>
-                </div>
-                <p className="text-xs text-sand-300/80 leading-relaxed">
-                  {v.desc}
-                </p>
-              </div>
-            ))}
+          <div className="rklt-cred-copy">
+            <p className="rklt-cred-detail" data-cred-detail>
+              {content.experienceDetail}
+            </p>
           </div>
         </div>
+
+        <ul data-cred-values className="rklt-cred-values">
+          {content.values.map((v) => (
+            <li key={v.title} data-cred-value className="rklt-cred-value">
+              <h3>{v.title}</h3>
+              <p>{v.desc}</p>
+            </li>
+          ))}
+        </ul>
       </Container>
     </section>
   );

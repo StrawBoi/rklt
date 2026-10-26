@@ -1,19 +1,57 @@
 import React from "react";
-import Link from "next/link";
 import { Locale } from "@/lib/i18n";
 import { servicesContentEn } from "@/content/en/services";
 import { servicesContentAr } from "@/content/ar/services";
-import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { PageStill } from "@/components/sections/PageStill";
+import { PageInquiry } from "@/components/sections/PageInquiry";
 
 interface ServicesHeroProps {
   locale: Locale;
 }
 
+function HeroCopy({
+  content,
+  anchors,
+  locale,
+}: {
+  content: { eyebrow: string; title: string; subtitle: string };
+  anchors: { href: string; label: string }[];
+  locale: Locale;
+}) {
+  return (
+    <div className="max-w-4xl space-y-6">
+      <Eyebrow tone="ember" className="text-role-muted">
+        {content.eyebrow}
+      </Eyebrow>
+      <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-role-text tracking-tight leading-tight">
+        {content.title}
+      </h1>
+      <p className="text-base sm:text-lg text-role-muted leading-relaxed max-w-3xl">
+        {content.subtitle}
+      </p>
+      <div className="pt-2">
+        <PageInquiry locale={locale} />
+      </div>
+      <div className="pt-2 flex flex-wrap gap-2.5">
+        {anchors.map((anchor) => (
+          <a
+            key={anchor.href}
+            href={anchor.href}
+            className="px-3.5 py-1.5 rounded-full text-xs font-semibold border border-role-line text-role-text hover:border-role-action"
+          >
+            {anchor.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export const ServicesHero: React.FC<ServicesHeroProps> = ({ locale }) => {
   const isAr = locale === "ar";
   const content = isAr ? servicesContentAr.hero : servicesContentEn.hero;
-
+  const alt = isAr ? "أجواء ممر شحن" : "Freight corridor atmosphere";
   const anchors = [
     { href: "#sea", label: isAr ? "الشحن البحري" : "Sea Freight" },
     { href: "#air", label: isAr ? "الشحن الجوي" : "Air Freight" },
@@ -23,33 +61,12 @@ export const ServicesHero: React.FC<ServicesHeroProps> = ({ locale }) => {
   ];
 
   return (
-    <section className="pt-16 pb-14 md:pt-20 md:pb-16 bg-ink-950 border-b border-ink-800">
-      <Container>
-        <div className="max-w-4xl space-y-6">
-          <Eyebrow tone="ember">{content.eyebrow}</Eyebrow>
-
-          <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-sand-100 tracking-tight leading-tight">
-            {content.title}
-          </h1>
-
-          <p className="text-base sm:text-lg text-sand-300/90 leading-relaxed max-w-3xl">
-            {content.subtitle}
-          </p>
-
-          {/* In-page anchor jump pills */}
-          <div className="pt-4 flex flex-wrap gap-2.5">
-            {anchors.map((anchor) => (
-              <a
-                key={anchor.href}
-                href={anchor.href}
-                className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-ink-800 border border-ink-700 text-sand-100/90 hover:border-terracotta-500 hover:text-terracotta-300 transition-colors"
-              >
-                {anchor.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </Container>
-    </section>
+    <PageStill
+      nightSrc="/world/services/night/poster.jpg"
+      daySrc="/world/services/day/poster.jpg"
+      alt={alt}
+    >
+      <HeroCopy content={content} anchors={anchors} locale={locale} />
+    </PageStill>
   );
 };

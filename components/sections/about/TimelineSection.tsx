@@ -1,9 +1,12 @@
+"use client";
+
 import React from "react";
 import { Locale } from "@/lib/i18n";
 import { aboutContentEn } from "@/content/en/about";
 import { aboutContentAr } from "@/content/ar/about";
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { useInViewOnce } from "@/components/sections/home/useInViewOnce";
 
 interface TimelineSectionProps {
   locale: Locale;
@@ -12,42 +15,37 @@ interface TimelineSectionProps {
 export const TimelineSection: React.FC<TimelineSectionProps> = ({ locale }) => {
   const isAr = locale === "ar";
   const content = isAr ? aboutContentAr.timeline : aboutContentEn.timeline;
+  const revealRef = useInViewOnce<HTMLDivElement>();
 
   return (
-    <section className="py-20 md:py-28 bg-ink-900 border-b border-ink-800">
+    <section className="py-20 md:py-28 bg-role-field border-b border-role-line">
       <Container>
-        <div className="max-w-3xl mb-14 space-y-3">
-          <Eyebrow tone="terracotta">{content.eyebrow}</Eyebrow>
-          <h2 className="font-display font-extrabold text-3xl md:text-5xl text-sand-100 tracking-tight">
-            {content.title}
-          </h2>
-        </div>
+        <div ref={revealRef} className="rklt-reveal">
+          <div className="max-w-3xl mb-14 space-y-3">
+            <Eyebrow tone="terracotta" className="text-role-muted">
+              {content.eyebrow}
+            </Eyebrow>
+            <h2 className="font-display font-extrabold text-3xl md:text-5xl text-role-text tracking-tight">
+              {content.title}
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {content.events.map((ev, idx) => (
-            <div
-              key={ev.period}
-              className="p-6 md:p-8 rounded-lg bg-ink-950 border border-ink-800 hover:border-ink-700 transition-colors flex flex-col justify-between"
-            >
-              <div>
-                <span className="font-numeral text-2xl md:text-3xl font-extrabold text-terracotta-400 block mb-3">
+          <div className="rklt-split rklt-split-4">
+            {content.events.map((ev, idx) => (
+              <div key={ev.period}>
+                <span className="font-numeral text-2xl md:text-3xl font-extrabold text-role-action block mb-3">
                   {ev.period}
                 </span>
-
-                <h3 className="font-display font-bold text-lg text-sand-100 mb-2">
+                <h3 className="font-display font-bold text-lg text-role-text mb-2">
                   {ev.title}
                 </h3>
-
-                <p className="text-xs md:text-sm text-sand-300/80 leading-relaxed">
-                  {ev.desc}
+                <p className="text-sm text-role-muted leading-relaxed">{ev.desc}</p>
+                <p className="mt-4 text-[11px] font-semibold text-role-muted">
+                  {isAr ? `المحطة ${idx + 1}` : `Milestone 0${idx + 1}`}
                 </p>
               </div>
-
-              <div className="pt-4 mt-6 border-t border-ink-800/80 text-[11px] font-semibold text-sand-300/60">
-                {isAr ? `المحطة ${idx + 1}` : `Milestone 0${idx + 1}`}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </Container>
     </section>

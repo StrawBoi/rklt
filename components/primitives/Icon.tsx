@@ -24,6 +24,8 @@ import {
   MessageCircle,
   Menu,
   X,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -51,7 +53,9 @@ export type IconName =
   | "compass"
   | "cpu"
   | "menu"
-  | "close";
+  | "close"
+  | "sun"
+  | "moon";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
@@ -120,6 +124,10 @@ export const Icon: React.FC<IconProps> = ({
       return <Menu {...iconProps} />;
     case "close":
       return <X {...iconProps} />;
+    case "sun":
+      return <Sun {...iconProps} />;
+    case "moon":
+      return <Moon {...iconProps} />;
     default:
       return null;
   }

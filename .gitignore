@@ -68,3 +68,8 @@ Thumbs.db
 node_modules
 tsconfig.tsbuildinfo
 
+# Local scratch
+.tmp-ref-frames/
+tmp-container-render/
+.cursor/debug-*.log
+

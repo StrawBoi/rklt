@@ -24,13 +24,12 @@ export const Card: React.FC<CardProps> = ({
   const cardStyles = cn(
     "relative rounded-md p-6 md:p-8 transition-all duration-300",
     surface === "dark" &&
-      "bg-ink-800/90 border border-ink-700/80 text-sand-100",
+      "rklt-panel bg-role-panel border border-role-line text-role-text",
     surface === "darker" &&
-      "bg-ink-950/90 border border-ink-700 text-sand-100",
+      "rklt-panel bg-role-dock border border-role-line text-role-text",
     surface === "light" &&
       "bg-sand-100 border border-sand-300 text-ink-900",
-    (interactive || href) &&
-      "hover:-translate-y-1 hover:shadow-md hover:border-terracotta-500/50 cursor-pointer group",
+    (interactive || href) && "cursor-pointer group",
     className
   );
 

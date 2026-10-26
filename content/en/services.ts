@@ -1,9 +1,9 @@
 export const servicesContentEn = {
   hero: {
     eyebrow: "Comprehensive Logistics Suite",
-    title: "End-to-end freight services, calibrated to your supply chain.",
+    title: "Sea, air, land, and clearance.",
     subtitle:
-      "From single container consignments to complex oversized machinery and time-critical border clearances — delivered with 30 years of operational precision.",
+      "Container, air, and road freight through Aqaba and Amman, with licensed brokerage on the same desk.",
     ctaQuick: "Request a custom rate",
   },
   core: {

@@ -18,8 +18,8 @@ export const Eyebrow: React.FC<EyebrowProps> = ({
     <p
       className={cn(
         "inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-eyebrow",
-        tone === "terracotta" && "text-terracotta-400",
-        tone === "ember" && "text-terracotta-300",
+        tone === "terracotta" && "text-gold",
+        tone === "ember" && "text-gold",
         tone === "sand" && "text-sand-300",
         tone === "blue" && "text-brandblue-400",
         className
@@ -30,8 +30,8 @@ export const Eyebrow: React.FC<EyebrowProps> = ({
         <span
           className={cn(
             "h-1.5 w-1.5 rounded-none flex-shrink-0",
-            tone === "terracotta" && "bg-terracotta-500",
-            tone === "ember" && "bg-terracotta-300",
+            tone === "terracotta" && "bg-gold",
+            tone === "ember" && "bg-gold",
             tone === "sand" && "bg-sand-300",
             tone === "blue" && "bg-brandblue-500"
           )}
