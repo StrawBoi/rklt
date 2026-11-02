@@ -73,8 +73,8 @@ export function buildPageMetadata({
     title,
     description,
     keywords,
-    authors: [{ name: "RKLT · Rubu' Al-Khair Logistics", url: BASE_URL }],
-    creator: "RKLT (Rubu' Al-Khair for Transport & Shipping)",
+    authors: [{ name: "Ahmed Mostafa", url: "https://www.linkedin.com/in/ahmed-mmostafa/" }],
+    creator: "Ahmed Mostafa (https://www.linkedin.com/in/ahmed-mmostafa/)",
     publisher: "RKLT",
     category: "Logistics & Customs Brokerage",
     alternates: {

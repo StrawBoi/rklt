@@ -58,89 +58,106 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
                 : "Rubu' Al-Khair for Transport & Shipping (RKLT). Over 30 years of verified sea, air, and land freight forwarding and statutory customs clearance across Jordan, the GCC, and world trade corridors."}
             </p>
             <div className="pt-2 flex items-center gap-3">
-              <span className="font-mono text-3xl text-[#e2b34a] font-black">
-                {siteConfig.yearsExperience}+
-              </span>
-              <span className="text-xs text-white/50 [html[data-theme=day]_&]:text-[#2d5661] uppercase tracking-wider font-mono">
-                {isArabic ? "عاماً من الخبرة والالتزام التشغيلي" : "Years of Operational Heritage"}
-              </span>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 [html[data-theme=day]_&]:text-emerald-700 [html[data-theme=day]_&]:bg-emerald-50 [html[data-theme=day]_&]:border-emerald-200 text-xs font-semibold hover:bg-emerald-500/20 transition-colors"
+              >
+                <Icon name="whatsapp" size={14} />
+                <span>{isArabic ? "مكتب العمليات عبر واتساب" : "WhatsApp Operations"}</span>
+              </a>
+              <a
+                href={`tel:${siteConfig.phoneClean}`}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-white/5 border border-white/10 [html[data-theme=day]_&]:bg-black/5 [html[data-theme=day]_&]:border-black/10 text-white/80 [html[data-theme=day]_&]:text-[#091a21] text-xs font-semibold hover:bg-white/10 transition-colors"
+              >
+                <Icon name="phone" size={13} />
+                <span>{siteConfig.phone}</span>
+              </a>
             </div>
           </div>
 
-          {/* Core Services */}
-          <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#e2b34a]">
-              {isArabic ? "خدمات الشحن الرئيسية" : "CORE FREIGHT CAPABILITIES"}
+          {/* Quick Links */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#e2b34a] [html[data-theme=day]_&]:text-[#a87318]">
+              {isArabic ? "خدمات الشحن" : "Freight Services"}
             </h4>
             <ul className="space-y-2 text-sm text-white/70 [html[data-theme=day]_&]:text-[#2d5661]">
               <li>
-                <Link href={`/${locale}/services#sea`} className="hover:text-[#e2b34a] transition-colors">
-                  {isArabic ? "الشحن البحري (حاويات FCL/LCL)" : "Ocean Freight & Port Logistics"}
+                <Link href={`/${locale}/services`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "الشحن البحري (حاويات)" : "Ocean & Container Freight"}
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/services#land`} className="hover:text-[#e2b34a] transition-colors">
-                  {isArabic ? "الشحن البري والنقل المعلق" : "Bonded Overland Trucking"}
+                <Link href={`/${locale}/services`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "الشحن الجوي السريع" : "Air Freight Express"}
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/services#air`} className="hover:text-[#e2b34a] transition-colors">
-                  {isArabic ? "الشحن الجوي السريع بمطار AMM" : "Expedited Air Cargo Terminal"}
+                <Link href={`/${locale}/services`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "النقل البري والترانزيت" : "Cross-Border Trucking"}
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/services#customs`} className="hover:text-[#e2b34a] transition-colors">
-                  {isArabic ? "التخليص الجمركي (ترخيص ٤١٢)" : "Statutory Customs Brokerage"}
+                <Link href={`/${locale}/services`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "التخليص الجمركي (ترخيص ٤١٢)" : "Customs Clearance (#412)"}
                 </Link>
               </li>
               <li>
-                <Link href={`/${locale}/services#reefer`} className="hover:text-[#e2b34a] transition-colors">
-                  {isArabic ? "سلاسل التبريد المعتمدة (-٢٥° إلى +١٥°)" : "Active Cold Chain & Reefer Fleet"}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${locale}/services`} className="text-xs text-[#e2b34a] hover:underline inline-flex items-center gap-1 pt-1">
-                  <span>{isArabic ? "دليل كافة القدرات (٦ خدمات)" : "View Complete Capabilities Directory"}</span>
-                  <span className="rtl-flip">→</span>
+                <Link href={`/${locale}/services`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "الشحن المبرد وسلاسل التبريد" : "Reefer & Cold Chain"}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Regional Hubs & Contact */}
-          <div className="lg:col-span-4 space-y-3">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#e2b34a]">
-              {isArabic ? "المكاتب والمنافذ الميدانية" : "OPERATIONAL HUBS & CONTACT"}
+          {/* Key Trade Corridors */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#e2b34a] [html[data-theme=day]_&]:text-[#a87318]">
+              {isArabic ? "الممرات اللوجستية" : "Trade Corridors"}
             </h4>
-            <ul className="space-y-3 text-sm text-white/70 [html[data-theme=day]_&]:text-[#2d5661]">
-              <li className="flex items-center gap-2.5">
-                <Icon name="phone" size={16} className="text-[#e2b34a]" />
-                <a
-                  href={`tel:${siteConfig.phoneClean}`}
-                  className="hover:text-[#e2b34a] transition-colors font-medium dir-ltr"
-                >
-                  {siteConfig.phone}
-                </a>
+            <ul className="space-y-2 text-sm text-white/70 [html[data-theme=day]_&]:text-[#2d5661]">
+              <li>
+                <Link href={`/${locale}/corridors`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "ميناء العقبة (ACT)" : "Port of Aqaba (ACT)"}
+                </Link>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Icon name="whatsapp" size={16} className="text-[#e2b34a]" />
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#e2b34a] transition-colors font-medium"
-                >
-                  WhatsApp: {siteConfig.phone}
-                </a>
+              <li>
+                <Link href={`/${locale}/corridors`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "مطار الملكة علياء (AMM)" : "Queen Alia Cargo (AMM)"}
+                </Link>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Icon name="mail" size={16} className="text-[#e2b34a]" />
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="hover:text-[#e2b34a] transition-colors"
-                >
-                  {siteConfig.email}
-                </a>
+              <li>
+                <Link href={`/${locale}/corridors`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "السعودية والخليج العربي" : "Jordan–Saudi Corridor"}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/corridors`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "ترانزيت العراق (الكرامة)" : "Iraq Transit (Karameh)"}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${locale}/corridors`} className="hover:text-white [html[data-theme=day]_&]:hover:text-[#091a21] transition-colors">
+                  {isArabic ? "المنطقة الحرة بالزرقاء" : "Zarqa Free Zone Hub"}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Operational Contacts */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#e2b34a] [html[data-theme=day]_&]:text-[#a87318]">
+              {isArabic ? "المكاتب والعمليات" : "Operations & Licensing"}
+            </h4>
+            <ul className="space-y-2.5 text-sm text-white/70 [html[data-theme=day]_&]:text-[#2d5661]">
+              <li className="flex items-center gap-2">
+                <Icon name="phone" size={14} className="text-[#e2b34a] flex-shrink-0" />
+                <span dir="ltr">{siteConfig.phone}</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Icon name="envelope" size={14} className="text-[#e2b34a] flex-shrink-0" />
+                <span>{siteConfig.email}</span>
               </li>
               <li className="flex items-start gap-2.5 pt-1 text-xs text-white/50 [html[data-theme=day]_&]:text-[#2d5661]/80">
                 <Icon name="map-pin" size={16} className="text-[#e2b34a] flex-shrink-0 mt-0.5" />
@@ -157,9 +174,16 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
         {/* Bottom Hairline & Legal Row */}
         <div className="pt-8 border-t border-white/10 [html[data-theme=day]_&]:border-black/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40 [html[data-theme=day]_&]:text-[#2d5661]/60 font-mono">
           <p>
-            © {currentYear} {siteConfig.name}.{" "}
-            <span className="font-semibold text-white/60 [html[data-theme=day]_&]:text-[#091a21]">{siteConfig.legalName}</span>.{" "}
-            {isArabic ? "جميع الحقوق محفوظة." : "All rights reserved."}
+            © {currentYear}{" "}
+            <a
+              href="https://www.linkedin.com/in/ahmed-mmostafa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-white/80 [html[data-theme=day]_&]:text-[#091a21] hover:text-[#e2b34a] [html[data-theme=day]_&]:hover:text-[#a87318] underline underline-offset-4 transition-colors"
+            >
+              Ahmed Mostafa
+            </a>
+            . {isArabic ? "جميع الحقوق محفوظة." : "All rights reserved."}
           </p>
           <div className="flex items-center gap-4">
             <Link href={`/${locale}/corridors`} className="hover:text-[#e2b34a] transition-colors">

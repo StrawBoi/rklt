@@ -69,4 +69,4 @@ npm run build
 
 - **Customs Brokerage**: Licensed under Jordan Customs Authority License #412.
 - **Operations Desk**: +962 7 9532 0624 · [operations@rklt.jo](mailto:operations@rklt.jo)
-- **Copyright**: &copy; 1994–2026 Rubu' Al-Khair for Transport & Shipping (RKLT). All rights reserved.
+- **Copyright**: &copy; 2026 [Ahmed Mostafa](https://www.linkedin.com/in/ahmed-mmostafa/). All rights reserved.
