@@ -6,7 +6,6 @@ import { AboutHeritageTimeline } from "@/components/sections/about/AboutHeritage
 import { GovernanceBento } from "@/components/sections/about/GovernanceBento";
 import { ValuesExpanded } from "@/components/sections/about/ValuesExpanded";
 import { CredentialsModule } from "@/components/sections/about/CredentialsModule";
-import { ServiceCTA } from "@/components/sections/home/ServiceCTA";
 import { CTABand } from "@/components/layout/CTABand";
 import { DepthLayerController } from "@/components/motion/DepthLayerController";
 import { buildPageMetadata } from "@/lib/seo";
@@ -73,13 +72,6 @@ export default function AboutPage({
       </div>
 
       <div data-depth-stratum="6" className="rklt-depth-stratum rklt-depth-overlayer z-[60]">
-        <div data-depth-inner>
-          <ServiceCTA locale={locale} />
-        </div>
-        <div data-depth-veil className="rklt-depth-veil" aria-hidden="true" />
-      </div>
-
-      <div data-depth-stratum="7" className="rklt-depth-stratum rklt-depth-overlayer z-[70]">
         <div data-depth-inner>
           <CTABand locale={locale} tone="darker" />
         </div>
