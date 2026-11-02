@@ -53,11 +53,10 @@ export const ServicesHero: React.FC<ServicesHeroProps> = ({ locale }) => {
   const content = isAr ? servicesContentAr.hero : servicesContentEn.hero;
   const alt = isAr ? "أجواء ممر شحن" : "Freight corridor atmosphere";
   const anchors = [
-    { href: "#sea", label: isAr ? "الشحن البحري" : "Sea Freight" },
-    { href: "#air", label: isAr ? "الشحن الجوي" : "Air Freight" },
-    { href: "#land", label: isAr ? "الشحن البري" : "In-Land Transport" },
-    { href: "#customs", label: isAr ? "التخليص الجمركي" : "Customs Clearance" },
-    { href: "#extended", label: isAr ? "القدرات الموسعة (9)" : "Extended (9)" },
+    { href: "#capabilities-bento", label: isAr ? "الخدمات الأساسية الست" : "Core Capabilities" },
+    { href: "#specifications", label: isAr ? "مواصفات الأسطول والحاويات" : "Fleet Specifications" },
+    { href: "#customs-protocol", label: isAr ? "بروتوكول التخليص (رخصة ٤١٢)" : "Customs Clearance (Lic. #412)" },
+    { href: "#extended", label: isAr ? "القدرات الموسعة" : "Extended Capabilities" },
   ];
 
   return (

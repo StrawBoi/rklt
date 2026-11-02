@@ -6,10 +6,7 @@ import { siteConfig } from "@/content/site";
 import { contactContentEn } from "@/content/en/contact";
 import { contactContentAr } from "@/content/ar/contact";
 import { Container } from "@/components/primitives/Container";
-import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { Button } from "@/components/primitives/Button";
 import { Icon, IconName } from "@/components/primitives/Icon";
-import { useInViewOnce } from "@/components/sections/home/useInViewOnce";
 
 interface ContactCTATierProps {
   locale: Locale;
@@ -18,87 +15,112 @@ interface ContactCTATierProps {
 export const ContactCTATier: React.FC<ContactCTATierProps> = ({ locale }) => {
   const isAr = locale === "ar";
   const content = isAr ? contactContentAr.ctaTier : contactContentEn.ctaTier;
-  const revealRef = useInViewOnce<HTMLDivElement>();
 
   return (
-    <section id="reach-us" className="py-16 md:py-24 bg-role-dock border-b border-role-line">
+    <section id="reach-us" className="py-20 md:py-28 rklt-bento-section transition-colors duration-300">
       <Container>
-        <div ref={revealRef} className="rklt-reveal">
-          <div className="mb-10 max-w-2xl">
-            <Eyebrow tone="terracotta" className="mb-3 text-role-muted">
+        <div className="mb-12 max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full rklt-bento-pill">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#e2b34a]" />
+            <span className="font-mono text-xs uppercase tracking-widest text-[#e2b34a] font-bold">
               {content.eyebrow}
-            </Eyebrow>
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-role-text">
-              {isAr ? "اختر القناة الأنسب لك" : "Connect with Our Operations Desk"}
-            </h2>
+            </span>
           </div>
 
-          <div>
-            {content.channels.map((ch) => {
-              let actionHref = "";
-              let isExternal = false;
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight rklt-bento-heading">
+            {isAr ? "قنوات التواصل المباشرة مع مكتب العمليات" : "Direct Channels to Our Operations Desk"}
+          </h2>
 
-              if (ch.type === "whatsapp") {
-                const msg = isAr
-                  ? siteConfig.whatsappDefaultMsgAr
-                  : siteConfig.whatsappDefaultMsgEn;
-                actionHref = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
-                  msg
-                )}`;
-                isExternal = true;
-              } else if (ch.type === "phone") {
-                actionHref = `tel:${siteConfig.phoneClean}`;
-                isExternal = true;
-              } else if (ch.type === "email") {
-                actionHref = `mailto:${siteConfig.email}`;
-              }
+          <p className="text-base sm:text-lg rklt-bento-lead leading-relaxed">
+            {isAr
+              ? "اختر القناة الأنسب لك لتنسيق مسارات الشحن، الاستفسار عن التعرفة الجمركية، أو المتابعة الميدانية."
+              : "Select your preferred dispatch channel to coordinate freight routing, request customs rate estimates, or monitor active shipments."}
+          </p>
+        </div>
 
-              return (
-                <div
-                  key={ch.id}
-                  className={
-                    ch.isPrimary
-                      ? "bg-role-action px-6 py-8 text-role-on md:px-10"
-                      : "flex flex-col gap-6 border-t border-role-line py-8 md:flex-row md:items-center md:justify-between"
-                  }
-                >
-                  <div>
-                    <div className="mb-3 flex items-center gap-3">
-                      <Icon name={ch.icon as IconName} size={20} />
-                      {ch.isPrimary ? (
-                        <span className="text-[10px] font-bold uppercase tracking-wider">
-                          {isAr ? "الأسرع رداً" : "Fastest Response"}
+        {/* Bento Grid Channels */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {content.channels.map((ch) => {
+            let actionHref = "";
+            let isExternal = false;
+
+            if (ch.type === "whatsapp") {
+              const msg = isAr
+                ? siteConfig.whatsappDefaultMsgAr
+                : siteConfig.whatsappDefaultMsgEn;
+              actionHref = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
+                msg
+              )}`;
+              isExternal = true;
+            } else if (ch.type === "phone") {
+              actionHref = `tel:${siteConfig.phoneClean}`;
+              isExternal = true;
+            } else if (ch.type === "email") {
+              actionHref = `mailto:${siteConfig.email}`;
+            }
+
+            const isPrimary = ch.isPrimary;
+            const colSpan = isPrimary ? "md:col-span-12 lg:col-span-6" : "md:col-span-6 lg:col-span-3";
+
+            return (
+              <div
+                key={ch.id}
+                className={`rklt-bento-card ${colSpan} flex flex-col justify-between rounded-2xl p-6 sm:p-8 space-y-6 transition-all duration-300 hover:shadow-2xl ${
+                  isPrimary ? "border-[#e2b34a]/30" : ""
+                }`}
+              >
+                {/* Header */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-9 h-9 rounded-lg bg-[#e2b34a]/15 text-[#e2b34a] flex items-center justify-center">
+                        <Icon name={ch.icon as IconName} size={18} />
+                      </div>
+                      {isPrimary ? (
+                        <span className="px-2.5 py-1 rounded text-[11px] font-mono tracking-wider font-bold uppercase rklt-bento-tag">
+                          {isAr ? "الأسرع استجابة" : "Fastest Response"}
                         </span>
                       ) : null}
                     </div>
-                    <h3 className="font-display font-bold text-xl mb-2">{ch.title}</h3>
-                    <p className="font-sans font-bold text-lg mb-2 dir-ltr">{ch.primaryText}</p>
-                    <p className={`text-sm leading-relaxed ${ch.isPrimary ? "text-role-on/80" : "text-role-muted"}`}>
-                      {ch.secondaryText}
-                    </p>
+
+                    {isPrimary ? (
+                      <div className="flex items-center gap-1.5 font-mono text-xs text-[#e2b34a]">
+                        <span className="w-2 h-2 rounded-full bg-[#e2b34a] animate-pulse" />
+                        <span>{isAr ? "< ١٥ دقيقة" : "< 15 min avg"}</span>
+                      </div>
+                    ) : null}
                   </div>
-                  <div className={ch.isPrimary ? "pt-6" : ""}>
-                    <Button
-                      href={actionHref}
-                      external={isExternal}
-                      variant={ch.isPrimary ? "primary" : "outline"}
-                      surface="dark"
-                      size="md"
-                      className={
-                        ch.isPrimary
-                          ? "bg-role-on text-role-action hover:bg-role-on"
-                          : "text-role-text border-role-line hover:border-role-action hover:text-role-text"
-                      }
-                      icon={<Icon name={ch.icon as IconName} size={18} />}
-                      iconPosition="left"
-                    >
-                      {ch.ctaLabel}
-                    </Button>
-                  </div>
+
+                  <h3 className="font-display font-bold text-xl sm:text-2xl rklt-bento-card-title">
+                    {ch.title}
+                  </h3>
+
+                  <p className="font-mono font-bold text-base sm:text-lg text-[#e2b34a] dir-ltr">
+                    {ch.primaryText}
+                  </p>
+
+                  <p className="text-xs sm:text-sm rklt-bento-desc leading-relaxed">
+                    {ch.secondaryText}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Action Button */}
+                <div className="pt-4 border-t rklt-bento-card-footer">
+                  <a
+                    href={actionHref}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    className={`w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 ${
+                      isPrimary ? "rklt-bento-btn" : "rklt-tracking-pill-btn"
+                    }`}
+                  >
+                    <Icon name={ch.icon as IconName} size={16} />
+                    <span>{ch.ctaLabel}</span>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Container>
     </section>

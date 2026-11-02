@@ -1,0 +1,47 @@
+/**
+ * HeritageHallmark Styles
+ * Balanced luxury architectural seal divider with custom dates and hairlines.
+ */
+
+.hh-hallmark {
+  margin-top: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.hh-hallmark__line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+}
+
+.hh-hallmark__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  background: #0d0f13;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+}
+
+[dir="rtl"] .hh-hallmark__badge {
+  letter-spacing: 0.03em;
+  font-size: 0.74rem;
+}
+
+.hh-hallmark__dot {
+  color: #e2b34a;
+}
+
+.hh-hallmark__num {
+  color: #e2b34a;
+  font-weight: 800;
+}

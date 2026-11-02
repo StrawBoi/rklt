@@ -2,9 +2,9 @@ import React from "react";
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { AboutHero } from "@/components/sections/about/AboutHero";
-import { StoryNarrative } from "@/components/sections/about/StoryNarrative";
+import { AboutHeritageTimeline } from "@/components/sections/about/AboutHeritageTimeline";
+import { GovernanceBento } from "@/components/sections/about/GovernanceBento";
 import { ValuesExpanded } from "@/components/sections/about/ValuesExpanded";
-import { TimelineSection } from "@/components/sections/about/TimelineSection";
 import { CredentialsModule } from "@/components/sections/about/CredentialsModule";
 import { CTABand } from "@/components/layout/CTABand";
 
@@ -17,10 +17,10 @@ export async function generateMetadata({
   return {
     title: isAr
       ? "من نحن | ربوع الخير لنقل وشحن البضائع (RKLT)"
-      : "About Us | RKLT. 30+ Years Logistics Heritage",
+      : "About Us | RKLT Institutional Logistics Standards",
     description: isAr
-      ? "قصة شركة ربوع الخير لنقل وشحن البضائع، وقيمها المهنية وتاريخها الممتد لأكثر من 30 عاماً في الأردن."
-      : "The heritage, values, and three decades of logistics mastery of RKLT (Rubu' Al-Khair) in Jordan and worldwide.",
+      ? "البنية التشغيلية المعتمدة لشركة ربوع الخير لنقل وشحن البضائع، وقيمها المهنية وتراخيصها الجمركية في الأردن."
+      : "Operational standards, verified customs licenses, and logistics governance of RKLT (Rubu' Al-Khair) in Jordan.",
   };
 }
 
@@ -34,9 +34,9 @@ export default function AboutPage({
   return (
     <>
       <AboutHero locale={locale} />
-      <StoryNarrative locale={locale} />
+      <AboutHeritageTimeline locale={locale} />
+      <GovernanceBento locale={locale} />
       <ValuesExpanded locale={locale} />
-      <TimelineSection locale={locale} />
       <CredentialsModule locale={locale} />
       <CTABand locale={locale} tone="darker" />
     </>

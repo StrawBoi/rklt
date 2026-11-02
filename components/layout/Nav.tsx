@@ -27,8 +27,18 @@ export const Nav: React.FC<NavProps> = ({ locale, className, group = "start" }) 
       exact: false,
     },
     {
+      href: `/${locale}/corridors`,
+      label: locale === "ar" ? "المسارات والحدود" : "Corridors",
+      exact: false,
+    },
+    {
       href: `/${locale}/about`,
       label: locale === "ar" ? "من نحن" : "About",
+      exact: false,
+    },
+    {
+      href: `/${locale}/tracking`,
+      label: locale === "ar" ? "تتبع الشحنات" : "Tracking",
       exact: false,
     },
     {
@@ -38,7 +48,7 @@ export const Nav: React.FC<NavProps> = ({ locale, className, group = "start" }) 
     },
   ];
 
-  const links = group === "start" ? navItems.slice(0, 2) : navItems.slice(2);
+  const links = group === "start" ? navItems.slice(0, 3) : navItems.slice(3);
 
   const isActive = (itemHref: string, exact: boolean) => {
     if (!pathname) return false;

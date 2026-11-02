@@ -26,6 +26,13 @@ import {
   X,
   Sun,
   Moon,
+  Search,
+  Copy,
+  ExternalLink,
+  Layers,
+  Radio,
+  Activity,
+  FileCheck,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -55,7 +62,14 @@ export type IconName =
   | "menu"
   | "close"
   | "sun"
-  | "moon";
+  | "moon"
+  | "search"
+  | "copy"
+  | "external-link"
+  | "layers"
+  | "radio"
+  | "activity"
+  | "file-check";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
@@ -128,6 +142,20 @@ export const Icon: React.FC<IconProps> = ({
       return <Sun {...iconProps} />;
     case "moon":
       return <Moon {...iconProps} />;
+    case "search":
+      return <Search {...iconProps} />;
+    case "copy":
+      return <Copy {...iconProps} />;
+    case "external-link":
+      return <ExternalLink {...iconProps} />;
+    case "layers":
+      return <Layers {...iconProps} />;
+    case "radio":
+      return <Radio {...iconProps} />;
+    case "activity":
+      return <Activity {...iconProps} />;
+    case "file-check":
+      return <FileCheck {...iconProps} />;
     default:
       return null;
   }

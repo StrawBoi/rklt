@@ -6,6 +6,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
 export interface CraneStructureProps {
   position?: { x: number; y: number; z: number };

@@ -5,22 +5,29 @@ import type { RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const CRANE_SRC = "/assets/hero/crane-container.webp";
+const HERO_ASSETS = [
+  "/assets/hero/crane-container.webp",
+  "/assets/hero/layers/ocean.png",
+  "/assets/hero/layers/port.png",
+  "/assets/hero/layers/ship.png",
+  "/assets/hero/layers/sky.png",
+];
 
 interface UseHeroIntroOptions {
   onDone: () => void;
 }
 
 /**
- * One timeline:
- * 1. Exposure sweep on the RKLT mark while the crane image decodes.
- * 2. Seam lines appear, then the five bars lift center-out.
- * 3. The curtains and the crane rise together and ease out as one.
- * 4. The crane drops under its own weight, kisses past the rest, and settles.
- *    The shadow flares at the contact, then eases back.
- * 5. RKLT, the hero lines, the buttons, and the header appear with that drop.
- * GSAP is the only writer of transform on the bars, the crane, and the shade,
- * and the only writer of clip-path on the wordmark.
+ * Cinematic Harbor Intro Timeline:
+ * 1. Exposure sweep on the RKLT mark while all 5 hero plates decode in parallel.
+ * 2. Seam laser filaments ignite downwards with luminous brass glow.
+ * 3. Curtains, crane, container, and the RKLT wordmark rise together as one.
+ * 4. Lower 50% displays active perspective ocean waves washing during the ascent.
+ * 5. Crane decelerates into berth datum with hydraulic cushioning.
+ * 6. Right side reveals container terminal port & anchored vessel along the diagonal quay vector;
+ *    left side remains vast open ocean.
+ * 7. Ocean waves decelerate organically to rest (zero ongoing GPU overhead).
+ * 8. Hero headline typography ("Freight Forwarding" / "Sea, Air, Land") and CTAs emerge.
  */
 export function useHeroIntro(
   rootRef: RefObject<HTMLElement | null>,
@@ -54,6 +61,9 @@ export function useHeroIntro(
     const shade = root.querySelector<HTMLElement>("[data-crane-shade]");
     const header = document.querySelector<HTMLElement>("header");
 
+    // Bottom Harbor Photo Plate: reveals bottom-to-top and anchors at bottom of hero
+    const harborPlate = root.querySelector<HTMLElement>("[data-harbor-plate]");
+
     if (!bars.length || !logo || !matrix || !crane) {
       document.documentElement.classList.remove("rklt-intro-lock");
       onDoneRef.current();
@@ -67,8 +77,6 @@ export function useHeroIntro(
 
     let finished = false;
     let cancelled = false;
-    let fade: gsap.core.Tween | null = null;
-    let drift: gsap.core.Tween | null = null;
     const timers: number[] = [];
     const frozen: HTMLElement[] = [];
 
@@ -115,6 +123,7 @@ export function useHeroIntro(
     crane.classList.add("is-lift");
 
     gsap.set(bars, { yPercent: 0, force3D: true });
+    if (seams.length) gsap.set(seams, { scaleY: 0, opacity: 0 });
     const measureRise = () => {
       const previous = crane.style.transform;
       crane.style.transform = "none";
@@ -130,6 +139,14 @@ export function useHeroIntro(
     if (foot) gsap.set(foot, { opacity: 0, y: 28 });
     if (header) gsap.set(header, { opacity: 0 });
     if (markRule) gsap.set(markRule, { scaleX: 0, transformOrigin: "50% 50%" });
+
+    if (harborPlate) {
+      gsap.set(harborPlate, {
+        clipPath: "inset(100% 0% 0% 0%)",
+        y: 44,
+        opacity: 0,
+      });
+    }
 
     const exposure = { t: 0 };
     const logoTl = gsap.timeline();
@@ -151,7 +168,8 @@ export function useHeroIntro(
       if (finished) return;
       finished = true;
       logoTl.kill();
-      const intro = root.querySelector(".rklt-intro");
+      const intro = root.querySelector<HTMLElement>(".rklt-intro");
+      if (intro) intro.style.display = "none";
       if (heading && intro?.contains(document.activeElement)) {
         heading.tabIndex = -1;
         heading.focus({ preventScroll: true });
@@ -166,74 +184,64 @@ export function useHeroIntro(
       });
       if (lines.length) gsap.set(lines, { clearProps: "clipPath" });
       if (laser) gsap.set(laser, { clearProps: "transform,opacity,visibility" });
-      const fading = root.querySelectorAll<HTMLElement>(
-        ".rklt-crane-brief-title, .rklt-crane-modes-line"
-      );
-      if (fading.length && section) {
-        fade = gsap.fromTo(
-          fading,
-          { autoAlpha: 1 },
-          {
-            autoAlpha: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "clamp(top top)",
-              end: "+=32%",
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
+
+      // Settle harbor plate to final resting state with zero active GPU overhead
+      if (harborPlate) {
+        harborPlate.style.clipPath = "none";
+        harborPlate.style.transform = "none";
+        harborPlate.style.opacity = "";
+        harborPlate.style.willChange = "auto";
       }
-      const stage = section?.closest(".rklt-hero-stage");
-      if (stage) {
-        drift = gsap.fromTo(
-          crane,
-          { y: 0 },
-          {
-            y: () => Math.round(window.innerHeight * -0.09),
-            ease: "none",
-            scrollTrigger: {
-              trigger: stage,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
+
+      ScrollTrigger.refresh();
       onDoneRef.current();
     };
 
     const exitTl = gsap.timeline({ paused: true, onComplete: finish });
+
+    // 1. Curtain Seam Laser Ignition: downward trace of glowing brass filaments
     if (seams.length) {
-      exitTl.to(seams, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0);
+      exitTl.fromTo(
+        seams,
+        { scaleY: 0, opacity: 0 },
+        {
+          scaleY: 1,
+          opacity: 1,
+          duration: 0.38,
+          stagger: { each: 0.04, from: "center" },
+          ease: "power2.inOut",
+        },
+        0
+      );
     }
     exitTl.to(logo, { opacity: 0, y: -28, duration: 0.42, ease: "power2.in" }, 0.14);
-    const riseEase = "power2.out";
-    const riseDuration = 1.22;
-    const riseAt = 0.3;
+
+    const riseEase = "power2.inOut";
+    const riseDuration = 1.35;
+    const riseAt = 0.34;
     const settleAt = riseAt + riseDuration;
-    const dropDuration = 0.4;
+    const dropDuration = 0.42;
     const reboundAt = settleAt + dropDuration;
+
+    // 2. Curtains Lift
     exitTl.to(
       bars,
       {
         yPercent: -110,
         duration: riseDuration,
         ease: riseEase,
-        stagger: { each: 0.1, from: "center" },
+        stagger: { each: 0.07, from: "center" },
         force3D: true,
       },
       riseAt
     );
+
+    // 3. Unified Ascent: Crane + Container hoist in sync with curtains
     exitTl.fromTo(
       crane,
       { y: () => measureRise() },
       {
-        y: -78,
+        y: -68,
         duration: riseDuration,
         ease: riseEase,
         force3D: true,
@@ -241,6 +249,52 @@ export function useHeroIntro(
       },
       riseAt
     );
+
+    // 4. Reveal "RKLT" title during the rise so it hoists up with the crane and curtains
+    if (lines.length) {
+      exitTl.fromTo(
+        lines,
+        { clipPath: "inset(0% 100% 0% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.82, ease: "power2.out" },
+        riseAt + 0.18
+      );
+    }
+    if (laser && lines[0]) {
+      exitTl.fromTo(
+        laser,
+        { x: -28, autoAlpha: 1 },
+        {
+          x: () => lines[0].offsetWidth + 28,
+          autoAlpha: 0,
+          duration: 0.88,
+          ease: "power2.inOut",
+          immediateRender: false,
+        },
+        riseAt + 0.18
+      );
+    }
+
+    // 5. Bottom Photo Layer Reveal: smoothly reveals from bottom to top until settling at bottom of hero
+    if (harborPlate) {
+      exitTl.fromTo(
+        harborPlate,
+        {
+          clipPath: "inset(100% 0% 0% 0%)",
+          y: 44,
+          opacity: 0,
+        },
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          y: 0,
+          opacity: 1,
+          duration: riseDuration,
+          ease: "power2.out",
+        },
+        riseAt
+      );
+    }
+
+    // 7. Crane Hydraulic Gravity Drop & Cushioned Settle
     exitTl.to(
       crane,
       { y: 16, duration: dropDuration, ease: "power2.in", force3D: true },
@@ -251,28 +305,7 @@ export function useHeroIntro(
       { y: 0, duration: 0.68, ease: "power3.out", force3D: true },
       reboundAt
     );
-    if (lines.length) {
-      exitTl.fromTo(
-        lines,
-        { clipPath: "inset(0% 100% 0% 0%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.62, ease: "power2.out" },
-        settleAt
-      );
-    }
-    if (laser && lines[0]) {
-      exitTl.fromTo(
-        laser,
-        { x: -28, autoAlpha: 1 },
-        {
-          x: () => lines[0].offsetWidth + 28,
-          autoAlpha: 0,
-          duration: 0.7,
-          ease: "power2.inOut",
-          immediateRender: false,
-        },
-        settleAt
-      );
-    }
+
     if (shade) {
       exitTl.to(
         shade,
@@ -291,16 +324,19 @@ export function useHeroIntro(
       );
     }
     exitTl.call(() => section?.classList.add("is-landed"), [], reboundAt);
+
+    // 8. Hero Headline Typography ("Freight Forwarding") and CTA Reveal (after waves have quieted)
     if (header) {
-      exitTl.to(header, { opacity: 1, duration: 0.55, ease: "power2.out" }, settleAt);
+      exitTl.to(header, { opacity: 1, duration: 0.55, ease: "power2.out" }, reboundAt + 0.12);
     }
     if (foot) {
-      exitTl.to(foot, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, settleAt);
+      exitTl.to(foot, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, reboundAt + 0.12);
     }
 
     const requestSkip = () => {
       if (finished) return;
       exitTl.progress(1);
+      finish();
     };
 
     const onSkipClick = (event: Event) => {
@@ -335,7 +371,10 @@ export function useHeroIntro(
         timers.push(window.setTimeout(resolve, ms));
       });
 
-    void Promise.race([Promise.all([wait(1050), decode(CRANE_SRC)]), wait(3200)]).then(() => {
+    void Promise.race([
+      Promise.all([wait(1050), ...HERO_ASSETS.map(decode)]),
+      wait(2800),
+    ]).then(() => {
       if (cancelled || finished) return;
       gsap.set(crane, { y: measureRise(), force3D: true });
       exitTl.play();
@@ -349,10 +388,6 @@ export function useHeroIntro(
       window.removeEventListener("keydown", onKey);
       logoTl.kill();
       exitTl.kill();
-      fade?.scrollTrigger?.kill();
-      fade?.kill();
-      drift?.scrollTrigger?.kill();
-      drift?.kill();
       thaw();
       html.classList.remove("rklt-intro-lock");
       html.removeAttribute("data-intro-live");

@@ -133,7 +133,9 @@ export class ThreeSceneManager implements SceneManager {
       this.canvas = this.renderer.domElement;
 
       // Append to container
-      container.appendChild(this.canvas);
+      if (this.canvas) {
+        container.appendChild(this.canvas);
+      }
     } catch (error) {
       console.error('Failed to initialize SceneManager:', error);
       throw error;

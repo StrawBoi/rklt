@@ -55,12 +55,8 @@ export const HeaderShell: React.FC<{ children: React.ReactNode }> = ({ children 
         return box.top < probe && box.bottom > 8;
       };
       let ink: "light" | "dark" = "dark";
-      if (overlaps("#credibility")) ink = "light";
-      if (overlaps("#services")) {
-        const theme = document.querySelector("#services")?.getAttribute("data-conveyor-theme");
-        if (theme === "dark") ink = "light";
-        else if (theme === "light") ink = "dark";
-        else ink = document.documentElement.dataset.theme === "day" ? "dark" : "light";
+      if (overlaps("#credibility") || overlaps("#services")) {
+        ink = "light";
       }
       if (header.dataset.ink !== ink) header.dataset.ink = ink;
     };

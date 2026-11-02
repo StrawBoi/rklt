@@ -37,7 +37,9 @@ export const MobileNav: React.FC<MobileNavProps> = ({ locale }) => {
   const navItems = [
     { href: `/${locale}`, label: locale === "ar" ? "الرئيسية" : "Home" },
     { href: `/${locale}/services`, label: locale === "ar" ? "الخدمات" : "Services" },
+    { href: `/${locale}/corridors`, label: locale === "ar" ? "المسارات والحدود" : "Corridors" },
     { href: `/${locale}/about`, label: locale === "ar" ? "من نحن" : "About" },
+    { href: `/${locale}/tracking`, label: locale === "ar" ? "تتبع الشحنات" : "Tracking" },
     { href: `/${locale}/contact`, label: locale === "ar" ? "اتصل بنا" : "Contact" },
   ];
 

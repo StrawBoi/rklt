@@ -2,7 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-export function useInViewOnce<T extends HTMLElement>() {
+export interface UseInViewOnceOptions {
+  threshold?: number;
+  rootMargin?: string;
+}
+
+export function useInViewOnce<T extends HTMLElement>(options?: UseInViewOnceOptions) {
   const ref = useRef<T>(null);
 
   useEffect(() => {
@@ -14,6 +19,9 @@ export function useInViewOnce<T extends HTMLElement>() {
       return;
     }
 
+    const threshold = options?.threshold ?? 0.08;
+    const rootMargin = options?.rootMargin ?? "0px 0px -8% 0px";
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
@@ -21,12 +29,12 @@ export function useInViewOnce<T extends HTMLElement>() {
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold, rootMargin }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [options?.threshold, options?.rootMargin]);
 
   return ref;
 }

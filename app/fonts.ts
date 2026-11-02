@@ -10,7 +10,6 @@ export const fontArchivoDisplay = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo-display",
   display: "swap",
-  weight: ["700", "800", "900"],
 });
 
 export const fontBigShoulders = Big_Shoulders_Display({

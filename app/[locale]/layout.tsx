@@ -4,6 +4,7 @@ import { locales, isValidLocale, isRtl, Locale } from "@/lib/i18n";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LocaleHtmlAttributes } from "@/components/layout/LocaleHtmlAttributes";
+import { PageTransitionCurtain } from "@/components/layout/PageTransitionCurtain";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -71,6 +72,7 @@ export default function LocaleLayout({
   return (
     <div lang={locale} dir={dir} className="flex-1 flex flex-col w-full">
       <LocaleHtmlAttributes locale={locale} />
+      <PageTransitionCurtain locale={locale} />
       <Header locale={locale} />
       <main className="flex-1 flex flex-col">{children}</main>
       <Footer locale={locale} />

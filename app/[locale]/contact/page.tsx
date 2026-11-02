@@ -2,10 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { ContactHero } from "@/components/sections/contact/ContactHero";
-import { ContactCTATier } from "@/components/sections/contact/ContactCTATier";
-import { NoteForm } from "@/components/sections/contact/NoteForm";
-import { HubsAndHours } from "@/components/sections/contact/HubsAndHours";
-import { FullCoverageList } from "@/components/sections/contact/FullCoverageList";
+import { OperationsDeskConsole } from "@/components/sections/contact/OperationsDeskConsole";
 import { QuotePrepGuide } from "@/components/sections/contact/QuotePrepGuide";
 import { OperationalFAQ } from "@/components/sections/contact/OperationalFAQ";
 import { CTABand } from "@/components/layout/CTABand";
@@ -34,15 +31,21 @@ export default function ContactPage({
   const locale = params.locale as Locale;
 
   return (
-    <>
+    <main className="rklt-contact-page min-h-screen transition-colors duration-300">
+      {/* Editorial Page Hero */}
       <ContactHero locale={locale} />
-      <ContactCTATier locale={locale} />
-      <NoteForm locale={locale} />
-      <HubsAndHours locale={locale} />
-      <FullCoverageList locale={locale} />
+
+      {/* Tier 1: Direct Operations Desk Console */}
+      <OperationsDeskConsole locale={locale} />
+
+      {/* Tier 2: Quote Preparation & Cargo Checklist */}
       <QuotePrepGuide locale={locale} />
+
+      {/* Tier 3: Operational Protocol FAQ */}
       <OperationalFAQ locale={locale} />
+
+      {/* Executive Mandate CTA Band */}
       <CTABand locale={locale} tone="darker" />
-    </>
+    </main>
   );
 }

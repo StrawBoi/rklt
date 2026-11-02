@@ -74,6 +74,38 @@ export const servicesContentEn = {
         ],
         icon: "shield-check",
       },
+      {
+        id: "reefer",
+        numeral: "05",
+        name: "Reefer & Cold-Chain Logistics",
+        tagline: "Active temperature-controlled transport for sensitive pharmaceutical and foodstuff cold-chains.",
+        description:
+          "Preserving strict thermal integrity requires active genset monitoring and calibrated climate control. RKLT operates dedicated reefer fleets calibrated between -25°C and +15°C, equipped with automated digital temperature logging, dual compressor redundancy, and expedited priority green-lanes across Aqaba and Jordan customs checkpoints.",
+        features: [
+          "Calibrated multi-temperature zones (-25°C deep freeze to +15°C controlled ambient)",
+          "Real-time IoT temperature logging with telemetric departure-to-delivery audit trail",
+          "Carrier-grade active genset clip-ons for uninterrupted highway power",
+          "Direct dockside reefer plug-in coordination at Aqaba Container Terminal (ACT)",
+          "JFDA fast-track cold-chain inspection and release protocols",
+        ],
+        icon: "shield-check",
+      },
+      {
+        id: "project",
+        numeral: "06",
+        name: "Heavy Lift & Project Cargo",
+        tagline: "Specialized engineering logistics for out-of-gauge industrial machinery and energy infrastructure.",
+        description:
+          "Transporting oversized, super-heavy reactors, wind turbines, power generators, and factory lines demands rigorous route engineering. RKLT deploys multi-axle hydraulic modular trailers (Goldhofer), conducts bridge load assessments, manages civil engineering route clearance, and coordinates official police escorts from Aqaba to job sites across the Levant.",
+        features: [
+          "Multi-axle hydraulic platform trailers and heavy-duty low-bed carriers",
+          "Civil route feasibility surveys, overhead bridge and utility cable clearance",
+          "On-site crane rigging, tandem-lift calculations, and jacking/skidding operations",
+          "Official ministry permits, police escort convoys, and road closure coordination",
+          "Turnkey delivery from quayside hook release to inland foundation placement",
+        ],
+        icon: "truck",
+      },
     ],
   },
   extended: {
