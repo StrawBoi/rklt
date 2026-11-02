@@ -5,8 +5,6 @@ import { Locale } from "@/lib/i18n";
 import { servicesContentEn } from "@/content/en/services";
 import { servicesContentAr } from "@/content/ar/services";
 import { Container } from "@/components/primitives/Container";
-import { Eyebrow } from "@/components/primitives/Eyebrow";
-import { Numeral } from "@/components/primitives/Numeral";
 import { Icon, IconName } from "@/components/primitives/Icon";
 import { useInViewOnce } from "@/components/sections/home/useInViewOnce";
 
@@ -22,43 +20,47 @@ export const ServicesExtended: React.FC<ServicesExtendedProps> = ({ locale }) =>
   return (
     <section
       id="extended"
-      className="scroll-mt-28 py-20 md:py-28 bg-role-dock border-b border-role-line"
+      className="scroll-mt-28 py-24 md:py-32 bg-[#070b0f] [html[data-theme=day]_&]:bg-[#f7f3eb] border-b border-white/10 [html[data-theme=day]_&]:border-black/10 transition-colors duration-300"
     >
       <Container>
         <div ref={revealRef} className="rklt-reveal">
-          <div className="max-w-3xl mb-14 space-y-3">
-            <Eyebrow tone="ember" className="text-role-muted">
-              {content.eyebrow}
-            </Eyebrow>
-            <h2 className="font-display font-extrabold text-3xl md:text-5xl text-role-text tracking-tight">
+          <div className="max-w-3xl mb-16 space-y-4">
+            <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-white [html[data-theme=day]_&]:text-[#091a21] tracking-tight leading-[1.06]">
               {content.title}
             </h2>
-            <p className="text-sm md:text-base text-role-muted leading-relaxed">
+            <p className="text-base md:text-lg text-white/65 [html[data-theme=day]_&]:text-[#2d5661] leading-relaxed">
               {content.subtitle}
             </p>
           </div>
 
-          <div>
+          <div className="divide-y divide-white/10 [html[data-theme=day]_&]:divide-black/10 border-t border-b border-white/10 [html[data-theme=day]_&]:border-black/10">
             {content.items.map((item) => (
               <div
                 key={item.numeral}
-                className="grid grid-cols-[auto_1fr] items-start gap-6 border-t border-role-line py-8 first:border-t-0 first:pt-0 md:grid-cols-[5rem_1fr_auto]"
+                className="grid grid-cols-1 md:grid-cols-12 items-baseline gap-6 py-10"
               >
-                <Numeral size="sm" tone="terracotta" className="text-role-text">
-                  {item.numeral}
-                </Numeral>
-                <div>
-                  <h3 className="font-display font-bold text-lg text-role-text mb-2">
+                <div className="md:col-span-2">
+                  <span className="font-numeral text-4xl sm:text-5xl font-light text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] leading-none">
+                    {item.numeral}
+                  </span>
+                </div>
+                <div className="md:col-span-4">
+                  <h3 className="font-display font-bold text-xl sm:text-2xl text-white [html[data-theme=day]_&]:text-[#091a21]">
                     {item.title}
                   </h3>
-                  <p className="max-w-2xl text-sm text-role-muted leading-relaxed">
+                </div>
+                <div className="md:col-span-5">
+                  <p className="text-sm sm:text-base text-white/65 [html[data-theme=day]_&]:text-[#2d5661] leading-relaxed">
                     {item.desc}
                   </p>
-                  <p className="mt-3 text-[11px] font-semibold text-role-muted">
-                    {isAr ? "متوفر ضمن العقود اللوجستية" : "Available in logistics scopes"}
-                  </p>
                 </div>
-                <Icon name={item.icon as IconName} size={20} className="text-role-text" />
+                <div className="md:col-span-1 flex md:justify-end">
+                  <Icon
+                    name={item.icon as IconName}
+                    size={20}
+                    className="text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]"
+                  />
+                </div>
               </div>
             ))}
           </div>

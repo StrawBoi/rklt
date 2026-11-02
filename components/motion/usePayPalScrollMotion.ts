@@ -38,7 +38,7 @@ export function usePayPalScrollMotion(
 
     const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", () => {
       // 1. Line expansion if present
       const lines = root.querySelectorAll<HTMLElement>(lineSelector);
       if (lines.length) {

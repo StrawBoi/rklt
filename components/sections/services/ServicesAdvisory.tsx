@@ -26,17 +26,17 @@ export const ServicesAdvisory: React.FC<ServicesAdvisoryProps> = ({ locale }) =>
   )}`;
 
   return (
-    <section className="py-16 bg-role-dock border-b border-role-line">
+    <section className="py-20 md:py-24 bg-[#0c141c] [html[data-theme=day]_&]:bg-[#ebe3d3] border-b border-white/10 [html[data-theme=day]_&]:border-black/10 transition-colors duration-300">
       <Container>
         <div
           ref={revealRef}
-          className="rklt-reveal flex flex-col items-start justify-between gap-8 border-t border-role-line pt-10 md:flex-row md:items-center"
+          className="rklt-reveal flex flex-col items-start justify-between gap-8 md:flex-row md:items-center"
         >
-          <div className="space-y-2 max-w-2xl text-center md:text-start">
-            <h3 className="font-display font-bold text-2xl text-role-text">
+          <div className="space-y-3 max-w-2xl">
+            <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-white [html[data-theme=day]_&]:text-[#091a21]">
               {content.title}
             </h3>
-            <p className="text-sm text-role-muted leading-relaxed">
+            <p className="text-base text-white/65 [html[data-theme=day]_&]:text-[#2d5661] leading-relaxed">
               {content.subtitle}
             </p>
           </div>

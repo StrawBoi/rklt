@@ -6,21 +6,24 @@ import { OperationsDeskConsole } from "@/components/sections/contact/OperationsD
 import { QuotePrepGuide } from "@/components/sections/contact/QuotePrepGuide";
 import { OperationalFAQ } from "@/components/sections/contact/OperationalFAQ";
 import { CTABand } from "@/components/layout/CTABand";
+import { DepthLayerController } from "@/components/motion/DepthLayerController";
+import { buildPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const isAr = params.locale === "ar";
-  return {
-    title: isAr
-      ? "اتصل بنا | ربوع الخير لنقل وشحن البضائع (RKLT)"
-      : "Contact Us | RKLT Freight Operations Desk",
-    description: isAr
-      ? "تواصل مباشرة مع فريق إدارة الشحن والعمليات اللوجستية في الأردن عبر واتساب، الهاتف، أو البريد الإلكتروني."
-      : "Connect directly with RKLT freight operations in Amman and Aqaba via WhatsApp, telephone, or email.",
-  };
+  return buildPageMetadata({
+    locale: params.locale as Locale,
+    path: "/contact",
+    titleEn: "Contact Amman & Aqaba Freight Operations Desk | RKLT Jordan",
+    titleAr: "اتصل بمكتب عمليات عمّان وميناء العقبة | ربوع الخير لنقل وشحن البضائع (RKLT)",
+    descriptionEn:
+      "Connect 24/7 with RKLT licensed customs brokers (#412) and freight dispatchers in Amman and Port of Aqaba via WhatsApp (+962 79 532 0624), phone, or email.",
+    descriptionAr:
+      "تواصل على مدار الساعة مع فريق التخليص الجمركي (ترخيص 412) وإدارة الشحن في عمّان وميناء العقبة عبر واتساب (+962 79 532 0624) أو الهاتف أو البريد الإلكتروني.",
+  });
 }
 
 export default function ContactPage({
@@ -31,21 +34,40 @@ export default function ContactPage({
   const locale = params.locale as Locale;
 
   return (
-    <main className="rklt-contact-page min-h-screen transition-colors duration-300">
-      {/* Editorial Page Hero */}
-      <ContactHero locale={locale} />
+    <DepthLayerController>
+      <div data-depth-stratum="1" className="rklt-depth-stratum z-[10]">
+        <div data-depth-inner>
+          <ContactHero locale={locale} />
+        </div>
+        <div data-depth-veil className="rklt-depth-veil" aria-hidden="true" />
+      </div>
 
-      {/* Tier 1: Direct Operations Desk Console */}
-      <OperationsDeskConsole locale={locale} />
+      <div data-depth-stratum="2" className="rklt-depth-stratum rklt-depth-overlayer z-[20]">
+        <div data-depth-inner>
+          <OperationsDeskConsole locale={locale} />
+        </div>
+        <div data-depth-veil className="rklt-depth-veil" aria-hidden="true" />
+      </div>
 
-      {/* Tier 2: Quote Preparation & Cargo Checklist */}
-      <QuotePrepGuide locale={locale} />
+      <div data-depth-stratum="3" className="rklt-depth-stratum rklt-depth-overlayer z-[30]">
+        <div data-depth-inner>
+          <QuotePrepGuide locale={locale} />
+        </div>
+        <div data-depth-veil className="rklt-depth-veil" aria-hidden="true" />
+      </div>
 
-      {/* Tier 3: Operational Protocol FAQ */}
-      <OperationalFAQ locale={locale} />
+      <div data-depth-stratum="4" className="rklt-depth-stratum rklt-depth-overlayer z-[40]">
+        <div data-depth-inner>
+          <OperationalFAQ locale={locale} />
+        </div>
+        <div data-depth-veil className="rklt-depth-veil" aria-hidden="true" />
+      </div>
 
-      {/* Executive Mandate CTA Band */}
-      <CTABand locale={locale} tone="darker" />
-    </main>
+      <div data-depth-stratum="5" className="rklt-depth-stratum rklt-depth-overlayer z-[50]">
+        <div data-depth-inner>
+          <CTABand locale={locale} tone="darker" />
+        </div>
+      </div>
+    </DepthLayerController>
   );
 }

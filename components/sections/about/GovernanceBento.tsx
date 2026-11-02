@@ -3,7 +3,6 @@
 import React from "react";
 import { Locale } from "@/lib/i18n";
 import { Container } from "@/components/primitives/Container";
-import { Icon } from "@/components/primitives/Icon";
 
 interface GovernanceBentoProps {
   locale: Locale;
@@ -15,7 +14,6 @@ export const GovernanceBento: React.FC<GovernanceBentoProps> = ({ locale }) => {
   const pillars = [
     {
       numeral: "01",
-      badge: { en: "STATUTORY JURISDICTION", ar: "الترخيص والاختصاص النظامي" },
       title: {
         en: "Jordan Customs License #412",
         ar: "رخصة التخليص الجمركي المعتمدة رقم ٤١٢",
@@ -33,7 +31,6 @@ export const GovernanceBento: React.FC<GovernanceBentoProps> = ({ locale }) => {
     },
     {
       numeral: "02",
-      badge: { en: "PORT INTEGRATION", ar: "الربط المينائي والبحري" },
       title: {
         en: "Aqaba Container Terminal (ACT) Desks",
         ar: "التواجد الميداني بميناء العقبة (ACT)",
@@ -51,7 +48,6 @@ export const GovernanceBento: React.FC<GovernanceBentoProps> = ({ locale }) => {
     },
     {
       numeral: "03",
-      badge: { en: "REGIONAL REACH", ar: "شبكة الربط الإقليمي" },
       title: {
         en: "Cross-Border Levant & GCC Transit Lanes",
         ar: "شرايين العبور الإقليمي إلى الخليج والعراق",
@@ -69,7 +65,6 @@ export const GovernanceBento: React.FC<GovernanceBentoProps> = ({ locale }) => {
     },
     {
       numeral: "04",
-      badge: { en: "QUALITY & ASSURANCE", ar: "معايير الجودة والسلامة" },
       title: {
         en: "Statutory Lab Approvals & Cold-Chain Governance",
         ar: "الرقابة النوعية وسلامة سلاسل التبريد",
@@ -88,18 +83,11 @@ export const GovernanceBento: React.FC<GovernanceBentoProps> = ({ locale }) => {
   ];
 
   return (
-    <section className="py-20 md:py-28 rklt-bento-section transition-colors duration-300">
+    <section className="py-24 md:py-32 rklt-bento-section transition-colors duration-300">
       <Container>
-        {/* Section Header */}
-        <div className="max-w-3xl mb-14 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full rklt-bento-pill">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#e2b34a]" />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#e2b34a] font-bold">
-              {isAr ? "الحوكمة والاعتمادات التشغيلية" : "OPERATIONAL GOVERNANCE & CAPABILITIES"}
-            </span>
-          </div>
-
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight rklt-bento-heading">
+        {/* Architectural Header */}
+        <div className="max-w-3xl mb-16 space-y-5">
+          <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl tracking-tight leading-[1.06] rklt-bento-heading">
             {isAr
               ? "بنية لوجستية معتمدة قائمة على أسس تشغيلية موثقة."
               : "Institutional Logistics Built on Verified Operational Standards."}
@@ -112,63 +100,59 @@ export const GovernanceBento: React.FC<GovernanceBentoProps> = ({ locale }) => {
           </p>
         </div>
 
-        {/* Bento Grid Layout */}
+        {/* Sharp Nested Architectural Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {pillars.map((pillar) => (
             <div
               key={pillar.numeral}
-              className={`rklt-bento-card ${pillar.colSpan} flex flex-col justify-between rounded-2xl p-6 sm:p-8 space-y-6 transition-all duration-300 hover:shadow-2xl`}
+              className={`rklt-bento-card ${pillar.colSpan} flex flex-col justify-between rounded-[8px] p-1.5 transition-all duration-300`}
             >
-              {/* Header */}
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2.5">
-                    <span className="font-mono text-sm font-bold text-[#e2b34a]">
+              <div className="flex-1 flex flex-col justify-between rounded-[4px] p-6 sm:p-8 bg-black/25 [html[data-theme=day]_&]:bg-black/[0.02] border border-white/8 [html[data-theme=day]_&]:border-black/8 space-y-6">
+                {/* Header */}
+                <div className="flex items-baseline justify-between gap-4 border-b border-white/10 [html[data-theme=day]_&]:border-black/10 pb-5">
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-numeral text-3xl sm:text-4xl font-light text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] leading-none">
                       {pillar.numeral}
                     </span>
-                    <span className="px-2.5 py-1 rounded text-[11px] font-mono tracking-wider font-semibold uppercase rklt-bento-tag">
-                      {isAr ? pillar.badge.ar : pillar.badge.en}
+                    <h3 className="font-display font-bold text-2xl sm:text-3xl rklt-bento-card-title">
+                      {isAr ? pillar.title.ar : pillar.title.en}
+                    </h3>
+                  </div>
+
+                  <div className="text-end shrink-0 hidden sm:block">
+                    <span className="font-mono text-lg sm:text-xl font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] block">
+                      {isAr ? pillar.metric.ar : pillar.metric.en}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-wider rklt-bento-metric-label block">
+                      {isAr ? pillar.metricSub.ar : pillar.metricSub.en}
                     </span>
                   </div>
-                  <h3 className="font-display font-bold text-2xl sm:text-3xl rklt-bento-card-title pt-1">
-                    {isAr ? pillar.title.ar : pillar.title.en}
-                  </h3>
                 </div>
 
-                <div className="text-end shrink-0 hidden sm:block">
-                  <span className="font-mono text-xl sm:text-2xl font-black text-[#e2b34a] block">
-                    {isAr ? pillar.metric.ar : pillar.metric.en}
-                  </span>
-                  <span className="font-mono text-[11px] rklt-bento-metric-label block">
+                {/* Description */}
+                <p className="text-sm sm:text-base rklt-bento-desc leading-relaxed">
+                  {isAr ? pillar.desc.ar : pillar.desc.en}
+                </p>
+
+                {/* Specification Lines */}
+                <div className="pt-3 border-t border-white/8 [html[data-theme=day]_&]:border-black/8">
+                  <ul className="space-y-2 text-xs sm:text-sm">
+                    {pillar.points.map((pt, pIdx) => (
+                      <li key={pIdx} className="flex items-baseline gap-2.5 rklt-bento-feature">
+                        <span className="font-mono text-xs text-[#c89b3c]">—</span>
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Clean Architectural Footer */}
+                <div className="pt-4 border-t rklt-bento-card-footer flex items-center justify-between text-[11px] font-mono uppercase tracking-widest">
+                  <span className="text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
                     {isAr ? pillar.metricSub.ar : pillar.metricSub.en}
                   </span>
+                  <span className="rklt-bento-metric-label">RKLT · AQABA & AMMAN</span>
                 </div>
-              </div>
-
-              {/* Description */}
-              <p className="text-sm sm:text-base rklt-bento-desc leading-relaxed">
-                {isAr ? pillar.desc.ar : pillar.desc.en}
-              </p>
-
-              {/* Bullet Points */}
-              <div className="pt-2">
-                <ul className="space-y-2 text-xs sm:text-sm">
-                  {pillar.points.map((pt, pIdx) => (
-                    <li key={pIdx} className="flex items-start gap-2 rklt-bento-feature">
-                      <span className="text-[#e2b34a] font-bold mt-0.5 shrink-0">✓</span>
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Footer Indicator */}
-              <div className="pt-4 border-t rklt-bento-card-footer flex items-center justify-between text-xs font-mono text-[#e2b34a]">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#e2b34a] animate-pulse" />
-                  <span>{isAr ? "اعتماد رسمي معتمد" : "Verified Operational Standard"}</span>
-                </div>
-                <span className="rklt-bento-metric-label">RKLT · AQABA & AMMAN</span>
               </div>
             </div>
           ))}

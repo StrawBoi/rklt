@@ -259,72 +259,64 @@ export const FleetSpecLedger: React.FC<FleetSpecLedgerProps> = ({ locale }) => {
   return (
     <section
       id="specifications"
-      className="py-20 md:py-28 border-b border-role-line transition-colors duration-300"
-      style={{ backgroundColor: "var(--role-field)" }}
+      className="py-24 md:py-32 bg-[#070b0f] [html[data-theme=day]_&]:bg-[#f7f3eb] border-b border-white/10 [html[data-theme=day]_&]:border-black/10 transition-colors duration-300"
     >
       <Container>
-        {/* Section Proclamation */}
-        <div className="max-w-4xl mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full rklt-bento-pill">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#e2b34a]" />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#e2b34a] font-bold">
-              {isAr
-                ? "دليل الأسطول والمواصفات الفنية المعتمدة"
-                : "TECHNICAL FLEET & CONTAINER SPECIFICATIONS"}
-            </span>
-          </div>
-
-          <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight rklt-bento-heading">
+        {/* Architectural Header */}
+        <div className="max-w-4xl mb-16 space-y-5">
+          <h2 className="font-display font-black text-3xl sm:text-5xl md:text-6xl tracking-tight leading-[1.06] text-white [html[data-theme=day]_&]:text-[#091a21]">
             {isAr ? (
               <>
                 المعايير الهندسية والحمولات <br />
-                <span className="text-[#e2b34a]">لكافة وسائط الشحن المعتمدة.</span>
+                <span className="text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                  لكافة وسائط الشحن المعتمدة.
+                </span>
               </>
             ) : (
               <>
                 Engineered Payload Specifications <br />
-                <span className="text-[#e2b34a]">for Global Freight Procurement.</span>
+                <span className="text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                  for Global Freight Procurement.
+                </span>
               </>
             )}
           </h2>
 
-          <p className="text-base sm:text-lg leading-relaxed rklt-bento-lead max-w-3xl">
+          <p className="text-base sm:text-lg leading-relaxed text-white/65 [html[data-theme=day]_&]:text-[#2d5661] max-w-3xl">
             {isAr
               ? "بيانات هندسية دقيقة للأبعاد الداخلية، السعات الحجمية، والحمولات القصوى المعتمدة من دائرة الجمارك وسلطة الموانئ لمساعدة مديري سلاسل الإمداد على تخطيط الشحنات بدقة."
               : "Precise dimensional envelopes, cubic volumes, and tare-to-payload ratios certified under ISO and Ministry of Transport standards to optimize your consignment logistics."}
           </p>
         </div>
 
-        {/* Equipment Selector Ribbon */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 pb-6 border-b border-role-line">
-          {EQUIPMENT_CATALOG.map((item) => {
+        {/* Architectural Equipment Selector Index */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-t border-b border-white/12 [html[data-theme=day]_&]:border-black/12 divide-y sm:divide-y-0 sm:divide-x rtl:divide-x-reverse divide-white/10 [html[data-theme=day]_&]:divide-black/10">
+          {EQUIPMENT_CATALOG.map((item, idx) => {
             const isSelected = item.id === selectedId;
             return (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedId(item.id)}
-                className={`p-3.5 sm:p-4 text-start rounded-xl border transition-all duration-200 flex flex-col justify-between gap-3 ${
+                className={`p-5 text-start transition-colors duration-200 flex flex-col justify-between gap-4 ${
                   isSelected
-                    ? "bg-[#e2b34a]/10 border-[#e2b34a] shadow-lg"
-                    : "border-role-line hover:border-role-action bg-role-dock"
+                    ? "bg-[#c89b3c]/[0.1] border-b-2 border-b-[#c89b3c]"
+                    : "hover:bg-white/[0.02] [html[data-theme=day]_&]:hover:bg-black/[0.02]"
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-black tracking-wider px-2 py-0.5 rounded bg-black/20 text-[#e2b34a]">
+                <div className="flex items-baseline justify-between">
+                  <span className="font-numeral text-2xl font-light text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                    0{idx + 1}
+                  </span>
+                  <span className="font-mono text-xs font-bold tracking-wider text-white [html[data-theme=day]_&]:text-[#091a21]">
                     {item.code}
                   </span>
-                  <span
-                    className={`w-2 h-2 rounded-full ${
-                      isSelected ? "bg-[#e2b34a] animate-pulse" : "bg-role-muted/40"
-                    }`}
-                  />
                 </div>
                 <div>
-                  <span className="font-display text-xs sm:text-sm font-bold block text-role-text line-clamp-1">
+                  <span className="font-display text-sm font-bold block text-white [html[data-theme=day]_&]:text-[#091a21] line-clamp-1">
                     {isAr ? item.name.ar : item.name.en}
                   </span>
-                  <span className="font-mono text-[11px] text-role-muted block mt-0.5">
+                  <span className="font-mono text-[11px] text-white/50 [html[data-theme=day]_&]:text-[#2d5661] block mt-0.5">
                     {isAr ? item.category.ar : item.category.en}
                   </span>
                 </div>
@@ -333,206 +325,198 @@ export const FleetSpecLedger: React.FC<FleetSpecLedgerProps> = ({ locale }) => {
           })}
         </div>
 
-        {/* Active Spec Console */}
-        <div className="mt-8 rounded-2xl border border-role-line bg-role-dock p-6 sm:p-10 shadow-xl space-y-8">
-          {/* Header Row */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-role-line pb-6">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#e2b34a]/15 text-[#e2b34a] border border-[#e2b34a]/30">
-                  {activeSpec.code}
-                </span>
-                <span className="font-mono text-xs text-role-muted uppercase">
-                  {isAr ? activeSpec.badge.ar : activeSpec.badge.en}
-                </span>
+        {/* Sharp Nested Specification Console */}
+        <div className="mt-10 rounded-[8px] p-1.5 border border-white/12 [html[data-theme=day]_&]:border-black/12 bg-white/[0.02] [html[data-theme=day]_&]:bg-black/[0.02]">
+          <div className="rounded-[4px] border border-white/8 [html[data-theme=day]_&]:border-black/8 bg-[#0b131a] [html[data-theme=day]_&]:bg-[#fbf9f4] p-6 sm:p-10 space-y-10">
+            {/* Header Row */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 [html[data-theme=day]_&]:border-black/10 pb-6">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-xs font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] uppercase tracking-widest">
+                    {activeSpec.code} — {isAr ? activeSpec.badge.ar : activeSpec.badge.en}
+                  </span>
+                </div>
+                <h3 className="font-display text-2xl sm:text-4xl font-black text-white [html[data-theme=day]_&]:text-[#091a21] tracking-tight">
+                  {isAr ? activeSpec.name.ar : activeSpec.name.en}
+                </h3>
               </div>
-              <h3 className="font-display text-2xl sm:text-3xl font-black text-role-text">
-                {isAr ? activeSpec.name.ar : activeSpec.name.en}
-              </h3>
+
+              {/* Monumental Quick Metrics */}
+              <div className="flex items-center gap-8 text-end">
+                <div>
+                  <span className="text-[11px] text-white/50 [html[data-theme=day]_&]:text-[#2d5661] block font-mono uppercase tracking-wider">
+                    {isAr ? "الحمولة الصافية القصوى" : "Max Net Payload"}
+                  </span>
+                  <span className="font-numeral text-3xl sm:text-4xl font-light text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                    {activeSpec.capacity.maxPayload.split("(")[0].trim()}
+                  </span>
+                </div>
+                <div className="border-s border-white/12 [html[data-theme=day]_&]:border-black/12 ps-8">
+                  <span className="text-[11px] text-white/50 [html[data-theme=day]_&]:text-[#2d5661] block font-mono uppercase tracking-wider">
+                    {isAr ? "السعة الحجمية" : "Cubic Volume"}
+                  </span>
+                  <span className="font-numeral text-3xl sm:text-4xl font-light text-white [html[data-theme=day]_&]:text-[#091a21]">
+                    {activeSpec.capacity.volume.split("(")[0].trim()}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Quick Metrics */}
-            <div className="flex items-center gap-6 text-end">
-              <div>
-                <span className="text-xs text-role-muted block font-mono">
-                  {isAr ? "الحمولة الصافية القصوى" : "Max Net Payload"}
-                </span>
-                <span className="font-mono text-xl sm:text-2xl font-black text-[#e2b34a]">
-                  {activeSpec.capacity.maxPayload.split("(")[0].trim()}
-                </span>
-              </div>
-              <div className="border-s border-role-line ps-6">
-                <span className="text-xs text-role-muted block font-mono">
-                  {isAr ? "السعة الحجمية" : "Cubic Volume"}
-                </span>
-                <span className="font-mono text-xl sm:text-2xl font-black text-role-text">
-                  {activeSpec.capacity.volume.split("(")[0].trim()}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Metric Grid: Dimensions vs Capacities */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Column A: Internal Dimensions */}
-            <div className="space-y-4">
-              <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#e2b34a] flex items-center gap-2">
-                <Icon name="boxes" size={14} />
-                <span>
+            {/* Metric Ledger: Unboxed Hairline Tables */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Column A: Internal Dimensions */}
+              <div className="space-y-4">
+                <h4 className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
                   {isAr
-                    ? "الأبعاد الداخلية وفتحة الأبواب"
-                    : "INTERNAL CLEARANCE & DOOR APERTURE"}
-                </span>
-              </h4>
+                    ? "٠١ / الأبعاد الداخلية وفتحة الأبواب"
+                    : "01 / INTERNAL CLEARANCE & DOOR APERTURE"}
+                </h4>
 
-              <div className="space-y-2 font-mono text-xs sm:text-sm">
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "الطول الداخلي الصافي" : "Internal Length"}
-                  </span>
-                  <span className="font-bold text-role-text">
-                    {activeSpec.dimensions.length}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "العرض الداخلي الصافي" : "Internal Width"}
-                  </span>
-                  <span className="font-bold text-role-text">
-                    {activeSpec.dimensions.width}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "الارتفاع الداخلي الصافي" : "Internal Height"}
-                  </span>
-                  <span className="font-bold text-[#e2b34a]">
-                    {activeSpec.dimensions.height}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "عرض فتحة الباب" : "Door Aperture Width"}
-                  </span>
-                  <span className="font-bold text-role-text">
-                    {activeSpec.dimensions.doorWidth}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "ارتفاع فتحة الباب" : "Door Aperture Height"}
-                  </span>
-                  <span className="font-bold text-role-text">
-                    {activeSpec.dimensions.doorHeight}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Column B: Weight & Mass Distribution */}
-            <div className="space-y-4">
-              <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#e2b34a] flex items-center gap-2">
-                <Icon name="activity" size={14} />
-                <span>
-                  {isAr
-                    ? "أوزان الهيكل والحمولة الإجمالية"
-                    : "WEIGHT ENVELOPE & TARE RATIO"}
-                </span>
-              </h4>
-
-              <div className="space-y-2 font-mono text-xs sm:text-sm">
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "السعة الحجمية الكلية" : "Total Usable Volume"}
-                  </span>
-                  <span className="font-bold text-role-text">
-                    {activeSpec.capacity.volume}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "الوزن الفارغ للهيكل (Tare)" : "Tare Weight (Empty)"}
-                  </span>
-                  <span className="font-bold text-role-text">
-                    {activeSpec.capacity.tareWeight}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "الحمولة الصافية المسموحة" : "Maximum Net Payload"}
-                  </span>
-                  <span className="font-bold text-[#e2b34a]">
-                    {activeSpec.capacity.maxPayload}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-lg border border-role-line bg-role-field">
-                  <span className="text-role-muted">
-                    {isAr ? "الوزن الإجمالي الأقصى (MGW)" : "Max Gross Weight (MGW)"}
-                  </span>
-                  <span className="font-bold text-role-text">
-                    {activeSpec.capacity.maxGross}
-                  </span>
-                </div>
-              </div>
-
-              {/* Recommended Cargo Profiles */}
-              <div className="p-4 rounded-xl border border-role-line bg-role-field space-y-1.5">
-                <span className="font-mono text-[11px] font-bold text-[#e2b34a] uppercase tracking-wider block">
-                  {isAr ? "أفضل استخدام وتطبيقات الشحن:" : "IDEAL CARGO PROFILE:"}
-                </span>
-                <p className="text-xs sm:text-sm text-role-text leading-relaxed">
-                  {isAr ? activeSpec.idealFor.ar : activeSpec.idealFor.en}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Institutional Compliance Badges */}
-          <div className="p-5 rounded-xl border border-role-line bg-role-field space-y-3">
-            <span className="font-mono text-xs font-bold text-role-text uppercase tracking-wider block">
-              {isAr
-                ? "ميزات ومواصفات الأمان المعتمدة لهذه الفئة:"
-                : "CERTIFIED OPERATIONAL & SAFETY FEATURES:"}
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-role-muted">
-              {(isAr ? activeSpec.features.ar : activeSpec.features.en).map(
-                (feat, fIdx) => (
-                  <div key={fIdx} className="flex items-start gap-2">
-                    <span className="text-[#e2b34a] font-bold">✓</span>
-                    <span>{feat}</span>
+                <div className="divide-y divide-white/10 [html[data-theme=day]_&]:divide-black/10 border-t border-b border-white/10 [html[data-theme=day]_&]:border-black/10 font-mono text-xs sm:text-sm">
+                  <div className="flex items-center justify-between py-3.5">
+                    <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                      {isAr ? "الطول الداخلي الصافي" : "Internal Length"}
+                    </span>
+                    <span className="font-bold text-white [html[data-theme=day]_&]:text-[#091a21]">
+                      {activeSpec.dimensions.length}
+                    </span>
                   </div>
-                )
-              )}
-            </div>
-          </div>
+                  <div className="flex items-center justify-between py-3.5">
+                    <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                      {isAr ? "العرض الداخلي الصافي" : "Internal Width"}
+                    </span>
+                    <span className="font-bold text-white [html[data-theme=day]_&]:text-[#091a21]">
+                      {activeSpec.dimensions.width}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between py-3.5">
+                    <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                      {isAr ? "الارتفاع الداخلي الصافي" : "Internal Height"}
+                    </span>
+                    <span className="font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                      {activeSpec.dimensions.height}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between py-3.5">
+                    <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                      {isAr ? "عرض فتحة الباب" : "Door Aperture Width"}
+                    </span>
+                    <span className="font-bold text-white [html[data-theme=day]_&]:text-[#091a21]">
+                      {activeSpec.dimensions.doorWidth}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between py-3.5">
+                    <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                      {isAr ? "ارتفاع فتحة الباب" : "Door Aperture Height"}
+                    </span>
+                    <span className="font-bold text-white [html[data-theme=day]_&]:text-[#091a21]">
+                      {activeSpec.dimensions.doorHeight}
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-          {/* Action Row */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-role-line">
-            <div className="flex items-center gap-2 text-xs text-role-muted font-mono">
-              <Icon name="shield-check" size={16} className="text-[#e2b34a]" />
-              <span>
+              {/* Column B: Weight & Mass Distribution */}
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <h4 className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                    {isAr
+                      ? "٠٢ / أوزان الهيكل والحمولة الإجمالية"
+                      : "02 / WEIGHT ENVELOPE & TARE RATIO"}
+                  </h4>
+
+                  <div className="divide-y divide-white/10 [html[data-theme=day]_&]:divide-black/10 border-t border-b border-white/10 [html[data-theme=day]_&]:border-black/10 font-mono text-xs sm:text-sm">
+                    <div className="flex items-center justify-between py-3.5">
+                      <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                        {isAr ? "السعة الحجمية الكلية" : "Total Usable Volume"}
+                      </span>
+                      <span className="font-bold text-white [html[data-theme=day]_&]:text-[#091a21]">
+                        {activeSpec.capacity.volume}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between py-3.5">
+                      <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                        {isAr ? "الوزن الفارغ للهيكل (Tare)" : "Tare Weight (Empty)"}
+                      </span>
+                      <span className="font-bold text-white [html[data-theme=day]_&]:text-[#091a21]">
+                        {activeSpec.capacity.tareWeight}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between py-3.5">
+                      <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                        {isAr ? "الحمولة الصافية المسموحة" : "Maximum Net Payload"}
+                      </span>
+                      <span className="font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                        {activeSpec.capacity.maxPayload}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between py-3.5">
+                      <span className="text-white/60 [html[data-theme=day]_&]:text-[#2d5661]">
+                        {isAr ? "الوزن الإجمالي الأقصى (MGW)" : "Max Gross Weight (MGW)"}
+                      </span>
+                      <span className="font-bold text-white [html[data-theme=day]_&]:text-[#091a21]">
+                        {activeSpec.capacity.maxGross}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Ideal Cargo Profile */}
+                <div className="border-s-2 border-[#c89b3c] ps-4 space-y-1">
+                  <span className="font-mono text-[11px] font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] uppercase tracking-wider block">
+                    {isAr ? "أفضل استخدام وتطبيقات الشحن" : "IDEAL CARGO PROFILE"}
+                  </span>
+                  <p className="text-sm text-white/75 [html[data-theme=day]_&]:text-[#2d5661] leading-relaxed">
+                    {isAr ? activeSpec.idealFor.ar : activeSpec.idealFor.en}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Certified Operational Features */}
+            <div className="pt-6 border-t border-white/10 [html[data-theme=day]_&]:border-black/10 space-y-4">
+              <span className="font-mono text-xs font-bold text-white/60 [html[data-theme=day]_&]:text-[#2d5661] uppercase tracking-[0.16em] block">
+                {isAr
+                  ? "٠٣ / ميزات ومواصفات الأمان المعتمدة لهذه الفئة"
+                  : "03 / CERTIFIED OPERATIONAL & SAFETY FEATURES"}
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 text-sm text-white/75 [html[data-theme=day]_&]:text-[#2d5661]">
+                {(isAr ? activeSpec.features.ar : activeSpec.features.en).map(
+                  (feat, fIdx) => (
+                    <div key={fIdx} className="flex items-baseline gap-2.5">
+                      <span className="font-mono text-xs text-[#c89b3c]">—</span>
+                      <span>{feat}</span>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Action Row */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10 [html[data-theme=day]_&]:border-black/10">
+              <span className="text-xs text-white/55 [html[data-theme=day]_&]:text-[#2d5661] font-mono">
                 {isAr
                   ? "معاينة هندسية وفحص سلامة صادر عن سلطة ميناء العقبة والجمارك."
                   : "Certified for immediate dockside in-gate and cross-border road transit."}
               </span>
-            </div>
 
-            <a
-              href={getEquipmentInquiryUrl(
-                isAr ? activeSpec.name.ar : activeSpec.name.en,
-                activeSpec.code
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold rklt-bento-btn transition-all duration-200"
-            >
-              <Icon name="whatsapp" size={16} />
-              <span>
-                {isAr
-                  ? `طلب تسعيرة لهذه المعدة (${activeSpec.code})`
-                  : `Inquire Rate for ${activeSpec.code}`}
-              </span>
-            </a>
+              <a
+                href={getEquipmentInquiryUrl(
+                  isAr ? activeSpec.name.ar : activeSpec.name.en,
+                  activeSpec.code
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[4px] bg-[#c89b3c] text-[#050a0e] text-xs font-mono uppercase tracking-wider font-bold hover:bg-[#d8ab4c] transition-colors"
+              >
+                <Icon name="whatsapp" size={16} />
+                <span>
+                  {isAr
+                    ? `طلب تسعيرة لهذه المعدة (${activeSpec.code})`
+                    : `Inquire Rate for ${activeSpec.code}`}
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </Container>

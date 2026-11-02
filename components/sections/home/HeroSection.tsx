@@ -63,56 +63,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ locale }) => {
       <div className="corridor-crane-backdrop" aria-hidden="true">
         <div className="rklt-crane-arc" aria-hidden="true" />
         <span className="rklt-backdrop-dim" aria-hidden="true" />
-        {/* Cinematic Harbor Stage: Horizon Sky, 3-Band Perspective Ocean & Right-Quay Port */}
+        {/* Seamless Unified Cinematic Harbor Stage (Zero Split Images or Cut-Off Seams) */}
         <div className="rklt-harbor-stage" data-hero-depth aria-hidden="true">
-          <div className="rklt-harbor-sky">
+          <div className="rklt-harbor-plate" data-harbor-plate>
+            {/* Unified Night / Dusk Harbor Artwork */}
             <img
-              src="/assets/hero/layers/sky.png"
+              src="/assets/hero/layers/cluster.jpg"
               alt=""
               width={1536}
               height={1024}
-              className="rklt-sky-img"
+              className="rklt-harbor-still [html[data-theme=day]_&]:hidden"
               loading="eager"
               decoding="async"
             />
-          </div>
-
-          {/* Bottom Photo Layer: Unveils bottom-to-top and settles at bottom of hero */}
-          <div className="rklt-harbor-plate" data-harbor-plate>
-            {/* Left Open Ocean */}
-            <div className="rklt-harbor-ocean">
-              <img
-                src="/assets/hero/layers/ocean.png"
-                alt=""
-                width={1536}
-                height={1024}
-                className="rklt-ocean-img"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-
-            {/* Right Quay Port & Ship */}
-            <div className="rklt-harbor-port">
-              <img
-                src="/assets/hero/layers/ship.png"
-                alt=""
-                width={1536}
-                height={1024}
-                className="rklt-harbor-ship"
-                loading="eager"
-                decoding="async"
-              />
-              <img
-                src="/assets/hero/layers/port.png"
-                alt=""
-                width={1536}
-                height={1024}
-                className="rklt-harbor-quay"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
+            {/* Unified Golden Day Harbor Artwork */}
+            <img
+              src="/assets/hero/plates/day.jpg"
+              alt=""
+              width={2560}
+              height={1440}
+              className="rklt-harbor-still hidden [html[data-theme=day]_&]:block"
+              loading="eager"
+              decoding="async"
+            />
 
             {/* Atmospheric Depth Veil: Softens background high-contrast distractions */}
             <div className="rklt-harbor-veil" aria-hidden="true" />

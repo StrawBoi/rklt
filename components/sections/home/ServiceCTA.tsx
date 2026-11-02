@@ -183,13 +183,6 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
       className="rklt-service-cta relative w-full overflow-hidden py-24 sm:py-32 lg:py-40 transition-colors duration-500"
       aria-label={isAr ? "فلنبدأ شراكتنا" : "Let's partner up"}
     >
-      {/* Top Cadence Ruler Transition Indicator */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-25" aria-hidden="true">
-        <span className="w-[1px] h-3.5 bg-current" />
-        <span className="w-[1px] h-3.5 bg-current" />
-        <span className="w-[1px] h-3.5 bg-current" />
-      </div>
-
       {/* =========================================================================
           BACKGROUND MARITIME RADAR & AZIMUTH GRATICULE
           Signature RKLT touch: Navigational radar telemetry & gateway coordinates
@@ -224,25 +217,25 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
                 stroke="currentColor"
                 strokeWidth={idx % 2 === 0 ? "1" : "0.75"}
                 strokeDasharray={idx === 2 || idx === 5 ? "4 8" : undefined}
-                className="rklt-radar-circle text-black/[0.09] [html[data-theme=night]_&]:text-white/[0.08] transition-colors"
+                className="rklt-radar-circle text-white/[0.08] [html[data-theme=day]_&]:text-black/[0.09] transition-colors"
               />
             ))}
 
             {/* Nautical Crosshair Axes */}
-            <line x1="120" y1="700" x2="1280" y2="700" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 10" className="text-black/10 [html[data-theme=night]_&]:text-white/10" />
-            <line x1="700" y1="120" x2="700" y2="1280" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 10" className="text-black/10 [html[data-theme=night]_&]:text-white/10" />
+            <line x1="120" y1="700" x2="1280" y2="700" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 10" className="text-white/10 [html[data-theme=day]_&]:text-black/10" />
+            <line x1="700" y1="120" x2="700" y2="1280" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 10" className="text-white/10 [html[data-theme=day]_&]:text-black/10" />
 
             {/* Subtle Cardinal Degrees & Port GPS Coordinates */}
-            <text x="700" y="80" textAnchor="middle" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+            <text x="700" y="80" textAnchor="middle" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-white/30 [html[data-theme=day]_&]:text-black/30 uppercase tracking-widest">
               000° · NORTH LEVANT CORRIDOR
             </text>
-            <text x="700" y="1330" textAnchor="middle" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+            <text x="700" y="1330" textAnchor="middle" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-white/30 [html[data-theme=day]_&]:text-black/30 uppercase tracking-widest">
               180° · AQABA RED SEA GATEWAY (29.53° N, 35.00° E)
             </text>
-            <text x="70" y="704" textAnchor="start" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+            <text x="70" y="704" textAnchor="start" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-white/30 [html[data-theme=day]_&]:text-black/30 uppercase tracking-widest">
               270° · MEDITERRANEAN
             </text>
-            <text x="1330" y="704" textAnchor="end" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+            <text x="1330" y="704" textAnchor="end" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-white/30 [html[data-theme=day]_&]:text-black/30 uppercase tracking-widest">
               090° · GCC & ARABIAN GULF (31.95° N, 35.93° E)
             </text>
           </g>
@@ -322,19 +315,19 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
           {/* MASSIVE HERO DISPLAY HEADLINE */}
           <h2
             ref={headlineRef}
-            className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] tracking-tight leading-[0.98] text-[#091a21] [html[data-theme=night]_&]:text-white uppercase mb-6"
+            className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] tracking-tight leading-[0.98] text-white [html[data-theme=day]_&]:text-[#091a21] uppercase mb-6"
           >
             {isAr ? (
               <>
                 <span className="service-cta-line block">فلنبدأ</span>
-                <span className="service-cta-line block text-[#a87318] [html[data-theme=night]_&]:text-[#e2b34a]">
+                <span className="service-cta-line block text-[#e2b34a] [html[data-theme=day]_&]:text-[#a87318]">
                   شراكتنا.
                 </span>
               </>
             ) : (
               <>
                 <span className="service-cta-line block">LET&apos;S</span>
-                <span className="service-cta-line block text-[#a87318] [html[data-theme=night]_&]:text-[#e2b34a]">
+                <span className="service-cta-line block text-[#e2b34a] [html[data-theme=day]_&]:text-[#a87318]">
                   PARTNER UP.
                 </span>
               </>
@@ -342,7 +335,7 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
           </h2>
 
           {/* EDITORIAL REASSURING SUBTITLE */}
-          <p className="max-w-xl text-base sm:text-lg md:text-xl text-[#2d5661] [html[data-theme=night]_&]:text-white/75 font-sans font-medium leading-relaxed mb-10">
+          <p className="max-w-xl text-base sm:text-lg md:text-xl text-white/75 [html[data-theme=day]_&]:text-[#2d5661] font-sans font-medium leading-relaxed mb-10">
             {isAr
               ? "دقة، سرعة، وموثوقية في كل ميل."
               : "Precision, speed and reliability in every mile."}
@@ -354,7 +347,7 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3.5 rounded-full bg-[#091a21] text-white [html[data-theme=night]_&]:bg-white [html[data-theme=night]_&]:text-[#091a21] font-bold uppercase tracking-wider hover:opacity-90 transition-opacity inline-flex items-center gap-2 shadow-lg"
+              className="px-7 py-3.5 rounded-[4px] bg-white text-[#091a21] [html[data-theme=day]_&]:bg-[#091a21] [html[data-theme=day]_&]:text-white font-bold uppercase tracking-wider hover:opacity-90 transition-opacity inline-flex items-center gap-2 shadow-lg"
             >
               <Icon name="whatsapp" size={15} />
               <span>{isAr ? "بدء محادثة واتساب" : "Start Conversation"}</span>
@@ -362,27 +355,11 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
 
             <a
               href={`tel:${siteConfig.phoneClean}`}
-              className="px-6 py-3.5 rounded-full border border-black/15 [html[data-theme=night]_&]:border-white/20 text-[#091a21] [html[data-theme=night]_&]:text-white font-bold uppercase tracking-wider hover:border-black/30 [html[data-theme=night]_&]:hover:border-white/40 transition-colors inline-flex items-center gap-2"
+              className="px-6 py-3.5 rounded-[4px] border border-white/20 [html[data-theme=day]_&]:border-black/15 text-white [html[data-theme=day]_&]:text-[#091a21] font-bold uppercase tracking-wider hover:border-white/40 [html[data-theme=day]_&]:hover:border-black/30 transition-colors inline-flex items-center gap-2"
             >
               <Icon name="phone" size={14} />
               <span>{siteConfig.phone}</span>
             </a>
-          </div>
-
-          {/* Direct Communication Badges / Highlights */}
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-mono uppercase tracking-wider text-[#091a21]/60 [html[data-theme=night]_&]:text-white/50 border-t border-black/10 [html[data-theme=night]_&]:border-white/10 pt-8 w-full max-w-2xl">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#a87318] [html[data-theme=night]_&]:bg-[#e2b34a]" />
-              <span>{isAr ? "تأسست عام ١٩٩٤ · خبرة +٣٠ عاماً" : "Est. 1994 · 30+ Years Mastery"}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#a87318] [html[data-theme=night]_&]:bg-[#e2b34a]" />
-              <span>{isAr ? "وساطة جمركية مرخصة #٤١٢" : "Licensed Customs Broker #412"}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#a87318] [html[data-theme=night]_&]:bg-[#e2b34a]" />
-              <span>{isAr ? "موانئ العقبة ومطار عمّان الدولي" : "Aqaba Gateway & QAIA Air Hub"}</span>
-            </div>
           </div>
         </div>
       </Container>

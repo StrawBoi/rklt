@@ -2,7 +2,6 @@ import React from "react";
 import { Locale } from "@/lib/i18n";
 import { contactContentEn } from "@/content/en/contact";
 import { contactContentAr } from "@/content/ar/contact";
-import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { PageStill } from "@/components/sections/PageStill";
 import { PageInquiry } from "@/components/sections/PageInquiry";
 
@@ -19,10 +18,7 @@ function HeroCopy({
 }) {
   return (
     <div className="max-w-4xl space-y-6">
-      <Eyebrow tone="ember" className="text-role-muted">
-        {content.eyebrow}
-      </Eyebrow>
-      <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-role-text tracking-tight leading-tight">
+      <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-role-text tracking-tight leading-[1.06]">
         {content.title}
       </h1>
       <p className="text-base sm:text-lg text-role-muted leading-relaxed max-w-3xl">
@@ -43,7 +39,7 @@ export const ContactHero: React.FC<ContactHeroProps> = ({ locale }) => {
   return (
     <PageStill
       nightSrc="/world/contact/night/poster.jpg"
-      daySrc="/world/contact/day/poster.jpg"
+      daySrc="/assets/rklt-operations.jpg"
       alt={alt}
     >
       <HeroCopy content={content} locale={locale} />

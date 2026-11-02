@@ -110,11 +110,12 @@ export const CTABand: React.FC<CTABandProps> = ({ locale }) => {
             </p>
           </div>
 
-          {/* Interactive Terminal Dispatch Grid */}
+          {/* Interactive Terminal Dispatch Grid (Sharp Chiseled Nested Corners: 10px outer, 6px inner) */}
           <div
             data-motion="stage"
-            className="border border-white/10 [html[data-theme=day]_&]:border-black/10 rounded-2xl p-6 sm:p-10 bg-white/[0.02] [html[data-theme=day]_&]:bg-white shadow-2xl space-y-10"
+            className="border border-white/10 [html[data-theme=day]_&]:border-black/10 rounded-[10px] p-1.5 sm:p-2 bg-white/[0.02] [html[data-theme=day]_&]:bg-white shadow-2xl"
           >
+            <div className="rounded-[6px] p-5 sm:p-8 bg-black/25 [html[data-theme=day]_&]:bg-[#fbf9f5] border border-white/5 [html[data-theme=day]_&]:border-black/5 space-y-10">
             {/* 3 Configuration Columns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* 1. Origin Node */}
@@ -198,13 +199,6 @@ export const CTABand: React.FC<CTABandProps> = ({ locale }) => {
             >
               <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 [html[data-theme=day]_&]:border-black/10 pb-3 text-xs">
                 <div className="flex items-center gap-2 text-[#e2b34a] [html[data-theme=day]_&]:text-[#a87318] font-bold">
-                  <span
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      isManifestPulsing
-                        ? "bg-[#34d399] animate-ping"
-                        : "bg-[#e2b34a] [html[data-theme=day]_&]:bg-[#a87318] animate-pulse"
-                    }`}
-                  />
                   <span>{isAr ? "رمز المانيفست المبدئي:" : "INITIAL MANIFEST RECORD:"}</span>
                   <span className="text-white [html[data-theme=day]_&]:text-[#091a21] px-2 py-0.5 rounded bg-white/10 [html[data-theme=day]_&]:bg-black/5 font-mono">
                     {manifestRef}
@@ -253,11 +247,8 @@ export const CTABand: React.FC<CTABandProps> = ({ locale }) => {
 
             {/* Direct Action Dispatch Row with Luxury PayPal Sheen Sweep Button */}
             <div className="border-t border-white/10 [html[data-theme=day]_&]:border-black/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-              <div className="space-y-1 text-center sm:text-start">
-                <p className="text-xs font-mono uppercase tracking-wider text-[#e2b34a] [html[data-theme=day]_&]:text-[#a87318] font-bold">
-                  {isAr ? "تنسيق مباشر مع مدير العمليات المرخص بالميناء والحدود" : "DIRECT REVIEW BY LICENSED BROKERAGE DESK"}
-                </p>
-                <p className="text-xs text-white/50 [html[data-theme=day]_&]:text-[#2d5661]">
+              <div className="text-center sm:text-start">
+                <p className="text-sm text-white/65 [html[data-theme=day]_&]:text-[#2d5661]">
                   {isAr
                     ? "إيداع مسبق للمانيفست وإصدار أذونات العبور الرسمية."
                     : "Pre-arrival manifest indexing with official customs transit permits."}
@@ -283,6 +274,7 @@ export const CTABand: React.FC<CTABandProps> = ({ locale }) => {
                   <span>{siteConfig.phone}</span>
                 </a>
               </div>
+            </div>
             </div>
           </div>
         </div>

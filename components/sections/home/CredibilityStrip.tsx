@@ -103,7 +103,6 @@ export const CredibilityStrip: React.FC<CredibilityStripProps> = ({ locale }) =>
                 >
                   <div className="rklt-pillar-header" dir="ltr">
                     <span className="rklt-pillar-num">{item.code}</span>
-                    <span className="rklt-pillar-badge">{item.badge}</span>
                   </div>
                   <h3 className="rklt-pillar-title">
                     {item.title}

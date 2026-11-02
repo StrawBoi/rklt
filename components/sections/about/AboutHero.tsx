@@ -19,43 +19,37 @@ function HeroCopy({
   const isAr = locale === "ar";
   return (
     <div className="max-w-4xl space-y-6">
-      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full rklt-bento-pill">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#e2b34a]" />
-        <span className="font-mono text-xs uppercase tracking-widest text-[#e2b34a] font-bold">
-          {content.eyebrow}
-        </span>
-      </div>
-      <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-role-text tracking-tight leading-tight">
+      <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-role-text tracking-tight leading-[1.06]">
         {content.title}
       </h1>
       <p className="text-base sm:text-lg text-role-muted leading-relaxed max-w-3xl">
         {content.subtitle}
       </p>
 
-      {/* Institutional Credentials Ribbon */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-        <div className="p-3 rounded-lg border border-role-line bg-black/30 backdrop-blur-sm">
-          <span className="font-mono text-xs text-[#e2b34a] font-bold block">
-            {isAr ? "التأسيس والانطلاق" : "Founded"}
+      {/* Unboxed Architectural Credentials Ledger */}
+      <div className="grid grid-cols-3 border-t border-b border-role-line py-5 gap-6">
+        <div>
+          <span className="font-numeral text-2xl sm:text-3xl font-light text-[#c89b3c] block leading-none">
+            {isAr ? "١٩٩٤" : "1994"}
           </span>
-          <span className="font-mono text-lg font-black text-role-text">
-            {isAr ? "عام ١٩٩٤" : "1994 (32+ Yrs)"}
+          <span className="font-mono text-[11px] uppercase tracking-wider text-role-muted block mt-1.5">
+            {isAr ? "التأسيس والانطلاق" : "Founded (30+ Yrs)"}
           </span>
         </div>
-        <div className="p-3 rounded-lg border border-role-line bg-black/30 backdrop-blur-sm">
-          <span className="font-mono text-xs text-[#e2b34a] font-bold block">
+        <div className="border-s border-role-line ps-6">
+          <span className="font-numeral text-2xl sm:text-3xl font-light text-role-text block leading-none">
+            #412
+          </span>
+          <span className="font-mono text-[11px] uppercase tracking-wider text-role-muted block mt-1.5">
             {isAr ? "الترخيص الجمركي" : "Customs Charter"}
           </span>
-          <span className="font-mono text-lg font-black text-role-text">
-            {isAr ? "رقم ٤١٢ مرخص" : "License #412"}
-          </span>
         </div>
-        <div className="col-span-2 sm:col-span-1 p-3 rounded-lg border border-role-line bg-black/30 backdrop-blur-sm">
-          <span className="font-mono text-xs text-[#e2b34a] font-bold block">
-            {isAr ? "سلسلة الحفظ" : "Chain of Custody"}
+        <div className="border-s border-role-line ps-6">
+          <span className="font-numeral text-2xl sm:text-3xl font-light text-role-text block leading-none">
+            100%
           </span>
-          <span className="font-mono text-lg font-black text-role-text">
-            {isAr ? "١٠٠٪ معتمد" : "100% Bonded"}
+          <span className="font-mono text-[11px] uppercase tracking-wider text-role-muted block mt-1.5">
+            {isAr ? "سلسلة الحفظ المعلق" : "Bonded Custody"}
           </span>
         </div>
       </div>
@@ -77,7 +71,7 @@ export const AboutHero: React.FC<AboutHeroProps> = ({ locale }) => {
   return (
     <PageStill
       nightSrc="/world/about/night/poster.jpg"
-      daySrc="/world/about/day/poster.jpg"
+      daySrc="/assets/hero/corridor/charter-day.jpg"
       alt={alt}
     >
       <HeroCopy content={content} locale={locale} />

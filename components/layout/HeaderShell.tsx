@@ -6,8 +6,9 @@ import { usePathname } from "next/navigation";
 const isHome = (pathname: string | null) => !!pathname && /^\/(en|ar)\/?$/.test(pathname);
 
 /**
- * Sets `data-over` while a `[data-header-overlay]` section sits under the header.
- * CSS owns every visual change that follows from it.
+ * Sets `data-over`, `data-scrolled`, `data-hidden`, and `data-ink` on the floating header shell.
+ * Hides the navbar smoothly as soon as the user starts scrolling so it never overlaps
+ * the hero 30+ counter or pinned stages, and reveals it when returning to the top.
  */
 export const HeaderShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const pathname = usePathname();
@@ -19,35 +20,35 @@ export const HeaderShell: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const overlay = document.querySelector<HTMLElement>("[data-header-overlay]");
     let frame = 0;
-    let lastY = window.scrollY;
-    let delta = 0;
 
     const update = () => {
       frame = 0;
-      const moved = delta;
-      delta = 0;
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+
+      // Track whether page has started scrolling
+      const scrolledState = y > 18 ? "true" : "false";
+      if (header.dataset.scrolled !== scrolledState) {
+        header.dataset.scrolled = scrolledState;
+      }
+
+      // Hide navbar as soon as the user starts scrolling so it never overlaps the 30+ counter
+      const hiddenState = y > 16 ? "true" : "false";
+      if (header.dataset.hidden !== hiddenState) {
+        header.dataset.hidden = hiddenState;
+      }
 
       if (overlay) {
         const hold = overlay.closest<HTMLElement>(".rklt-hero-hold, .corridor-underlap");
         const next = hold?.nextElementSibling ?? null;
-        const covered = !!next && next.getBoundingClientRect().top <= header.offsetHeight;
-        const over = !covered && overlay.getBoundingClientRect().bottom > header.offsetHeight;
+        const covered = !!next && next.getBoundingClientRect().top <= header.offsetHeight + 24;
+        const over = !covered && overlay.getBoundingClientRect().bottom > header.offsetHeight + 24;
         const state = over ? "true" : "false";
         if (header.dataset.over !== state) header.dataset.over = state;
       } else if (header.dataset.over !== "false") {
         header.dataset.over = "false";
       }
 
-      const locked = document.documentElement.classList.contains("rklt-intro-lock");
-      if (locked || window.scrollY < 12) {
-        if (header.dataset.hidden !== "false") header.dataset.hidden = "false";
-      } else if (moved > 8) {
-        header.dataset.hidden = "true";
-      } else if (moved < -8) {
-        header.dataset.hidden = "false";
-      }
-
-      const probe = header.offsetHeight;
+      const probe = header.offsetHeight + 24;
       const overlaps = (id: string) => {
         const section = document.querySelector(id);
         if (!section) return false;
@@ -60,10 +61,8 @@ export const HeaderShell: React.FC<{ children: React.ReactNode }> = ({ children 
       }
       if (header.dataset.ink !== ink) header.dataset.ink = ink;
     };
+
     const onScroll = () => {
-      const y = window.scrollY;
-      delta += y - lastY;
-      lastY = y;
       if (!frame) frame = requestAnimationFrame(update);
     };
 
@@ -81,7 +80,9 @@ export const HeaderShell: React.FC<{ children: React.ReactNode }> = ({ children 
     <header
       ref={headerRef}
       data-over={isHome(pathname) ? "true" : "false"}
-      className="rklt-header sticky top-0 z-40 w-full"
+      data-scrolled="false"
+      data-hidden="false"
+      className="rklt-header fixed top-0 inset-x-0 z-50 w-full"
     >
       {children}
     </header>

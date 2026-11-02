@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Locale } from "@/lib/i18n";
-import { Container } from "@/components/primitives/Container";
 import { Icon } from "@/components/primitives/Icon";
 import { siteConfig } from "@/content/site";
 
@@ -19,6 +19,8 @@ interface BorderPost {
   distanceFromAmmanAr: string;
   avgClearanceTime: string;
   avgClearanceTimeAr: string;
+  nightImg: string;
+  dayImg: string;
   timeline: { en: string; ar: string; stage: string }[];
   facilities: string[];
   facilitiesAr: string[];
@@ -41,6 +43,8 @@ const BORDER_POSTS: BorderPost[] = [
     distanceFromAmmanAr: "٣٣٥ كم",
     avgClearanceTime: "24–48 Hours",
     avgClearanceTimeAr: "٢٤–٤٨ ساعة",
+    nightImg: "/assets/services/sea.jpg",
+    dayImg: "/assets/services/sea-day.jpg",
     timeline: [
       { stage: "01", en: "Vessel Berth & Quayside Gantry", ar: "رسو الباخرة ورافعات الرصيف" },
       { stage: "02", en: "In-Gate Terminal ASYCUDA Logging", ar: "التسجيل الإلكتروني بالبوابة" },
@@ -90,6 +94,8 @@ const BORDER_POSTS: BorderPost[] = [
     distanceFromAmmanAr: "١٥٥ كم",
     avgClearanceTime: "12–24 Hours",
     avgClearanceTimeAr: "١٢–٢٤ ساعة",
+    nightImg: "/assets/services/land.jpg",
+    dayImg: "/assets/services/land-day.jpg",
     timeline: [
       { stage: "01", en: "Jordan Departure In-Gate & ASYCUDA", ar: "بوابة المغادرة الأردنية والربط الجمركي" },
       { stage: "02", en: "High-Speed Drive-Through X-Ray Scan", ar: "المسح الإشعاعي السريع للشاحنات" },
@@ -139,6 +145,8 @@ const BORDER_POSTS: BorderPost[] = [
     distanceFromAmmanAr: "٣٧٠ كم",
     avgClearanceTime: "24–36 Hours",
     avgClearanceTimeAr: "٢٤–٣٦ ساعة",
+    nightImg: "/assets/hero/road-night.jpg",
+    dayImg: "/assets/hero/road-day.jpg",
     timeline: [
       { stage: "01", en: "Axle Weighbridge & Dimension Check", ar: "قبان الموازين والقياسات المحورية" },
       { stage: "02", en: "TIR Carnet Electronic Verification", ar: "مطابقة دفتر النقل الدولي (TIR Carnet)" },
@@ -188,6 +196,8 @@ const BORDER_POSTS: BorderPost[] = [
     distanceFromAmmanAr: "٣٥ كم",
     avgClearanceTime: "4–8 Hours",
     avgClearanceTimeAr: "٤–٨ ساعات",
+    nightImg: "/assets/services/air.jpg",
+    dayImg: "/assets/services/air-day.jpg",
     timeline: [
       { stage: "01", en: "Flight Touchdown & Cargo Unload", ar: "هبوط الرحلة وتفريغ الشحنة" },
       { stage: "02", en: "Airside Bonded Tarmac Transfer", ar: "النقل المباشر لساحة الشحن المعلقة" },
@@ -248,37 +258,35 @@ export const CorridorConsole: React.FC<{ locale: Locale }> = ({ locale }) => {
     )}`;
 
   return (
-    <div className="space-y-10">
-      {/* 4-Node Geographic Switcher Ribbon */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {BORDER_POSTS.map((post) => {
+    <div className="space-y-12">
+      {/* 4-Node Architectural Switcher Ledger */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-b border-white/12 [html[data-theme=day]_&]:border-black/12 divide-y sm:divide-y-0 sm:divide-x rtl:divide-x-reverse divide-white/10 [html[data-theme=day]_&]:divide-black/10">
+        {BORDER_POSTS.map((post, idx) => {
           const isActive = post.code === activeCode;
           return (
             <button
               key={post.code}
               type="button"
               onClick={() => setActiveCode(post.code)}
-              className={`p-4 text-start rounded-xl border transition-all duration-200 flex flex-col justify-between gap-3 ${
+              className={`p-6 text-start transition-colors duration-200 flex flex-col justify-between gap-4 ${
                 isActive
-                  ? "bg-[#e2b34a]/10 border-[#e2b34a] shadow-lg"
-                  : "border-role-line hover:border-role-action bg-role-dock"
+                  ? "bg-[#c89b3c]/[0.1] border-b-2 border-b-[#c89b3c]"
+                  : "hover:bg-white/[0.02] [html[data-theme=day]_&]:hover:bg-black/[0.02]"
               }`}
             >
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-black px-2 py-0.5 rounded bg-black/20 text-[#e2b34a]">
+              <div className="flex items-baseline justify-between">
+                <span className="font-numeral text-3xl sm:text-4xl font-light text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                  0{idx + 1}
+                </span>
+                <span className="font-mono text-xs font-bold tracking-wider text-white [html[data-theme=day]_&]:text-[#091a21]">
                   {post.code}
                 </span>
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    isActive ? "bg-[#e2b34a] animate-pulse" : "bg-role-muted/40"
-                  }`}
-                />
               </div>
               <div>
-                <span className="font-display text-sm font-bold block text-role-text">
+                <span className="font-display text-base font-bold block text-white [html[data-theme=day]_&]:text-[#091a21]">
                   {isAr ? post.nameAr : post.name}
                 </span>
-                <span className="font-mono text-[11px] text-[#e2b34a] block mt-1">
+                <span className="font-mono text-[11px] text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] block mt-1.5 uppercase tracking-wider">
                   {isAr ? post.avgClearanceTimeAr : post.avgClearanceTime}
                 </span>
               </div>
@@ -287,194 +295,210 @@ export const CorridorConsole: React.FC<{ locale: Locale }> = ({ locale }) => {
         })}
       </div>
 
-      {/* Active Corridor Console Card */}
-      <div className="rounded-2xl border border-role-line bg-role-dock p-6 sm:p-10 shadow-xl space-y-8">
-        {/* Header Row */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-role-line pb-6">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#e2b34a]/15 text-[#e2b34a] border border-[#e2b34a]/30">
-                {activePost.code}
-              </span>
-              <span className="font-mono text-xs text-role-muted">
-                {isAr ? activePost.territoryAr : activePost.territory}
-              </span>
-            </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-black text-role-text">
-              {isAr ? activePost.nameAr : activePost.name}
-            </h2>
-          </div>
-
-          {/* Operational SLAs */}
-          <div className="flex items-center gap-6 text-end">
-            <div>
-              <span className="text-xs text-role-muted block font-mono">
-                {isAr ? "المسافة من عمّان" : "Distance to Amman"}
-              </span>
-              <span className="font-mono text-xl sm:text-2xl font-black text-role-text">
-                {isAr ? activePost.distanceFromAmmanAr : activePost.distanceFromAmman}
-              </span>
-            </div>
-            <div className="border-s border-role-line ps-6">
-              <span className="text-xs text-role-muted block font-mono">
-                {isAr ? "متوسط التخليص" : "Avg. Clearance"}
-              </span>
-              <span className="font-mono text-xl sm:text-2xl font-black text-[#e2b34a]">
-                {isAr ? activePost.avgClearanceTimeAr : activePost.avgClearanceTime}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Role Description */}
-        <p className="text-sm sm:text-base text-role-text leading-relaxed">
-          {isAr ? activePost.roleAr : activePost.role}
-        </p>
-
-        {/* Operational Checkpoint Progression Sequence */}
-        <div className="p-6 rounded-xl border border-role-line bg-role-field space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs font-bold text-[#e2b34a] uppercase tracking-wider flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#e2b34a] animate-pulse" />
-              <span>
-                {isAr
-                  ? "مراحل العبور والتفتيش الإجرائية المعتمدة:"
-                  : "MANDATORY TRANSIT CHECKPOINTS & PROGRESSION:"}
-              </span>
-            </span>
-            <span className="font-mono text-xs text-role-muted hidden sm:inline">
-              {isAr ? "تسلسل زمني خطي" : "Linear Telemetry Sequence"}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
-            {activePost.timeline.map((stage) => (
-              <div
-                key={stage.stage}
-                className="p-3 rounded-lg border border-role-line bg-role-dock flex flex-col justify-between gap-2"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-[#e2b34a]">
-                    STEP {stage.stage}
-                  </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#e2b34a]/60" />
-                </div>
-                <span className="text-xs font-medium text-role-text leading-snug">
-                  {isAr ? stage.ar : stage.en}
+      {/* Sharp Nested Corridor Specification Console */}
+      <div className="rounded-[8px] p-1.5 border border-white/12 [html[data-theme=day]_&]:border-black/12 bg-white/[0.02] [html[data-theme=day]_&]:bg-black/[0.02]">
+        <div className="rounded-[4px] border border-white/8 [html[data-theme=day]_&]:border-black/8 bg-[#0b131a] [html[data-theme=day]_&]:bg-[#fbf9f4] p-6 sm:p-10 space-y-10">
+          {/* Header Row */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 [html[data-theme=day]_&]:border-black/10 pb-6">
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-xs font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] uppercase tracking-widest">
+                  {activePost.code}
+                </span>
+                <span className="font-mono text-xs text-white/50 [html[data-theme=day]_&]:text-[#2d5661]">
+                  — {isAr ? activePost.territoryAr : activePost.territory}
                 </span>
               </div>
-            ))}
-          </div>
-        </div>
+              <h2 className="font-display text-2xl sm:text-4xl font-black text-white [html[data-theme=day]_&]:text-[#091a21] tracking-tight">
+                {isAr ? activePost.nameAr : activePost.name}
+              </h2>
+            </div>
 
-        {/* Two-Column Details: Facilities vs Statutory Requirements */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Facilities Column */}
-          <div className="space-y-4 p-6 rounded-xl border border-role-line bg-role-field">
-            <p className="font-mono text-xs uppercase tracking-wider text-[#e2b34a] font-bold flex items-center gap-2">
-              <Icon name="boxes" size={14} />
-              <span>
-                {isAr
-                  ? "التجهيزات الميدانية والبنية التحتية"
-                  : "ON-SITE FACILITIES & CAPACITIES"}
-              </span>
-            </p>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-role-muted">
-              {(isAr ? activePost.facilitiesAr : activePost.facilities).map(
-                (item, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <span className="text-[#e2b34a] font-bold mt-0.5">·</span>
-                    <span className="text-role-text">{item}</span>
-                  </li>
-                )
-              )}
-            </ul>
+            {/* Monumental Operational SLAs */}
+            <div className="flex items-center gap-8 text-end">
+              <div>
+                <span className="text-[11px] text-white/50 [html[data-theme=day]_&]:text-[#2d5661] block font-mono uppercase tracking-wider">
+                  {isAr ? "المسافة من عمّان" : "Distance to Amman"}
+                </span>
+                <span className="font-numeral text-3xl sm:text-4xl font-light text-white [html[data-theme=day]_&]:text-[#091a21]">
+                  {isAr ? activePost.distanceFromAmmanAr : activePost.distanceFromAmman}
+                </span>
+              </div>
+              <div className="border-s border-white/12 [html[data-theme=day]_&]:border-black/12 ps-8">
+                <span className="text-[11px] text-white/50 [html[data-theme=day]_&]:text-[#2d5661] block font-mono uppercase tracking-wider">
+                  {isAr ? "متوسط التخليص" : "Avg. Clearance"}
+                </span>
+                <span className="font-numeral text-3xl sm:text-4xl font-light text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e]">
+                  {isAr ? activePost.avgClearanceTimeAr : activePost.avgClearanceTime}
+                </span>
+              </div>
+            </div>
           </div>
 
-          {/* Requirements Column */}
-          <div className="space-y-4 p-6 rounded-xl border border-role-line bg-role-field">
-            <p className="font-mono text-xs uppercase tracking-wider text-role-text font-bold flex items-center gap-2">
-              <Icon name="file-text" size={14} />
-              <span>
-                {isAr
-                  ? "الوثائق والمتطلبات الجمركية الإلزامية"
-                  : "MANDATORY CUSTOMS DOCUMENTATION"}
-              </span>
-            </p>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-role-muted">
-              {(isAr ? activePost.requirementsAr : activePost.requirements).map(
-                (item, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
-                    <span className="text-[#e2b34a] font-bold mt-0.5">✓</span>
-                    <span className="text-role-text">{item}</span>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-        </div>
+          {/* Role Description + Custom Border Hub Photography Showcase */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 space-y-6">
+              <p className="text-base sm:text-lg text-white/75 [html[data-theme=day]_&]:text-[#2d5661] leading-relaxed">
+                {isAr ? activePost.roleAr : activePost.role}
+              </p>
 
-        {/* Copyable HS Tariff Vault */}
-        <div className="p-5 rounded-xl border border-role-line bg-role-field space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs font-bold text-[#e2b34a] uppercase tracking-wider flex items-center gap-2">
-              <Icon name="layers" size={14} />
-              <span>
-                {isAr
-                  ? "أبرز بنود التعريفة الجمركية الشائعة عبر هذا المنفذ:"
-                  : "PRIMARY HS TARIFF CLASSIFICATIONS (SAMPLE):"}
-              </span>
-            </span>
-            {copiedCode && (
-              <span className="font-mono text-xs text-emerald-400">
-                {isAr ? "تم نسخ الرمز!" : "Copied code!"}
-              </span>
-            )}
-          </div>
+              {/* Unboxed 4-Column Checkpoint Progression Ledger */}
+              <div className="space-y-4">
+                <span className="font-mono text-xs font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] uppercase tracking-[0.16em] block">
+                  {isAr
+                    ? "٠١ / مراحل العبور والتفتيش الإجرائية المعتمدة"
+                    : "01 / MANDATORY TRANSIT CHECKPOINTS & PROGRESSION"}
+                </span>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            {activePost.hsCodes.map((hs) => (
-              <button
-                key={hs.code}
-                type="button"
-                onClick={() => handleCopy(hs.code)}
-                className="flex items-center justify-between p-2.5 rounded-lg border border-role-line bg-role-dock hover:border-role-action transition-colors text-start"
-              >
-                <div>
-                  <span className="font-mono text-xs font-bold text-[#e2b34a] block">
-                    {hs.code}
-                  </span>
-                  <span className="text-[11px] text-role-muted block mt-0.5">
-                    {isAr ? hs.labelAr : hs.labelEn}
+                <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-b border-white/10 [html[data-theme=day]_&]:border-black/10 divide-y sm:divide-y-0 sm:divide-x rtl:divide-x-reverse divide-white/10 [html[data-theme=day]_&]:divide-black/10">
+                  {activePost.timeline.map((stage) => (
+                    <div
+                      key={stage.stage}
+                      className="py-4 sm:px-4 first:sm:ps-0 last:sm:pe-0 space-y-1.5"
+                    >
+                      <span className="font-numeral text-2xl font-light text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] block">
+                        {stage.stage}
+                      </span>
+                      <span className="text-sm font-medium text-white [html[data-theme=day]_&]:text-[#091a21] block leading-snug">
+                        {isAr ? stage.ar : stage.en}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="relative aspect-[16/10] rounded-[4px] overflow-hidden border border-white/12 [html[data-theme=day]_&]:border-black/12 bg-black/50">
+                <Image
+                  src={activePost.nightImg}
+                  alt={isAr ? activePost.nameAr : activePost.name}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105 [html[data-theme=day]_&]:hidden"
+                />
+                <Image
+                  src={activePost.dayImg}
+                  alt={isAr ? activePost.nameAr : activePost.name}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="hidden object-cover transition-transform duration-700 hover:scale-105 [html[data-theme=day]_&]:block"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 inset-inline-start-4 inset-inline-end-4 flex items-center justify-between text-[11px] font-mono text-white/90">
+                  <span>{activePost.code}</span>
+                  <span className="text-[#e2b34a] font-bold">
+                    {isAr ? activePost.badge.ar : activePost.badge.en}
                   </span>
                 </div>
-                <Icon name="copy" size={14} className="text-role-muted" />
-              </button>
-            ))}
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Action Row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-role-line">
-          <span className="text-xs text-role-muted font-mono">
-            {isAr
-              ? "فريق التخليص المرخص متواجد ميدانياً بالموقع على مدار الساعة (ترخيص ٤١٢)."
-              : "Licensed in-house customs brokers deployed permanently on-site (License #412)."}
-          </span>
+          {/* Two-Column Unboxed Details: Facilities vs Statutory Requirements */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-2">
+            {/* Facilities Column */}
+            <div className="space-y-4">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] font-bold">
+                {isAr
+                  ? "٠٢ / التجهيزات الميدانية والبنية التحتية"
+                  : "02 / ON-SITE FACILITIES & CAPACITIES"}
+              </p>
+              <ul className="divide-y divide-white/10 [html[data-theme=day]_&]:divide-black/10 border-t border-b border-white/10 [html[data-theme=day]_&]:border-black/10 text-sm">
+                {(isAr ? activePost.facilitiesAr : activePost.facilities).map(
+                  (item, idx) => (
+                    <li key={idx} className="py-3.5 flex items-baseline gap-3">
+                      <span className="font-mono text-xs text-[#c89b3c]">—</span>
+                      <span className="text-white/80 [html[data-theme=day]_&]:text-[#091a21]">
+                        {item}
+                      </span>
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
 
-          <a
-            href={getCorridorQuote(isAr ? activePost.nameAr : activePost.name)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold rklt-bento-btn transition-all duration-200"
-          >
-            <Icon name="whatsapp" size={16} />
-            <span>
+            {/* Requirements Column */}
+            <div className="space-y-4">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] font-bold">
+                {isAr
+                  ? "٠٣ / الوثائق والمتطلبات الجمركية الإلزامية"
+                  : "03 / MANDATORY CUSTOMS DOCUMENTATION"}
+              </p>
+              <ul className="divide-y divide-white/10 [html[data-theme=day]_&]:divide-black/10 border-t border-b border-white/10 [html[data-theme=day]_&]:border-black/10 text-sm">
+                {(isAr ? activePost.requirementsAr : activePost.requirements).map(
+                  (item, idx) => (
+                    <li key={idx} className="py-3.5 flex items-baseline gap-3">
+                      <span className="font-mono text-xs text-[#c89b3c]">0{idx + 1}</span>
+                      <span className="text-white/80 [html[data-theme=day]_&]:text-[#091a21]">
+                        {item}
+                      </span>
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+          </div>
+
+          {/* Copyable HS Tariff Ledger */}
+          <div className="space-y-4 pt-2">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-bold text-white/60 [html[data-theme=day]_&]:text-[#2d5661] uppercase tracking-[0.16em]">
+                {isAr
+                  ? "٠٤ / أبرز بنود التعريفة الجمركية الشائعة عبر هذا المنفذ"
+                  : "04 / PRIMARY HS TARIFF CLASSIFICATIONS (CLICK TO COPY)"}
+              </span>
+              {copiedCode && (
+                <span className="font-mono text-xs text-[#c89b3c]">
+                  {isAr ? "تم نسخ الرمز" : `Copied ${copiedCode}`}
+                </span>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 border-t border-b border-white/10 [html[data-theme=day]_&]:border-black/10 divide-y sm:divide-y-0 sm:divide-x rtl:divide-x-reverse divide-white/10 [html[data-theme=day]_&]:divide-black/10">
+              {activePost.hsCodes.map((hs) => (
+                <button
+                  key={hs.code}
+                  type="button"
+                  onClick={() => handleCopy(hs.code)}
+                  className="flex items-center justify-between py-4 sm:px-5 first:sm:ps-0 last:sm:pe-0 hover:bg-white/[0.02] [html[data-theme=day]_&]:hover:bg-black/[0.02] transition-colors text-start"
+                >
+                  <div>
+                    <span className="font-mono text-sm font-bold text-[#c89b3c] [html[data-theme=day]_&]:text-[#9a701e] block">
+                      {hs.code}
+                    </span>
+                    <span className="text-xs text-white/65 [html[data-theme=day]_&]:text-[#2d5661] block mt-0.5">
+                      {isAr ? hs.labelAr : hs.labelEn}
+                    </span>
+                  </div>
+                  <Icon name="copy" size={14} className="text-white/40 [html[data-theme=day]_&]:text-black/40" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10 [html[data-theme=day]_&]:border-black/10">
+            <span className="text-xs text-white/55 [html[data-theme=day]_&]:text-[#2d5661] font-mono">
               {isAr
-                ? `طلب تسعيرة وتنسيق عبور عبر ${activePost.code}`
-                : `Request Routing Rate for ${activePost.code}`}
+                ? "فريق التخليص المرخص متواجد ميدانياً بالموقع على مدار الساعة (ترخيص ٤١٢)."
+                : "Licensed in-house customs brokers deployed permanently on-site (License #412)."}
             </span>
-          </a>
+
+            <a
+              href={getCorridorQuote(isAr ? activePost.nameAr : activePost.name)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[4px] bg-[#c89b3c] text-[#050a0e] text-xs font-mono uppercase tracking-wider font-bold hover:bg-[#d8ab4c] transition-colors"
+            >
+              <Icon name="whatsapp" size={16} />
+              <span>
+                {isAr
+                  ? `طلب تسعيرة وتنسيق عبور عبر ${activePost.code}`
+                  : `Request Routing Rate for ${activePost.code}`}
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

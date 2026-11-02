@@ -450,101 +450,327 @@ html[data-theme="day"] .rklt-page-hero[data-day="false"] .rklt-page-copy-pad {
   }
 }
 
-/* Header: one full bar in the skin colour.
-   Night uses the same ink as the page. The mark waits over the home photograph. */
+/* ==========================================================================
+   FLOATING TRANSLUCENT NAVBAR & FLUSH MULTI-COLUMN MEGA MENU
+   * Separated from top edge, rounded border container, 8px padding,
+     progressive glassmorphic blur on scroll, and nested rounded mega menu *
+   ========================================================================== */
 .rklt-header {
   background: transparent;
   border: 0;
-  padding: 0;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 12px 16px 0;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), padding 0.3s ease;
 }
 
-.rklt-header[data-hidden="true"] {
-  transform: translateY(-100%);
-  pointer-events: none;
+@media (min-width: 768px) {
+  .rklt-header {
+    padding: 14px 28px 0;
+  }
+}
+
+.rklt-floating-nav-wrap {
+  position: relative;
+  max-width: 1440px;
+  margin-inline: auto;
+  width: 100%;
 }
 
 .rklt-header-plate {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  height: 4.5rem;
-  padding-inline: 1.5rem;
-  background: transparent;
+  gap: 1rem;
+  min-height: 3.75rem;
+  padding: 8px;
+  border-radius: 10px;
   color: var(--role-text);
-  border-bottom: 1px solid transparent;
+  background: rgba(9, 26, 33, 0.58);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(226, 179, 74, 0.22);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  transition:
+    background-color 0.3s ease,
+    backdrop-filter 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    border-radius 0.25s ease;
+}
+
+html[data-theme="day"] .rklt-header-plate {
+  background: rgba(251, 249, 245, 0.72);
+  border: 1px solid rgba(168, 115, 24, 0.25);
+  box-shadow:
+    0 10px 28px -10px rgba(9, 26, 33, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+}
+
+/* Intensify blur & glass density once content starts scrolling behind the navbar */
+.rklt-header[data-scrolled="true"] .rklt-header-plate,
+.rklt-header-plate.is-mega-open {
+  background: rgba(7, 20, 26, 0.82);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-color: rgba(226, 179, 74, 0.38);
+  box-shadow:
+    0 18px 42px -12px rgba(0, 0, 0, 0.68),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="day"] .rklt-header[data-scrolled="true"] .rklt-header-plate,
+html[data-theme="day"] .rklt-header-plate.is-mega-open {
+  background: rgba(255, 253, 249, 0.88);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border-color: rgba(168, 115, 24, 0.38);
+  box-shadow:
+    0 18px 40px -12px rgba(9, 26, 33, 0.16),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
 }
 
 .rklt-header-start,
 .rklt-header-end {
   display: flex;
   align-items: center;
-  height: 100%;
   min-width: 0;
 }
 
 .rklt-header-start {
-  gap: 2rem;
+  gap: 0.75rem;
 }
 
 .rklt-header-end {
-  gap: 1.15rem;
+  gap: 0.5rem;
 }
 
-.rklt-header-end nav {
-  gap: 1.35rem;
+.rklt-nav-logo-pill {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.rklt-header[data-over="true"] .rklt-header-cta {
-  display: none;
+html[data-theme="day"] .rklt-nav-logo-pill {
+  background: rgba(9, 26, 33, 0.04);
+  border: 1px solid rgba(9, 26, 33, 0.07);
 }
 
-@media (min-width: 768px) {
-  .rklt-header-plate {
-    padding-inline: 2.5rem;
-  }
+/* Sharp Chiseled Nav Pills inside the 8px padded floating bar */
+.rklt-nav-pill-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(249, 246, 239, 0.82);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Over the crane hero the plate clears, so the stage runs the full width.
-   The small header word waits; the large RKLT on the crane is the mark. */
-.rklt-header[data-over="true"] .rklt-header-plate {
-  background: transparent;
-  border-bottom-color: transparent;
+html[data-theme="day"] .rklt-nav-pill-item {
+  color: rgba(9, 26, 33, 0.78);
 }
 
-.rklt-header:not([data-over="true"]) .rklt-header-plate {
-  background: color-mix(in srgb, var(--role-field) 84%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--role-line);
+.rklt-nav-pill-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
 }
 
-.rklt-header[data-ink="light"]:not([data-over="true"]) .rklt-header-plate {
-  background: rgba(13, 15, 18, 0.88);
-  border-bottom-color: rgba(255, 255, 255, 0.12);
+html[data-theme="day"] .rklt-nav-pill-item:hover {
+  color: #091a21;
+  background: rgba(9, 26, 33, 0.06);
 }
 
-.rklt-header[data-over="true"] .rklt-header-logo {
+.rklt-nav-pill-item.is-active {
+  color: #e2b34a;
+  background: rgba(226, 179, 74, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(226, 179, 74, 0.28);
+}
+
+html[data-theme="day"] .rklt-nav-pill-item.is-active {
+  color: #946513;
+  background: rgba(168, 115, 24, 0.11);
+  box-shadow: inset 0 0 0 1px rgba(168, 115, 24, 0.28);
+}
+
+/* ==========================================================================
+   MEGA MENU PANEL (FLUSH TO ENTIRE WIDTH OF FLOATING NAV BAR)
+   ========================================================================== */
+.rklt-mega-menu-panel {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-radius: 10px;
+  padding: 8px;
+  z-index: 60;
+  transform-origin: top center;
+  transition:
+    opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.26s;
 }
 
-html[data-theme="day"] header nav a.text-gold {
-  color: var(--role-text);
+.rklt-mega-menu-panel.is-closed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px) scale(0.99);
 }
 
-/* The header WhatsApp action stays in the plate. */
+.rklt-mega-menu-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
 
-/* Header children still use night utilities. On the day overlay, map them
-   onto roles so labels stay readable. Page sections are unchanged. */
+html[data-theme="night"] .rklt-mega-menu-panel {
+  background: rgba(7, 20, 26, 0.92);
+  backdrop-filter: blur(26px) saturate(190%);
+  -webkit-backdrop-filter: blur(26px) saturate(190%);
+  border: 1px solid rgba(226, 179, 74, 0.32);
+  box-shadow:
+    0 28px 64px -12px rgba(0, 0, 0, 0.78),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="day"] .rklt-mega-menu-panel {
+  background: rgba(253, 251, 247, 0.95);
+  backdrop-filter: blur(26px) saturate(190%);
+  -webkit-backdrop-filter: blur(26px) saturate(190%);
+  border: 1px solid rgba(168, 115, 24, 0.3);
+  box-shadow:
+    0 28px 60px -12px rgba(9, 26, 33, 0.2),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Sharp Nested Inner Column Cards inside Mega Menu */
+.rklt-mega-col-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="day"] .rklt-mega-col-card {
+  background: rgba(9, 26, 33, 0.025);
+  border: 1px solid rgba(9, 26, 33, 0.07);
+}
+
+.rklt-mega-col-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-big-shoulders), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(226, 179, 74, 0.85);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="day"] .rklt-mega-col-header {
+  color: #946513;
+  border-bottom: 1px solid rgba(9, 26, 33, 0.08);
+}
+
+.rklt-mega-badge {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(226, 179, 74, 0.16);
+  color: #e2b34a;
+  font-size: 0.6875rem;
+}
+
+html[data-theme="day"] .rklt-mega-badge {
+  background: rgba(168, 115, 24, 0.14);
+  color: #946513;
+}
+
+.rklt-mega-link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.rklt-mega-link:hover {
+  background: rgba(226, 179, 74, 0.1);
+  transform: translateX(2px);
+}
+
+[dir="rtl"] .rklt-mega-link:hover {
+  transform: translateX(-2px);
+}
+
+html[data-theme="day"] .rklt-mega-link:hover {
+  background: rgba(168, 115, 24, 0.09);
+}
+
+.rklt-mega-link-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+html[data-theme="day"] .rklt-mega-link-title {
+  color: #091a21;
+}
+
+.rklt-mega-arrow {
+  opacity: 0.4;
+  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+}
+
+.rklt-mega-link:hover .rklt-mega-arrow {
+  opacity: 1;
+  color: #e2b34a;
+  transform: translateX(3px);
+}
+
+.rklt-mega-link-sub {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: rgba(249, 246, 239, 0.62);
+}
+
+html[data-theme="day"] .rklt-mega-link-sub {
+  color: rgba(9, 26, 33, 0.65);
+}
+
+.rklt-mega-feature-card {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  border-radius: 6px;
+  background: linear-gradient(145deg, rgba(226, 179, 74, 0.14) 0%, rgba(18, 50, 60, 0.45) 100%);
+  border: 1px solid rgba(226, 179, 74, 0.3);
+  color: #ffffff;
+}
+
+html[data-theme="day"] .rklt-mega-feature-card {
+  background: linear-gradient(145deg, rgba(168, 115, 24, 0.12) 0%, rgba(238, 229, 212, 0.7) 100%);
+  border: 1px solid rgba(168, 115, 24, 0.3);
+  color: #091a21;
+}
+
+/* Header children day theme overrides */
 html[data-theme="day"] header .text-sand-100,
 html[data-theme="day"] header .text-sand-100\/90,
 html[data-theme="day"] header .hover\:text-sand-100:hover {
@@ -554,39 +780,6 @@ html[data-theme="day"] header .hover\:text-sand-100:hover {
 html[data-theme="day"] header .text-sand-100\/80,
 html[data-theme="day"] header .text-sand-100\/75 {
   color: color-mix(in srgb, var(--role-text) 78%, transparent);
-}
-
-html[data-theme="day"] header:not([data-over="true"]) .rklt-logo-sub {
-  color: #8a6d3b;
-}
-
-/* Over a dark band the plate stays clear and the menu switches to sand. */
-html[data-theme="day"] .rklt-header[data-ink="light"] .text-sand-100,
-html[data-theme="day"] .rklt-header[data-ink="light"] .text-sand-100\/90,
-html[data-theme="day"] .rklt-header[data-ink="light"] .hover\:text-sand-100:hover,
-html[data-theme="day"] .rklt-header[data-ink="light"] .text-sand-100\/80,
-html[data-theme="day"] .rklt-header[data-ink="light"] .text-sand-100\/75,
-html[data-theme="day"] .rklt-header[data-ink="light"] nav a.text-gold,
-html[data-theme="day"] .rklt-header[data-ink="light"] .rklt-logo-sub {
-  color: #f7f1e7;
-}
-
-/* The services conveyor turns white between groups. Night type has to follow. */
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .text-sand-100,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .text-sand-100\/90,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .hover\:text-sand-100:hover,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .text-sand-100\/80,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .text-sand-100\/75,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] nav a.text-gold,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .rklt-logo-sub,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .rklt-theme-toggle,
-html:not([data-theme="day"]) .rklt-header[data-ink="dark"] .rklt-lang-toggle {
-  color: #0b2027;
-}
-
-html[data-theme="day"] header .text-terracotta-300,
-html[data-theme="day"] header .hover\:text-terracotta-300:hover {
-  color: var(--role-signal);
 }
 
 html[data-theme="day"] header .border-ink-700,
@@ -1086,1129 +1279,6 @@ html[data-theme="day"] [data-hero] {
 
 [data-theme="day"] .services-compass-reticle {
   border-color: rgba(13, 15, 18, 0.25);
-}
-
-/* ==========================================================================
-   INTAKE COMMAND — SIGNATURE 4-COLUMN PINNED SERVICES STAGE
-   Cloned from ahmedmohsenmostafa.com/intake architecture
-   ========================================================================== */
-
-.intake-command {
-  position: relative;
-  z-index: 8;
-  margin-top: 0;
-  min-height: 100vh;
-  border-radius: 0;
-  background: #0d0f12;
-  color: #f4f4f4;
-  box-shadow: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  isolation: isolate;
-  transition: background-color 0.25s ease-out;
-}
-
-.intake-command__grid {
-  display: grid;
-  grid-template-columns: minmax(190px, 220px) minmax(400px, 1.15fr) minmax(380px, 1.35fr);
-  align-items: start;
-  min-height: 100vh;
-}
-
-/* 1. LEFT STICKY NAV */
-.intake-nav {
-  position: sticky;
-  top: 0;
-  padding: 4.5rem 0 2rem 1.25rem;
-  z-index: 10;
-}
-
-.intake-nav__group {
-  margin-bottom: 0.5rem;
-}
-
-.intake-kicker {
-  margin: 1.25rem 0 0;
-  padding: 0.5rem 0.85rem 0.35rem;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.42);
-  font-family: var(--font-big-shoulders), ui-monospace, monospace;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border: none;
-}
-
-.intake-nav button {
-  position: relative;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  background: transparent;
-  color: rgba(255, 255, 255, 0.75);
-  padding: 0.9rem 0.85rem;
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: 0.92rem;
-  font-weight: 600;
-  line-height: 1.2;
-  cursor: pointer;
-  transition: color 0.18s ease;
-}
-
-.intake-nav button:hover {
-  color: #ffffff;
-}
-
-.intake-nav__fill {
-  position: absolute;
-  inset: 0;
-  background: #ffffff;
-  opacity: 0;
-  transform: translate3d(0, 102%, 0);
-  transition: transform 0.24s cubic-bezier(0.16, 0.84, 0.28, 1), opacity 0.18s ease;
-  will-change: transform, opacity;
-  pointer-events: none;
-}
-
-.intake-nav__label {
-  position: relative;
-  z-index: 2;
-  display: block;
-  transition: color 0.16s ease;
-  will-change: transform;
-}
-
-.intake-nav button[aria-current="step"] {
-  background: #ffffff !important;
-  border-bottom-color: transparent !important;
-  border-radius: 2px;
-}
-
-[data-theme="day"] .intake-nav button[aria-current="step"] {
-  background: #0d0f12 !important;
-}
-
-.intake-nav button[aria-current="step"] .intake-nav__label {
-  color: #0d0f12 !important;
-  font-weight: 800 !important;
-}
-
-[data-theme="day"] .intake-nav button[aria-current="step"] .intake-nav__label {
-  color: #ffffff !important;
-  font-weight: 800 !important;
-}
-
-.intake-nav__catalog {
-  margin-top: 1.5rem;
-  padding: 0.5rem 0.85rem;
-}
-
-.intake-nav__catalog-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-big-shoulders), ui-monospace, monospace;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--brass-400);
-  text-decoration: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.intake-nav__catalog-link:hover {
-  opacity: 0.85;
-  transform: translateX(2px);
-}
-
-/* 2. STICKY RAIL (CENTER PHOTO CARD) */
-.intake-rail {
-  position: sticky;
-  top: 0;
-  display: grid;
-  place-items: center;
-  height: 100svh;
-  min-height: 28rem;
-  overflow: hidden;
-  border-left: 1px solid rgba(255, 255, 255, 0.14);
-  z-index: 5;
-}
-
-.intake-rail:before,
-.intake-stage:before {
-  content: "";
-  position: absolute;
-  top: 5.25rem;
-  right: 0;
-  left: 0;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.14);
-  pointer-events: none;
-}
-
-/* Ruler Tick Marks & Circular Reticle Progress Scale (Cadence / Depth Gauge) */
-.intake-cadence-scale {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1.75rem;
-  margin-top: 1.25rem;
-  padding: 0 0.5rem;
-  pointer-events: none;
-}
-
-.intake-ticks {
-  position: static;
-  display: flex;
-  width: 28px;
-  flex-direction: column;
-  gap: 4px;
-  padding: 0;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.intake-ticks span {
-  display: block;
-  height: 1.5px;
-  width: 9px;
-  margin-left: 0;
-  background: rgba(255, 255, 255, 0.28);
-  border-radius: 1px;
-  transition: all 0.22s ease-out;
-}
-
-.intake-ticks span.is-major {
-  width: 18px;
-  background: rgba(255, 255, 255, 0.55);
-}
-
-.intake-ticks span.is-active {
-  background: var(--brass-400);
-  box-shadow: 0 0 6px rgba(223, 177, 91, 0.6);
-}
-
-.intake-ticks span.is-major.is-active {
-  width: 22px;
-}
-
-[data-theme="day"] .intake-ticks span {
-  background: rgba(13, 15, 18, 0.25);
-}
-
-[data-theme="day"] .intake-ticks span.is-major {
-  background: rgba(13, 15, 18, 0.55);
-}
-
-[data-theme="day"] .intake-ticks span.is-active {
-  background: var(--brass-500);
-}
-
-/* Circular Reticle Progress Gauge (Screenshot 4) */
-.intake-reticle {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-}
-
-.intake-reticle__svg {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.intake-reticle__track {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.16);
-  stroke-width: 2;
-}
-
-.intake-reticle__needle {
-  fill: none;
-  stroke: var(--brass-400);
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.25s ease-out;
-}
-
-.intake-reticle__dot {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-}
-
-[data-theme="day"] .intake-reticle__track {
-  stroke: rgba(13, 15, 18, 0.15);
-}
-
-[data-theme="day"] .intake-reticle__dot {
-  background: #0d0f12;
-}
-
-.intake-rules {
-  position: absolute;
-  inset: 22% 0 auto 0;
-  display: grid;
-  gap: 24vh;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.intake-rules span {
-  display: block;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Pinned Photo Stage: Clean, Borderless, Architectural (United Carriers style) */
-.intake-shot-stage {
-  position: relative;
-  z-index: 1;
-  width: min(92%, 460px);
-  height: clamp(480px, 66vh, 620px);
-  border: 0;
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.intake-shot-reel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border: 0;
-  border-radius: 4px;
-  background: #090b0e;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
-}
-
-.intake-shot-slide {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  will-change: opacity, transform;
-}
-
-.intake-shot {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  background: #090b0e;
-  border: 0;
-  outline: 0;
-  will-change: transform;
-}
-
-/* 3. STAGE (RIGHT SCROLLING CONTENT) */
-.intake-stage {
-  position: relative;
-  min-width: 0;
-  padding: 7.5rem 2.25rem 8rem 2rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.intake-step {
-  display: grid;
-  gap: 0;
-}
-
-.intake-step > section {
-  display: block;
-  min-height: 85svh;
-  padding: 3.5rem 0 4.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  scroll-margin-top: 6rem;
-  will-change: opacity;
-  opacity: 0.16;
-  transition: opacity 0.18s ease-out;
-}
-
-.intake-step > section.is-on {
-  opacity: 1;
-}
-
-.intake-step > section:first-child {
-  padding-top: 0.75rem;
-  border-top: 0;
-}
-
-.intake-stage-motion {
-  transform-origin: 50% 100%;
-  will-change: transform;
-}
-
-.intake-step__head-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.65rem;
-}
-
-.intake-step__dot-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.88;
-  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-
-.intake-step__dot-icon:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-[data-theme="day"] .intake-step__dot-icon svg circle.dot-active {
-  fill: #0d0f12 !important;
-}
-
-[data-theme="day"] .intake-step__dot-icon svg circle.dot-inactive {
-  fill: rgba(13, 15, 18, 0.12) !important;
-}
-
-.intake-step__numeral {
-  display: inline-block;
-  font-family: var(--font-big-shoulders), ui-monospace, monospace;
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
-}
-
-/* Mobile Toggle and inline image default hidden on desktop */
-.intake-mobile-toggle {
-  display: none;
-}
-
-.intake-mobile-img-box {
-  display: none;
-}
-
-.intake-stage h2 {
-  font-family: var(--font-archivo-display), system-ui, sans-serif;
-  font-size: clamp(2.3rem, 4.2vw, 3.8rem) !important;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: #fbfbfb !important;
-  text-transform: uppercase;
-  margin: 0 0 0.85rem;
-}
-
-.intake-step__tagline {
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0 0 1rem;
-}
-
-.intake-step__body {
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: 0.98rem;
-  line-height: 1.65;
-  color: rgba(244, 244, 244, 0.78);
-  max-width: 42rem;
-  margin: 0 0 1.5rem;
-}
-
-.intake-step__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.intake-step__chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.32rem 0.85rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.intake-step__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-/* Minimalist Outline Pill Button (United Carriers style, zero tacky AI look) */
-.intake-step__cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.85rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: transparent;
-  color: #ffffff !important;
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  box-shadow: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.intake-step__cta:hover {
-  background: #ffffff;
-  color: #0b0d10 !important;
-  border-color: #ffffff;
-  transform: translateY(-1px);
-}
-
-.intake-step__catalog-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.65);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.intake-step__catalog-btn:hover {
-  color: #ffffff;
-}
-
-/* Ahmed's Signature Next Service Peek Button */
-.intake-peek {
-  display: block;
-  margin-top: 3.5rem;
-  border: 0;
-  background: none;
-  padding: 0;
-  color: rgba(255, 255, 255, 0.26);
-  font-family: var(--font-archivo-display), system-ui, sans-serif;
-  font-size: clamp(1.8rem, 3.6vw, 3.2rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  text-align: left;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: color 0.18s ease;
-}
-
-.intake-peek:focus-visible,
-.intake-peek:hover {
-  color: rgba(255, 255, 255, 0.75);
-  outline: none;
-}
-
-/* 4. FAR RIGHT COLUMN: Ticks Scope */
-.intake-scope {
-  position: sticky;
-  top: 0;
-  display: flex;
-  height: 100svh;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 7vh 4px 7vh 0;
-  will-change: transform;
-}
-
-/* BILINGUAL RTL ADJUSTMENTS */
-[dir="rtl"] .intake-command {
-  direction: rtl;
-}
-
-[dir="rtl"] .intake-command__grid {
-  grid-template-columns: minmax(190px, 220px) minmax(400px, 1.15fr) minmax(380px, 1.35fr);
-}
-
-[dir="rtl"] .intake-nav {
-  padding: 4.5rem 1.25rem 2rem 0;
-}
-
-[dir="rtl"] .intake-kicker {
-  border: none;
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-nav button {
-  text-align: right;
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  font-size: 0.94rem;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-nav__catalog-link {
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-rail {
-  border-left: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-[dir="rtl"] .intake-ticks {
-  inset: 0 0 0 auto;
-}
-
-
-
-
-[dir="rtl"] .intake-stage {
-  padding: 7.5rem 2rem 8rem 2.25rem;
-  border-left: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-[dir="rtl"] .intake-step__numeral {
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-stage h2 {
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-}
-
-[dir="rtl"] .intake-step__tagline {
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-step__body {
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-step__chip {
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-step__cta,
-[dir="rtl"] .intake-step__catalog-btn {
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-peek {
-  text-align: right;
-  font-family: var(--font-cairo), system-ui, sans-serif;
-  letter-spacing: 0;
-}
-
-[dir="rtl"] .intake-scope {
-  padding: 7vh 0 7vh 4px;
-}
-
-/* ==========================================================================
-   DAY MODE STYLING FOR INTAKE-COMMAND (SERVICES CONVEYOR)
-   Warm Architectural Travertine / Alabaster Monolith Palette
-   ========================================================================== */
-html[data-theme="day"] .intake-command {
-  background: #f4efe6;
-  color: var(--role-text);
-  box-shadow: none;
-  border-top: 1px solid rgba(11, 32, 39, 0.12);
-}
-
-html[data-theme="day"] .intake-kicker {
-  color: var(--brass-700);
-}
-
-html[data-theme="day"] .intake-nav button {
-  border-bottom: 1px solid rgba(11, 32, 39, 0.12);
-  color: rgba(9, 26, 33, 0.72);
-}
-
-html[data-theme="day"] .intake-nav button:hover {
-  color: #091a21;
-}
-
-html[data-theme="day"] .intake-nav__fill {
-  background: #091a21;
-}
-
-html[data-theme="day"] .intake-nav button[aria-current="step"] {
-  border-bottom-color: #091a21;
-}
-
-html[data-theme="day"] .intake-nav button[aria-current="step"] .intake-nav__label {
-  color: #ffffff !important;
-}
-
-html[data-theme="day"] .intake-nav__catalog-link {
-  color: var(--brass-700);
-}
-
-html[data-theme="day"] .intake-nav__catalog-link:hover {
-  color: var(--brass-400);
-}
-
-html[data-theme="day"] .intake-rail {
-  border-left: 1px solid rgba(11, 32, 39, 0.12);
-}
-
-html[data-theme="day"] .intake-rail:before,
-html[data-theme="day"] .intake-stage:before {
-  background: rgba(11, 32, 39, 0.12);
-}
-
-html[data-theme="day"] .intake-rules span {
-  background: rgba(11, 32, 39, 0.08);
-}
-
-html[data-theme="day"] .intake-ticks span {
-  background: rgba(11, 32, 39, 0.35);
-}
-
-html[data-theme="day"] .intake-ticks span:nth-child(4n) {
-  background: var(--brass-400);
-}
-
-html[data-theme="day"] .intake-shot-reel {
-  background: #ebe4d5;
-  box-shadow: 0 24px 64px rgba(11, 32, 39, 0.14);
-}
-
-html[data-theme="day"] .intake-stage {
-  border-left: 1px solid rgba(11, 32, 39, 0.12);
-}
-
-html[data-theme="day"] .intake-step > section {
-  border-top: 1px solid rgba(11, 32, 39, 0.12);
-}
-
-html[data-theme="day"] .intake-step__numeral {
-  color: var(--brass-700);
-}
-
-html[data-theme="day"] .intake-stage h2 {
-  color: #091a21 !important;
-}
-
-html[data-theme="day"] .intake-step__tagline {
-  color: #10252e;
-}
-
-html[data-theme="day"] .intake-step__body {
-  color: #2d5661;
-}
-
-html[data-theme="day"] .intake-step__chip {
-  background: rgba(9, 26, 33, 0.05);
-  border-color: rgba(9, 26, 33, 0.14);
-  color: #10252e;
-}
-
-html[data-theme="day"] .intake-step__cta {
-  border: 1.5px solid #091a21;
-  color: #091a21 !important;
-}
-
-html[data-theme="day"] .intake-step__cta:hover {
-  background: #091a21;
-  color: #ffffff !important;
-  border-color: #091a21;
-}
-
-html[data-theme="day"] .intake-step__catalog-btn {
-  color: #2d5661;
-}
-
-html[data-theme="day"] .intake-step__catalog-btn:hover {
-  color: #091a21;
-}
-
-html[data-theme="day"] .intake-peek {
-  color: rgba(9, 26, 33, 0.28);
-}
-
-html[data-theme="day"] .intake-peek:hover {
-  color: #091a21;
-}
-
-html[data-theme="day"] .intake-mobile-toggle {
-  background: #ede6d8;
-  border-bottom: 1px solid rgba(11, 32, 39, 0.12);
-}
-
-html[data-theme="day"] .intake-mobile-toggle__title {
-  color: #091a21;
-}
-
-html[data-theme="day"] .intake-mobile-toggle__icon {
-  color: #091a21;
-}
-
-/* Day Mode RTL borders */
-html[data-theme="day"] [dir="rtl"] .intake-rail {
-  border-right: 1px solid rgba(11, 32, 39, 0.12);
-  border-left: none;
-}
-
-html[data-theme="day"] [dir="rtl"] .intake-stage {
-  border-right: 1px solid rgba(11, 32, 39, 0.12);
-  border-left: none;
-}
-
-/* Day Mode styling for How It Works Precision Corridor (#process) */
-html[data-theme="day"] .precision-corridor {
-  background: #ede6d8 !important;
-  color: #091a21 !important;
-  border-top: 1px solid rgba(11, 32, 39, 0.12) !important;
-}
-
-html[data-theme="day"] .precision-bridge__proclamation {
-  color: var(--brass-700);
-}
-
-html[data-theme="day"] .precision-bridge__line {
-  background: linear-gradient(90deg, transparent, rgba(168, 115, 24, 0.4), transparent);
-}
-
-html[data-theme="day"] .precision-corridor__title {
-  color: #091a21 !important;
-}
-
-html[data-theme="day"] .precision-corridor__subtitle {
-  color: #2d5661;
-}
-
-html[data-theme="day"] .precision-card {
-  background: #ffffff;
-  border: 1px solid rgba(11, 32, 39, 0.12);
-  box-shadow: 0 4px 16px rgba(11, 32, 39, 0.06);
-}
-
-html[data-theme="day"] .precision-card__title {
-  color: #091a21;
-}
-
-html[data-theme="day"] .precision-card__desc {
-  color: #2d5661;
-}
-
-html[data-theme="day"] .precision-card__tag {
-  background: rgba(11, 32, 39, 0.05);
-  border-color: rgba(11, 32, 39, 0.1);
-  color: #091a21;
-}
-
-html[data-theme="day"] .precision-hallmark__badge {
-  background: #f4efe6;
-  border-color: rgba(11, 32, 39, 0.15);
-  color: #091a21;
-}
-
-html[data-theme="day"] .precision-hallmark__line {
-  background: linear-gradient(90deg, transparent, rgba(11, 32, 39, 0.15), transparent);
-}
-
-/* Day Mode styling for Network Matrix (#network) */
-html[data-theme="day"] #network {
-  background-color: #f4efe6 !important;
-  color: #091a21 !important;
-  border-top-color: rgba(11, 32, 39, 0.12) !important;
-}
-
-html[data-theme="day"] #network h2,
-html[data-theme="day"] #network h3 {
-  color: #091a21 !important;
-}
-
-html[data-theme="day"] #network p {
-  color: #2d5661;
-}
-
-html[data-theme="day"] #network .border-white\/10 {
-  border-color: rgba(11, 32, 39, 0.12) !important;
-}
-
-html[data-theme="day"] #network .bg-white\/\[0\.02\],
-html[data-theme="day"] #network .bg-white\/\[0\.03\] {
-  background-color: rgba(11, 32, 39, 0.03) !important;
-}
-
-html[data-theme="day"] #network .bg-black\/40 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 16px 40px rgba(11, 32, 39, 0.08) !important;
-}
-
-html[data-theme="day"] #network button.text-white {
-  color: #091a21 !important;
-}
-
-html[data-theme="day"] #network button.bg-white\/10 {
-  background-color: #ffffff !important;
-  color: #091a21 !important;
-  box-shadow: 0 4px 16px rgba(11, 32, 39, 0.08) !important;
-  border-color: rgba(11, 32, 39, 0.18) !important;
-}
-
-html[data-theme="day"] #network .text-white\/90,
-html[data-theme="day"] #network .text-white\/80 {
-  color: #091a21 !important;
-}
-
-html[data-theme="day"] #network .text-white\/70,
-html[data-theme="day"] #network .text-white\/60,
-html[data-theme="day"] #network .text-white\/50,
-html[data-theme="day"] #network .text-white\/40 {
-  color: #2d5661 !important;
-}
-
-html[data-theme="day"] #network a.border-white\/20 {
-  border-color: rgba(11, 32, 39, 0.25) !important;
-  color: #091a21 !important;
-}
-
-html[data-theme="day"] #network a.border-white\/20:hover {
-  background-color: #091a21 !important;
-  color: #ffffff !important;
-}
-
-/* RESPONSIVE LAYOUT (<= 960px) */
-@media (max-width: 960px) {
-  .intake-command {
-    margin-top: 0;
-    border-radius: 0;
-  }
-
-  .intake-command__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .intake-nav {
-    position: sticky;
-    top: 3.5rem;
-    z-index: 25;
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    background: #0d0f12;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
-    padding: 0.5rem 0.5rem 0;
-    scrollbar-width: none;
-  }
-
-  .intake-nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .intake-nav__group {
-    display: flex;
-    margin-bottom: 0;
-  }
-
-  .intake-kicker {
-    display: none;
-  }
-
-  .intake-nav button {
-    width: auto;
-    white-space: nowrap;
-    border-bottom: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.35);
-    padding: 0.7rem 0.85rem;
-    font-size: 0.82rem;
-  }
-
-  [dir="rtl"] .intake-nav button {
-    border-right: 0;
-    border-left: 1px solid rgba(255, 255, 255, 0.35);
-  }
-
-  .intake-nav__catalog {
-    display: none;
-  }
-
-  .intake-rail {
-    display: none;
-  }
-
-  .intake-rail:before,
-  .intake-rules,
-  .intake-scope,
-  .intake-ticks,
-  .intake-stage:before {
-    display: none;
-  }
-
-  .intake-stage {
-    padding: 1.5rem 1.25rem 3.5rem;
-    border-left: 0;
-    border-right: 0;
-  }
-
-  .intake-step > section {
-    min-height: auto;
-    padding: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .intake-step > section:first-child {
-    border-top: 0;
-  }
-
-  /* Mobile Accordion Toggle Header */
-  .intake-mobile-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 1.25rem 0;
-    background: none;
-    border: 0;
-    cursor: pointer;
-    text-align: left;
-  }
-
-  [dir="rtl"] .intake-mobile-toggle {
-    text-align: right;
-  }
-
-  .intake-mobile-toggle__left {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-  }
-
-  .intake-mobile-toggle__title {
-    margin: 0;
-    font-family: var(--font-archivo-display), system-ui, sans-serif;
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-  }
-
-  [dir="rtl"] .intake-mobile-toggle__title {
-    font-family: var(--font-cairo), system-ui, sans-serif;
-    font-size: 1.15rem;
-    letter-spacing: 0;
-  }
-
-  .intake-mobile-toggle__icon {
-    font-family: ui-monospace, monospace;
-    font-size: 1.45rem;
-    font-weight: 600;
-    color: var(--brass-400);
-    line-height: 1;
-    transition: transform 0.2s ease;
-  }
-
-  /* Accordion Body Visibility */
-  .intake-step > section.is-mobile-closed .intake-stage-motion {
-    display: none !important;
-  }
-
-  .intake-step > section.is-mobile-open .intake-stage-motion {
-    display: block !important;
-    padding: 0.5rem 0 2rem;
-    animation: intakeFadeIn 0.25s ease-out;
-  }
-
-  @keyframes intakeFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Mobile Inline Image Box (Clean, Borderless) */
-  .intake-mobile-img-box {
-    display: block;
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    border-radius: 4px;
-    overflow: hidden;
-    margin: 1.15rem 0 1.25rem;
-    border: 0;
-    background: #090b0e;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
-  }
-
-  .intake-mobile-img-box img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .intake-stage-motion {
-    transform: none !important;
-  }
-
-  .intake-step__head-row {
-    display: none;
-  }
-
-  .intake-stage h2 {
-    display: none;
-  }
-
-  .intake-peek {
-    font-size: clamp(1.2rem, 4.5vw, 1.7rem);
-    margin-top: 1.5rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .intake-nav__fill,
-  .intake-nav__label,
-  .intake-rules,
-  .intake-scope,
-  .intake-shot-slide,
-  .intake-shot-wrap,
-  .intake-stage-motion,
-  .intake-step > section,
-  .intake-ticks {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .intake-step > section {
-    opacity: 1 !important;
-  }
 }
 
 .rklt-service-row {
@@ -3575,21 +2645,99 @@ html[data-theme="day"] .rklt-cred-number {
     top: auto !important;
     margin-top: 0 !important;
     min-height: 100svh !important;
-    padding-top: 4.5rem;
+    padding-top: 6rem;
+    padding-bottom: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
-  .rklt-credibility {
+  .rklt-crane-slot {
+    position: relative !important;
+    inset: auto !important;
+    padding-top: 9.5rem !important;
+    padding-bottom: 1.5rem !important;
+    flex: 1;
+  }
+
+  .rklt-crane-years {
+    top: -0.25rem;
+  }
+
+  .rklt-crane-years-num {
+    font-size: clamp(4.25rem, 22cqw, 7rem);
+  }
+
+  .rklt-crane-years-plus {
+    font-size: clamp(3rem, 15cqw, 5rem);
+  }
+
+  .rklt-container-base {
+    left: 2% !important;
+    right: 2% !important;
+  }
+
+  .rklt-crane-foot {
+    position: relative !important;
+    bottom: auto !important;
+    padding: 0 1.25rem !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem;
+    align-items: end;
+    margin-top: 0.75rem;
+  }
+
+  .rklt-crane-brief {
+    grid-column: 1 !important;
+    width: 100% !important;
+  }
+
+  .rklt-crane-modes {
+    grid-column: 2 !important;
+    width: 100% !important;
+  }
+
+  .rklt-crane-scroll {
+    display: none !important;
+  }
+
+  .rklt-crane-brief p {
+    font-size: 0.82rem;
+  }
+
+  .rklt-crane-modes p {
+    font-size: 1rem;
+  }
+
+  .rklt-credibility,
+  .rklt-credibility--bedrock {
     position: relative !important;
     background: var(--role-dock) !important;
-    padding: 4.5rem 0 3.5rem;
+    padding: 3.5rem 0 !important;
     margin-top: 0 !important;
+    min-height: auto !important;
   }
 
-  html[data-theme="night"] .rklt-credibility {
+  .rklt-bedrock-stage {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    padding-bottom: 0 !important;
+    pointer-events: auto !important;
+  }
+
+  .rklt-bedrock-girder {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  html[data-theme="night"] .rklt-credibility,
+  html[data-theme="night"] .rklt-credibility--bedrock {
     background: #06141a !important;
   }
 
-  html[data-theme="day"] .rklt-credibility {
+  html[data-theme="day"] .rklt-credibility,
+  html[data-theme="day"] .rklt-credibility--bedrock {
     background: #e5dac7 !important;
   }
 
@@ -4447,7 +3595,7 @@ html.rklt-intro-lock body {
   width: 100%;
   height: 100svh;
   min-height: 100svh;
-  margin-top: -4.5rem;
+  margin-top: 0;
   background: #1b4e5c;
   pointer-events: none;
   overflow: hidden;
@@ -4484,8 +3632,8 @@ html[data-theme="day"] .rklt-backdrop-dim {
 }
 
 /* =========================================================================
-   CINEMATIC HARBOR STAGE: HORIZON SKY & BOTTOM PHOTO PLATE (OCEAN + PORT)
-   Upper 55%: Sky & Mountain Horizon | Lower 55%: Harbor Plate (Settles at Bottom)
+   CINEMATIC HARBOR STAGE: UNIFIED SEAMLESS FULL-BLEED ARTWORK
+   Zero slicing, zero seam mismatch across viewport resizes and themes
    ========================================================================= */
 .rklt-harbor-stage {
   position: absolute;
@@ -4496,57 +3644,34 @@ html[data-theme="day"] .rklt-backdrop-dim {
   will-change: transform, opacity;
 }
 
-.rklt-harbor-sky {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 56%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.rklt-sky-img {
+.rklt-harbor-plate {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 50% 100%;
-  mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, black 0%, black 70%, transparent 100%);
-  opacity: 0.88;
-  filter: contrast(1.08) brightness(0.95);
-  transition: opacity 0.3s ease;
-}
-
-html[data-theme="day"] .rklt-sky-img {
-  opacity: 0.35;
-  mix-blend-mode: multiply;
-  filter: brightness(1.52) contrast(1.12) saturate(0.68) sepia(0.14);
-}
-
-/* Bottom Photo Layer: Settles cleanly at bottom of hero section with controlled atmospheric opacity */
-.rklt-harbor-plate {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 55%;
   pointer-events: none;
   overflow: hidden;
-  mask-image: linear-gradient(180deg, transparent 0%, black 16%, black 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 16%, black 100%);
-  opacity: 0.52;
-  filter: contrast(1.05) brightness(0.88);
+  opacity: 0.62;
+  filter: contrast(1.08) brightness(0.92);
   transition: opacity 0.35s ease;
   will-change: transform, clip-path, opacity;
 }
 
 html[data-theme="day"] .rklt-harbor-plate {
-  opacity: 0.42;
+  opacity: 0.44;
   mix-blend-mode: multiply;
-  filter: brightness(1.24) contrast(1.08) saturate(0.78);
+  filter: brightness(1.25) contrast(1.08) saturate(0.85);
+}
+
+.rklt-harbor-still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Left Ocean Layer (Static, zero jitter or wave distortion) */
@@ -4758,6 +3883,7 @@ html[data-theme="day"] .rklt-crane-name span:not(.rklt-crane-laser) {
   text-align: center;
   pointer-events: none;
   opacity: 0;
+  visibility: hidden;
   will-change: opacity, transform;
 }
 
@@ -6406,26 +5532,11 @@ html[data-theme="day"] .rklt-photo-wash-card.is-primary {
   box-shadow: 0 24px 64px rgba(16, 32, 40, 0.28);
 }
 
-/* 2. Footer Reveal Parallax (Luxury stage-reveal curtain effect) */
+/* 2. Footer Layout (Clean flush stacking with zero sticky bleed-through between sections) */
 .rklt-footer-reveal {
   position: relative;
-  z-index: 1;
-}
-
-@media (min-width: 961px) {
-  body:has(.rklt-footer-reveal) main {
-    position: relative;
-    z-index: 10;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
-    background: inherit;
-  }
-
-  .rklt-footer-reveal {
-    position: sticky;
-    bottom: 0;
-    z-index: 1;
-    border-top: 1.5px solid var(--role-line-bright) !important;
-  }
+  z-index: 20;
+  border-top: 1.5px solid var(--role-line-bright) !important;
 }
 
 html[data-theme="day"] .rklt-footer-reveal {
@@ -6714,14 +5825,14 @@ html[data-theme="day"] .uc-service-sweep-line {
   width: 100%;
 }
 
-/* 2A. Light Intro Section */
+/* 2A. Light / Dark Intro Section */
 .uc-service-logis-wrap {
   width: 100%;
   min-height: auto;
   padding-top: clamp(2.5rem, 5vh, 4.5rem);
   padding-bottom: clamp(2.5rem, 5vh, 4.5rem);
-  background: #fbf9f5;
-  color: #091a21;
+  background: #091a21;
+  color: #f3f6f8;
   position: relative;
   z-index: 10;
   box-sizing: border-box;
@@ -6737,12 +5848,12 @@ html[data-theme="night"] .uc-service-logis-wrap {
 }
 
 html[data-theme="day"] .uc-service-root {
-  background: #fbf9f5;
+  background: #f5f0e6;
   color: #091a21;
 }
 
 html[data-theme="day"] .uc-service-logis-wrap {
-  background: #fbf9f5;
+  background: #f5f0e6;
   color: #091a21;
 }
 
@@ -6777,8 +5888,12 @@ html[data-theme="day"] .uc-service-logis-wrap {
   line-height: 1.08;
   letter-spacing: -0.025em;
   text-transform: none;
-  color: #0d0f12;
+  color: #f9f6ef;
   perspective: 900px;
+}
+
+html[data-theme="day"] .uc-headline-display {
+  color: #091a21;
 }
 
 [lang="ar"] .uc-headline-display,
@@ -6790,34 +5905,53 @@ html[data-theme="day"] .uc-service-logis-wrap {
 }
 
 .uc-headline-kicker {
-  color: #b88a38;
+  color: #e2b34a;
   display: inline;
+}
+
+html[data-theme="day"] .uc-headline-kicker {
+  color: #b88a38;
 }
 
 .uc-headline-sep {
-  color: rgba(13, 15, 18, 0.3);
+  color: rgba(249, 246, 239, 0.35);
+}
+
+html[data-theme="day"] .uc-headline-sep {
+  color: rgba(9, 26, 33, 0.3);
 }
 
 .uc-headline-fill {
-  color: #0d0f12;
+  color: #f9f6ef;
   display: inline;
+}
+
+html[data-theme="day"] .uc-headline-fill {
+  color: #091a21;
 }
 
 .uc-scrub-word {
   display: inline-block;
   margin-inline-end: 0.28em;
-  opacity: 0.14;
+  opacity: 0.22;
   color: inherit;
   will-change: opacity, transform, filter;
   transform-style: preserve-3d;
 }
 
 .uc-scrub-word.is-accent {
+  color: #e2b34a;
+  background: linear-gradient(135deg, #f3d078 0%, #e2b34a 55%, #b88a38 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+html[data-theme="day"] .uc-scrub-word.is-accent {
   color: #b88a38;
   background: linear-gradient(135deg, #d19a32 0%, #b88a38 55%, #8f6418 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
 }
 
 .uc-logis-sub {
@@ -6834,7 +5968,7 @@ html[data-theme="day"] .uc-service-logis-wrap {
   bottom: 0.35rem;
   inset-inline-start: 0;
   width: 2px;
-  background: linear-gradient(180deg, rgba(209, 154, 50, 0.95) 0%, rgba(209, 154, 50, 0.2) 100%);
+  background: linear-gradient(180deg, rgba(226, 179, 74, 0.95) 0%, rgba(226, 179, 74, 0.2) 100%);
   border-radius: 1px;
 }
 
@@ -6843,9 +5977,13 @@ html[data-theme="day"] .uc-service-logis-wrap {
   font-size: clamp(1.15rem, 1.45vw, 1.38rem);
   font-weight: 500;
   line-height: 1.6;
-  color: #091a21;
+  color: rgba(249, 246, 239, 0.82);
   letter-spacing: -0.01em;
   margin: 0;
+}
+
+html[data-theme="day"] .uc-logis-sub p {
+  color: #1c3a44;
 }
 
 [dir="rtl"] .uc-logis-sub p {
@@ -7118,7 +6256,7 @@ html[data-theme="day"] .uc-ruler-tick {
 .uc-service-divider {
   position: absolute;
   top: 0;
-  left: clamp(-520px, -36vw, -300px);
+  left: 0;
   right: 0;
   height: 1px;
   pointer-events: none;
@@ -7128,7 +6266,7 @@ html[data-theme="day"] .uc-ruler-tick {
 
 [dir="rtl"] .uc-service-divider {
   left: 0;
-  right: clamp(-520px, -36vw, -300px);
+  right: 0;
 }
 
 html[data-theme="night"] .uc-service-divider {
@@ -7443,16 +6581,17 @@ html[data-theme="day"] .dot-matrix-icon .dot-active {
    RESPONSIVE DESIGN (< 991px MOBILE / TABLET ADAPTATION)
    ========================================================================== */
 @media (max-width: 991px) {
-  .uc-service-img-wrap {
-    display: none;
+  .uc-service-img-wrap,
+  .uc-service-img-cms {
+    display: none !important;
   }
 
   .uc-service-deco-rail {
-    display: none;
+    display: none !important;
   }
 
   .uc-service-resum {
-    display: none;
+    display: none !important;
   }
 
   .uc-service-container {
@@ -7477,12 +6616,22 @@ html[data-theme="day"] .dot-matrix-icon .dot-active {
   }
 
   .uc-scrub-word {
-    opacity: 1;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
     color: inherit;
   }
 
   .uc-logis-sub {
     margin-top: 1rem;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .uc-intro-card {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
   }
 
   .uc-service-main-wrap,
@@ -7837,13 +6986,16 @@ html[data-theme="day"] .radar-sweep-beam {
 
 
 /* ==========================================================================
-   SERVICE TEASER INTRO ROW (CLEAN, FLAT PREVIEW CARDS)
+   SERVICE TEASER INTRO ROW (SHARP CHISELED NESTED CORNERS + ATMOSPHERIC WASH)
+   * R_outer = 8px, padding = 4px, R_inner = 4px
+   * Pictures act as a subtle background wash behind typography so the row
+     feels like a lightweight floating teaser rather than the whole story.
    ========================================================================== */
 .uc-intro-cards-row {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(14px, 1.5vw, 24px);
+  gap: clamp(12px, 1.25vw, 18px);
   width: 100%;
 }
 
@@ -7860,66 +7012,166 @@ html[data-theme="day"] .radar-sweep-beam {
 }
 
 .uc-intro-card {
+  position: relative;
   display: flex;
   flex-direction: column;
+  padding: 4px;
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform, clip-path, opacity;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.uc-intro-card.is-dimmed {
+  opacity: 0.62;
+}
+
+.uc-intro-card.is-spotlight {
+  transform: translateY(-6px);
+}
+
+/* Top Print-Sequence Registration Bar */
+.uc-print-reg-line {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #e2b34a, transparent);
+  opacity: 0.35;
+  z-index: 5;
+  transition: opacity 0.3s ease, transform 0.35s ease;
+}
+
+.uc-intro-card:hover .uc-print-reg-line {
+  opacity: 1;
 }
 
 html[data-theme="night"] .uc-intro-card {
-  background: #08161c;
-  border: 1px solid rgba(226, 179, 74, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(8, 22, 28, 0.78);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 179, 74, 0.22);
+  box-shadow:
+    0 14px 32px -10px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
 }
 
 html[data-theme="night"] .uc-intro-card:hover {
-  border-color: rgba(226, 179, 74, 0.5);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(226, 179, 74, 0.15);
-  transform: translateY(-4px);
+  border-color: rgba(226, 179, 74, 0.58);
+  box-shadow:
+    0 22px 44px -10px rgba(0, 0, 0, 0.78),
+    0 0 20px rgba(226, 179, 74, 0.14);
 }
 
 html[data-theme="day"] .uc-intro-card {
-  background: #ffffff;
-  border: 1px solid rgba(184, 138, 56, 0.25);
-  box-shadow: 0 8px 24px rgba(13, 15, 18, 0.06);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(184, 138, 56, 0.26);
+  box-shadow:
+    0 12px 28px -10px rgba(9, 26, 33, 0.08),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
 }
 
 html[data-theme="day"] .uc-intro-card:hover {
-  border-color: rgba(184, 138, 56, 0.6);
-  box-shadow: 0 14px 34px rgba(13, 15, 18, 0.12), 0 0 16px rgba(184, 138, 56, 0.12);
-  transform: translateY(-4px);
+  border-color: rgba(184, 138, 56, 0.65);
+  box-shadow:
+    0 20px 38px -10px rgba(9, 26, 33, 0.14),
+    0 0 16px rgba(184, 138, 56, 0.12);
 }
 
-.uc-intro-card-media-wrap {
+/* Inner Sharp Chamber (8px outer - 4px padding = 4px inner) */
+.uc-intro-card-inner {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 11;
+  min-height: 156px;
+  border-radius: 4px;
   overflow: hidden;
-  background: #0d1217;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.uc-intro-card-badge {
+/* Background Picture Wash Layer (Subtle 18% opacity monochrome/duotone wash by default) */
+.uc-intro-wash-media {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.uc-wash-still {
+  opacity: 0.18;
+  filter: grayscale(45%) contrast(1.08);
+}
+
+html[data-theme="day"] .uc-wash-still {
+  opacity: 0.14;
+  filter: grayscale(55%) contrast(1.05);
+}
+
+.uc-intro-wash-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 16, 20, 0.55) 0%,
+    rgba(5, 16, 20, 0.35) 45%,
+    rgba(5, 16, 20, 0.88) 100%
+  );
+}
+
+html[data-theme="day"] .uc-intro-wash-scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(251, 249, 245, 0.65) 0%,
+    rgba(251, 249, 245, 0.45) 45%,
+    rgba(251, 249, 245, 0.92) 100%
+  );
+}
+
+.uc-intro-card-foreground {
+  position: relative;
   z-index: 2;
+  padding: 0.85rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  flex: 1;
 }
 
-[dir="rtl"] .uc-intro-card-badge {
-  left: auto;
-  right: 0.75rem;
+.uc-intro-sla-tag {
+  font-family: var(--font-big-shoulders), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
 }
 
-.uc-intro-card-meta {
-  padding: 1rem 1.1rem;
+html[data-theme="night"] .uc-intro-sla-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(249, 246, 239, 0.85);
+}
+
+html[data-theme="day"] .uc-intro-sla-tag {
+  background: rgba(9, 26, 33, 0.05);
+  border: 1px solid rgba(9, 26, 33, 0.12);
+  color: #091a21;
 }
 
 .uc-intro-card-title {
   font-family: var(--font-display), system-ui, sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
   transition: color 0.2s ease;
 }
 
@@ -7941,7 +7193,7 @@ html[data-theme="day"] .uc-intro-card:hover .uc-intro-card-title {
 
 .uc-intro-card-sub {
   font-family: var(--font-archivo), var(--font-cairo), sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -7952,11 +7204,48 @@ html[data-theme="day"] .uc-intro-card:hover .uc-intro-card-title {
 }
 
 html[data-theme="night"] .uc-intro-card-sub {
-  color: rgba(226, 179, 74, 0.7);
+  color: rgba(226, 179, 74, 0.75);
 }
 
 html[data-theme="day"] .uc-intro-card-sub {
-  color: rgba(9, 26, 33, 0.55);
+  color: rgba(9, 26, 33, 0.62);
+}
+
+.uc-intro-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(226, 179, 74, 0.28);
+  color: #e2b34a;
+  transition: all 0.22s ease;
+  flex-shrink: 0;
+}
+
+html[data-theme="day"] .uc-intro-arrow {
+  border-color: rgba(168, 115, 24, 0.3);
+  color: #a87318;
+}
+
+.uc-intro-card:hover .uc-intro-arrow {
+  background: #e2b34a;
+  color: #051014;
+  border-color: #e2b34a;
+}
+
+/* ==========================================================================
+   SHARP CHISELED NESTED CORNERS FOR PINNED CATALOG STAGE (8PX -> 4PX)
+   ========================================================================== */
+.uc-service-img-cms {
+  padding: 4px !important;
+  border-radius: 8px !important;
+}
+
+.uc-service-img-list {
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 /* ==========================================================================
@@ -8193,3 +7482,128 @@ html[data-theme="day"] .rklt-magnetic-badge:hover {
   transform: translateY(-2px) scale(1.18);
   opacity: 1;
 }
+
+/* ==========================================================================
+   NAVBAR AUTO-HIDE ON SCROLL (PREVENT OVERLAPPING 30+ COUNTER)
+   ========================================================================== */
+.rklt-header {
+  transition:
+    transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.rklt-header[data-hidden="true"] {
+  transform: translate3d(0, -130%, 0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-mobile-nav-open="true"] .rklt-header {
+  transform: translate3d(0, 0, 0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* ==========================================================================
+   DEPTH-LAYER TONAL CONTRAST SYSTEM ACROSS HOMEPAGE CHAPTERS
+   Creates distinct, soothing surface elevation shifts from section to section
+   so scrolling feels like descending through physical depth layers of RKLT.
+   ========================================================================== */
+
+/* Layer 1 -> Layer 2: Services Intro Atrium (Unified with Root so there is never a two-background split) */
+html[data-theme="night"] .uc-service-root,
+html[data-theme="night"] .uc-service-logis-wrap {
+  background: #091a21;
+}
+
+html[data-theme="day"] .uc-service-root,
+html[data-theme="day"] .uc-service-logis-wrap {
+  background: #f5f0e6;
+}
+
+/* Layer 3: Services Command Vault (Deep Obsidian Contrast Shift in Both Modes) */
+html[data-theme="night"] .uc-service-main-wrap {
+  background: #050d11 !important;
+  border-top: 1px solid rgba(226, 179, 74, 0.22);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.75);
+}
+
+html[data-theme="day"] .uc-service-main-wrap {
+  background: #e6decb !important;
+  border-top: 1px solid rgba(168, 115, 24, 0.24);
+  box-shadow: 0 24px 60px rgba(9, 26, 33, 0.12);
+}
+
+/* Layer 4: Let's Partner Up Seal Sanctuary (Warm Burnished Slate / Crisp Alabaster) */
+html[data-theme="night"] .rklt-service-cta {
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, #102129 0%, #071217 100%) !important;
+  border-top: 1px solid rgba(226, 179, 74, 0.16);
+}
+
+html[data-theme="day"] .rklt-service-cta {
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, #fdfbf7 0%, #f1eadf 100%) !important;
+  border-top: 1px solid rgba(9, 26, 33, 0.08);
+}
+
+/* Layer 5: How We Move Your Cargo Horizontal Blueprint (Recessed Charcoal / Warm Travertine) */
+html[data-theme="night"] .precision-corridor {
+  background: #050c10 !important;
+  box-shadow: inset 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+}
+
+html[data-theme="day"] .precision-corridor {
+  background: #e4dbc9 !important;
+  box-shadow: inset 0 20px 40px -20px rgba(9, 26, 33, 0.08);
+}
+
+/* Layer 6: Transit Corridors Atlas (Elevated Petrol-Indigo / Pure Ivory) */
+html[data-theme="night"] .rklt-minimal-map-track {
+  background: #091a21 !important;
+  border-top: 1px solid rgba(226, 179, 74, 0.18);
+}
+
+html[data-theme="day"] .rklt-minimal-map-track {
+  background: #faf7f2 !important;
+  border-top: 1px solid rgba(9, 26, 33, 0.1);
+}
+
+/* ==========================================================================
+   Z-AXIS CURTAIN OVER-SCROLL
+   ========================================================================== */
+.rklt-depth-stratum {
+  position: relative;
+}
+
+.rklt-depth-stratum > [data-depth-inner] {
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.rklt-depth-overlayer {
+  box-shadow:
+    0 -34px 68px -12px rgba(0, 0, 0, 0.72),
+    inset 0 1px 0 0 rgba(226, 179, 74, 0.22);
+}
+
+html[data-theme="day"] .rklt-depth-overlayer {
+  box-shadow:
+    0 -28px 56px -12px rgba(9, 26, 33, 0.14),
+    inset 0 1px 0 0 rgba(168, 115, 24, 0.22);
+}
+
+.rklt-depth-veil {
+  position: absolute;
+  inset: 0;
+  background: #020608;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 45;
+  will-change: opacity;
+}
+
+html[data-theme="day"] .rklt-depth-veil {
+  background: #091a21;
+}
+
+

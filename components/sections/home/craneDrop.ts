@@ -43,15 +43,16 @@ export function createCraneDrop({
   const yearsNumEl = rig.querySelector<HTMLElement>("[data-crane-years-num]");
   const yearsPlusEl = rig.querySelector<HTMLElement>("[data-crane-years-plus]");
 
-  // On mobile (< 900px), remove parallax & sticky completely
+  // On mobile (< 900px), container rests cleanly without heavy parallax scale
   const isMobile = () => typeof window !== "undefined" && window.innerWidth < 900;
   if (isMobile()) {
     base?.classList.add("is-landed");
     if (bodyEl) bodyEl.style.transform = "none";
-    if (yearsEl) yearsEl.style.opacity = "1";
-    if (yearsNumEl) yearsNumEl.textContent = "30";
-    if (yearsPlusEl) yearsPlusEl.classList.add("is-lit");
-    return () => {};
+    if (yearsEl) {
+      yearsEl.style.opacity = "0";
+      yearsEl.style.visibility = "hidden";
+    }
+    if (yearsNumEl) yearsNumEl.textContent = "0";
   }
 
   let landingScroll = 400;
@@ -61,47 +62,72 @@ export function createCraneDrop({
   let lastYearsVal = -1;
 
   const measure = () => {
-    if (isMobile()) return;
+    const mobile = isMobile();
     gsap.set(rig, { clearProps: "transform" });
-    if (bodyEl) gsap.set(bodyEl, { clearProps: "transform" });
+    if (bodyEl && !mobile) gsap.set(bodyEl, { clearProps: "transform" });
     const vh = window.innerHeight;
-    landingScroll = Math.max(300, Math.round(vh * 0.64));
+    landingScroll = Math.max(260, Math.round(vh * (mobile ? 0.45 : 0.64)));
   };
 
   const update = () => {
-    if (isMobile()) return;
-
+    const mobile = isMobile();
     const sy = typeof window !== "undefined" ? (window.scrollY || document.documentElement.scrollTop || 0) : 0;
     const stageRect = stage.getBoundingClientRect();
     const stageTop = stageRect.top + sy;
     const s = Math.max(0, sy - stageTop);
     const prog = gsap.utils.clamp(0, 1, landingScroll > 0 ? s / landingScroll : 1);
 
-    // 15% zoom towards user's eyes + real hydraulic settling drop into the next section
+    // Zoom and hydraulic settling drop on desktop; gentle resting on mobile
     if (bodyEl) {
-      // Easing curve: initial winch descent, gravitational acceleration, cushioned hydraulic touchdown
-      const easeDrop = (p: number) => {
-        if (p <= 0) return 0;
-        if (p >= 1) return 1;
-        return p < 0.72
-          ? Math.pow(p / 0.72, 1.4) * 0.68
-          : 0.68 + (1 - Math.pow(1 - (p - 0.72) / 0.28, 2.2)) * 0.32;
-      };
-      const dropFactor = easeDrop(prog);
-      const parallaxY = (36 * dropFactor).toFixed(1);
-      const zoom = (1 + 0.15 * Math.pow(prog, 0.88)).toFixed(3);
-      bodyEl.style.transform = `translate3d(0, ${parallaxY}px, 0) scale(${zoom})`;
+      if (mobile) {
+        bodyEl.style.transform = "none";
+      } else {
+        const easeDrop = (p: number) => {
+          if (p <= 0) return 0;
+          if (p >= 1) return 1;
+          return p < 0.72
+            ? Math.pow(p / 0.72, 1.4) * 0.68
+            : 0.68 + (1 - Math.pow(1 - (p - 0.72) / 0.28, 2.2)) * 0.32;
+        };
+        const dropFactor = easeDrop(prog);
+        const parallaxY = (36 * dropFactor).toFixed(1);
+        const zoom = (1 + 0.15 * Math.pow(prog, 0.88)).toFixed(3);
+        bodyEl.style.transform = `translate3d(0, ${parallaxY}px, 0) scale(${zoom})`;
+      }
     }
 
-    // Fast direct opacity updates (no style recalculations)
-    if (copy) {
+    // Mutual exclusivity guarantee: RKLT and 30+ counter never occupy the slot simultaneously
+    if (copy && yearsEl) {
+      if (prog < 0.12) {
+        // Phase 1: RKLT is visible at rest, 30+ is strictly hidden
+        const op = Math.max(0, 1 - prog / 0.12).toFixed(2);
+        copy.style.opacity = op;
+        copy.style.visibility = op === "0.00" ? "hidden" : "visible";
+        yearsEl.style.opacity = "0";
+        yearsEl.style.visibility = "hidden";
+      } else if (prog < 0.22) {
+        // Phase 2: Buffer deadzone - zero visual overlap
+        copy.style.opacity = "0";
+        copy.style.visibility = "hidden";
+        yearsEl.style.opacity = "0";
+        yearsEl.style.visibility = "hidden";
+      } else {
+        // Phase 3: 30+ Years Counter emerges cleanly behind crane chains
+        copy.style.opacity = "0";
+        copy.style.visibility = "hidden";
+        const yProg = Math.min(1, (prog - 0.22) / 0.28);
+        const op = yProg.toFixed(2);
+        yearsEl.style.opacity = op;
+        yearsEl.style.visibility = op === "0.00" ? "hidden" : "visible";
+      }
+    } else if (copy) {
       const op = Math.max(0, 1 - prog * 4.2).toFixed(2);
-      if (copy.style.opacity !== op) copy.style.opacity = op;
-    }
-    // 30+ Years Counter emerges behind the chains as scroll begins
-    if (yearsEl) {
-      const op = Math.min(1, Math.max(0, (prog - 0.02) * 5.0)).toFixed(2);
-      if (yearsEl.style.opacity !== op) yearsEl.style.opacity = op;
+      copy.style.opacity = op;
+      copy.style.visibility = op === "0.00" ? "hidden" : "visible";
+    } else if (yearsEl) {
+      const op = Math.min(1, Math.max(0, (prog - 0.22) * 3.5)).toFixed(2);
+      yearsEl.style.opacity = op;
+      yearsEl.style.visibility = op === "0.00" ? "hidden" : "visible";
     }
 
     // Dynamic scroll counting behind crane chains: 0 -> 30 years
@@ -130,15 +156,13 @@ export function createCraneDrop({
       }
     }
     if (backdrop) {
-      // Atmospheric Opacity: low at first so rich port definition & sunset colors pop,
-      // then deepens into an ambient stage as the container settles
-      const dim = prog < 0.22 ? "0" : Math.min(0.58, (prog - 0.22) * 0.78).toFixed(2);
+      const dim = (0.28 + prog * 0.4).toFixed(2);
       const afterEl = backdrop.querySelector<HTMLElement>(".rklt-backdrop-dim");
       if (afterEl && afterEl.style.opacity !== dim) {
         afterEl.style.opacity = dim;
       }
       const depthEl = backdrop.querySelector<HTMLElement>("[data-hero-depth]");
-      if (depthEl) {
+      if (depthEl && !mobile) {
         depthEl.style.transform = `translate3d(0, ${(prog * 40).toFixed(1)}px, 0)`;
         depthEl.style.opacity = Math.max(0.25, 1 - prog * 0.55).toFixed(2);
       }
@@ -193,8 +217,14 @@ export function createCraneDrop({
     trigger.kill();
     base?.classList.remove("is-landed");
     if (bodyEl) bodyEl.style.transform = "";
-    if (copy) copy.style.opacity = "";
-    if (yearsEl) yearsEl.style.opacity = "";
+    if (copy) {
+      copy.style.opacity = "";
+      copy.style.visibility = "";
+    }
+    if (yearsEl) {
+      yearsEl.style.opacity = "";
+      yearsEl.style.visibility = "";
+    }
     if (yearsPlusEl) yearsPlusEl.classList.remove("is-lit");
     const cleanupMonoliths = cred.querySelectorAll<HTMLElement>("[data-standard-monolith]");
     cleanupMonoliths.forEach((el) => {

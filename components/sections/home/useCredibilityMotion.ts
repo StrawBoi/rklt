@@ -18,7 +18,7 @@ export function useCredibilityMotion(rootRef: RefObject<HTMLElement | null>) {
     gsap.registerPlugin(ScrollTrigger);
 
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", () => {
       const girder = root.querySelector<HTMLElement>("[data-bedrock-girder]");
       const pillars = Array.from(
         root.querySelectorAll<HTMLElement>("[data-bedrock-pillar]")
