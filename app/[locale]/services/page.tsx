@@ -2,16 +2,19 @@ import React from "react";
 import type { Metadata } from "next";
 import { Locale } from "@/lib/i18n";
 import { ServicesHero } from "@/components/sections/services/ServicesHero";
-import { ServicesCore } from "@/components/sections/services/ServicesCore";
+import { ServicesBentoGrid } from "@/components/sections/services/ServicesBentoGrid";
+import { FleetSpecLedger } from "@/components/sections/services/FleetSpecLedger";
+import { CustomsClearanceProtocol } from "@/components/sections/services/CustomsClearanceProtocol";
 import { ServicesExtended } from "@/components/sections/services/ServicesExtended";
 import { ServicesAdvisory } from "@/components/sections/services/ServicesAdvisory";
+import { ServiceCTA } from "@/components/sections/home/ServiceCTA";
 import { CTABand } from "@/components/layout/CTABand";
 
 export async function generateMetadata({
   params,
 }: {
   params: { locale: string };
-}): Promise<Metadata> {
+}) {
   const isAr = params.locale === "ar";
   return {
     title: isAr
@@ -33,9 +36,12 @@ export default function ServicesPage({
   return (
     <>
       <ServicesHero locale={locale} />
-      <ServicesCore locale={locale} />
+      <ServicesBentoGrid locale={locale} />
+      <FleetSpecLedger locale={locale} />
+      <CustomsClearanceProtocol locale={locale} />
       <ServicesExtended locale={locale} />
       <ServicesAdvisory locale={locale} />
+      <ServiceCTA locale={locale} />
       <CTABand locale={locale} tone="darker" />
     </>
   );
