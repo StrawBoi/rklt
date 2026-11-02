@@ -156,7 +156,7 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
                 <span dir="ltr">{siteConfig.phone}</span>
               </li>
               <li className="flex items-center gap-2">
-                <Icon name="envelope" size={14} className="text-[#e2b34a] flex-shrink-0" />
+                <Icon name="mail" size={14} className="text-[#e2b34a] flex-shrink-0" />
                 <span>{siteConfig.email}</span>
               </li>
               <li className="flex items-start gap-2.5 pt-1 text-xs text-white/50 [html[data-theme=day]_&]:text-[#2d5661]/80">
