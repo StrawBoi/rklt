@@ -6717,9 +6717,9 @@ html[data-theme="day"] .uc-service-sweep-line {
 /* 2A. Light Intro Section */
 .uc-service-logis-wrap {
   width: 100%;
-  min-height: 120vh;
-  padding-top: clamp(4rem, 8vh, 7rem);
-  padding-bottom: clamp(6rem, 12vh, 10rem);
+  min-height: auto;
+  padding-top: clamp(2.5rem, 5vh, 4.5rem);
+  padding-bottom: clamp(2.5rem, 5vh, 4.5rem);
   background: #fbf9f5;
   color: #091a21;
   position: relative;
@@ -6767,7 +6767,7 @@ html[data-theme="day"] .uc-service-logis-wrap {
 }
 
 .uc-logis-title {
-  grid-column: 5 / span 12;
+  grid-column: 1 / -1;
 }
 
 .uc-headline-display {
@@ -6821,9 +6821,9 @@ html[data-theme="day"] .uc-service-logis-wrap {
 }
 
 .uc-logis-sub {
-  grid-column: 1 / span 4;
-  margin-top: 1.25rem;
-  max-width: 440px;
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+  max-width: 680px;
   position: relative;
   padding-inline-start: 1.25rem;
 }
@@ -7840,6 +7840,7 @@ html[data-theme="day"] .radar-sweep-beam {
    SERVICE TEASER INTRO ROW (CLEAN, FLAT PREVIEW CARDS)
    ========================================================================== */
 .uc-intro-cards-row {
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(14px, 1.5vw, 24px);

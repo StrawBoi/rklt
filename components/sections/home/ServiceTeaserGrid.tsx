@@ -471,7 +471,7 @@ export const ServiceTeaserGrid: React.FC<ServiceTeaserGridProps> = ({ locale }) 
         </div>
 
         {/* 4 Clean Flat Preview Cards (Inside the Intro Flow, No Cross-Section Flying) */}
-        <div className="uc-service-container mt-12 lg:mt-16">
+        <div className="uc-service-container mt-6 lg:mt-8">
           <div className="uc-intro-cards-row">
             {INTRO_CARDS.map((card, idx) => (
               <div
