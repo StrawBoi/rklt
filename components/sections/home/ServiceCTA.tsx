@@ -16,13 +16,14 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
   const isAr = locale === "ar";
   const sectionRef = useRef<HTMLElement>(null);
   const magneticBtnRef = useRef<HTMLAnchorElement>(null);
+  const orbitRef = useRef<SVGGElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const ringsRef = useRef<SVGSVGElement>(null);
 
   const whatsappHref = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
     isAr
-      ? "مرحباً، أود التنسيق مع فريق ربوع الخير بخصوص متطلبات الشحن واللوجستيات."
-      : "Hello, I would like to consult with RKLT regarding our freight and logistics requirements."
+      ? "مرحباً ربوع الخير، نود بدء شراكة استراتيجية والتنسيق لخدمات الشحن واللوجستيات."
+      : "Hello RKLT team, let's partner up to manage our freight, clearance, and supply chain."
   )}`;
 
   useEffect(() => {
@@ -32,6 +33,7 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
     const btn = magneticBtnRef.current;
     const headline = headlineRef.current;
     const rings = ringsRef.current;
+    const orbit = orbitRef.current;
     if (!section) return;
 
     const ctx = gsap.context(() => {
@@ -40,11 +42,12 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
         const lines = headline.querySelectorAll(".service-cta-line");
         gsap.fromTo(
           lines,
-          { opacity: 0, y: 50 },
+          { opacity: 0, y: 44, scale: 0.96 },
           {
             opacity: 1,
             y: 0,
-            stagger: 0.14,
+            scale: 1,
+            stagger: 0.12,
             duration: 0.85,
             ease: "power3.out",
             scrollTrigger: {
@@ -55,17 +58,17 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
         );
       }
 
-      // 2. Concentric Rings Breathing & Expansion on Scroll
+      // 2. Concentric Radar Rings Breathing & Expansion on Scroll
       if (rings) {
-        const circles = rings.querySelectorAll("circle");
+        const circles = rings.querySelectorAll(".rklt-radar-circle");
         gsap.fromTo(
           circles,
-          { scale: 0.85, opacity: 0 },
+          { scale: 0.88, opacity: 0 },
           {
             scale: 1,
             opacity: 1,
-            stagger: 0.06,
-            duration: 1.2,
+            stagger: 0.05,
+            duration: 1.1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: section,
@@ -74,32 +77,43 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
           }
         );
 
-        // Continuous subtle harmonic breathing
+        // Continuous harmonic radial breathing
         gsap.to(circles, {
-          scale: "+=0.03",
+          scale: "+=0.025",
           transformOrigin: "50% 50%",
-          duration: 4,
+          duration: 4.2,
           ease: "sine.inOut",
           yoyo: true,
           repeat: -1,
           stagger: {
-            each: 0.4,
+            each: 0.35,
             from: "center",
           },
         });
       }
 
-      // 3. Floating Button Entrance Animation
+      // 3. Seal of Custody Orbiting Micro-Typography Continuous Rotation
+      if (orbit) {
+        gsap.to(orbit, {
+          rotation: 360,
+          transformOrigin: "50% 50%",
+          duration: 28,
+          ease: "none",
+          repeat: -1,
+        });
+      }
+
+      // 4. Floating Button Entrance Animation
       if (btn) {
         gsap.fromTo(
           btn,
-          { scale: 0, opacity: 0, rotate: -15 },
+          { scale: 0, opacity: 0, rotate: -20 },
           {
             scale: 1,
             opacity: 1,
             rotate: 0,
             duration: 0.9,
-            ease: "back.out(1.7)",
+            ease: "back.out(1.6)",
             scrollTrigger: {
               trigger: section,
               start: "top 70%",
@@ -109,7 +123,7 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
       }
     }, sectionRef);
 
-    // 4. Interactive Magnetic Mouse Physics on the Button
+    // 5. Interactive Magnetic Mouse Physics on the Badge
     const handleMouseMove = (e: MouseEvent) => {
       if (!btn) return;
       const rect = btn.getBoundingClientRect();
@@ -117,10 +131,10 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
       const btnCenterY = rect.top + rect.height / 2;
 
       const dist = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
-      const magnetRadius = 180; // active magnetic pull radius
+      const magnetRadius = 220; // magnetic pull field
 
       if (dist < magnetRadius) {
-        const pull = (1 - dist / magnetRadius) * 0.45;
+        const pull = (1 - dist / magnetRadius) * 0.42;
         const deltaX = (e.clientX - btnCenterX) * pull;
         const deltaY = (e.clientY - btnCenterY) * pull;
 
@@ -160,11 +174,14 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
     };
   }, []);
 
+  const orbitingTextEn = "· RKLT FREIGHT NETWORK · EST. 1994 · LICENSED BROKER #412 ";
+  const orbitingTextAr = "· شبكة ربوع الخير اللوجستية · تأسست ١٩٩٤ · ترخيص ٤١٢ ";
+
   return (
     <section
       ref={sectionRef}
-      className="rklt-service-cta relative w-full overflow-hidden py-24 sm:py-32 lg:py-44 transition-colors duration-500"
-      aria-label={isAr ? "جاهز لنقل شحناتك بذكاء؟" : "Ready to move smarter?"}
+      className="rklt-service-cta relative w-full overflow-hidden py-24 sm:py-32 lg:py-40 transition-colors duration-500"
+      aria-label={isAr ? "فلنبدأ شراكتنا" : "Let's partner up"}
     >
       {/* Top Cadence Ruler Transition Indicator */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-25" aria-hidden="true">
@@ -174,28 +191,30 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
       </div>
 
       {/* =========================================================================
-          BACKGROUND CONCENTRIC HARMONIC RINGS (UNITED CARRIERS SIGNATURE WAVE)
+          BACKGROUND MARITIME RADAR & AZIMUTH GRATICULE
+          Signature RKLT touch: Navigational radar telemetry & gateway coordinates
           ========================================================================= */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-0">
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-0" aria-hidden="true">
         <svg
           ref={ringsRef}
           viewBox="0 0 1400 1400"
-          className="w-[160vw] max-w-[1400px] h-[160vw] max-h-[1400px] opacity-100 transition-opacity"
+          className="w-[160vw] max-w-[1400px] h-[160vw] max-h-[1400px] select-none opacity-90 transition-opacity"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <radialGradient id="ringFadeMask" cx="50%" cy="50%" r="50%">
+            <radialGradient id="radarFadeMask" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-              <stop offset="60%" stopColor="#ffffff" stopOpacity="0.5" />
+              <stop offset="65%" stopColor="#ffffff" stopOpacity="0.45" />
               <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
             </radialGradient>
-            <mask id="concentricMask">
-              <rect width="1400" height="1400" fill="url(#ringFadeMask)" />
+            <mask id="radarConcentricMask">
+              <rect width="1400" height="1400" fill="url(#radarFadeMask)" />
             </mask>
           </defs>
 
-          <g mask="url(#concentricMask)">
-            {[140, 220, 310, 410, 520, 640, 770, 910, 1060].map((radius, idx) => (
+          <g mask="url(#radarConcentricMask)">
+            {/* Concentric Radar Rings */}
+            {[140, 230, 330, 440, 560, 690, 830, 980, 1140].map((radius, idx) => (
               <circle
                 key={idx}
                 cx="700"
@@ -204,92 +223,165 @@ export const ServiceCTA: React.FC<ServiceCTAProps> = ({ locale }) => {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={idx % 2 === 0 ? "1" : "0.75"}
-                strokeDasharray={idx === 3 || idx === 6 ? "4 6" : undefined}
-                className="text-black/[0.08] [html[data-theme=night]_&]:text-white/[0.08] transition-colors"
+                strokeDasharray={idx === 2 || idx === 5 ? "4 8" : undefined}
+                className="rklt-radar-circle text-black/[0.09] [html[data-theme=night]_&]:text-white/[0.08] transition-colors"
               />
             ))}
+
+            {/* Nautical Crosshair Axes */}
+            <line x1="120" y1="700" x2="1280" y2="700" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 10" className="text-black/10 [html[data-theme=night]_&]:text-white/10" />
+            <line x1="700" y1="120" x2="700" y2="1280" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 10" className="text-black/10 [html[data-theme=night]_&]:text-white/10" />
+
+            {/* Subtle Cardinal Degrees & Port GPS Coordinates */}
+            <text x="700" y="80" textAnchor="middle" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+              000° · NORTH LEVANT CORRIDOR
+            </text>
+            <text x="700" y="1330" textAnchor="middle" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+              180° · AQABA RED SEA GATEWAY (29.53° N, 35.00° E)
+            </text>
+            <text x="70" y="704" textAnchor="start" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+              270° · MEDITERRANEAN
+            </text>
+            <text x="1330" y="704" textAnchor="end" fontSize="10" fontFamily="monospace" fill="currentColor" className="text-black/30 [html[data-theme=night]_&]:text-white/30 uppercase tracking-widest">
+              090° · GCC & ARABIAN GULF (31.95° N, 35.93° E)
+            </text>
           </g>
         </svg>
       </div>
 
       {/* =========================================================================
-          MAIN EDITORIAL CONTENT & MAGNETIC BUTTON
+          MAIN EDITORIAL CONTENT & RKLT SEAL OF CUSTODY MAGNETIC BADGE
           ========================================================================= */}
       <Container size="wide" className="relative z-10">
         <div className="relative max-w-4xl mx-auto text-center flex flex-col items-center">
-          {/* FLOATING MAGNETIC CTA BUTTON (WORK WITH US) */}
+          
+          {/* =====================================================================
+              SIGNATURE RKLT "SEAL OF CUSTODY" MAGNETIC BADGE
+              Dual-tone metallic brass & ember seal with orbiting micro-typography
+              ===================================================================== */}
           <a
             ref={magneticBtnRef}
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="rklt-magnetic-badge group"
-            aria-label={isAr ? "ابدأ التعاقد معنا عبر واتساب" : "Work with us via WhatsApp"}
+            className="rklt-seal-badge group"
+            aria-label={isAr ? "ابدأ الشراكة معنا عبر واتساب" : "Partner with RKLT via WhatsApp"}
           >
-            <span className="rklt-magnetic-badge-inner">
-              <span className="rklt-badge-text">
+            {/* Ambient Pulsing Radar Aura */}
+            <span className="rklt-seal-aura" aria-hidden="true" />
+
+            {/* Orbiting Micro-Typography SVG Ring */}
+            <svg
+              viewBox="0 0 200 200"
+              className="rklt-seal-orbit-svg"
+              aria-hidden="true"
+            >
+              <defs>
+                <path
+                  id="rkltSealPath"
+                  d="M 100, 100 m -74, 0 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0"
+                />
+              </defs>
+              <g ref={orbitRef} className="rklt-seal-orbit-g">
+                <text
+                  className="rklt-seal-orbit-text"
+                  fontSize="9"
+                  fontFamily="monospace"
+                  fontWeight="700"
+                  letterSpacing="0.18em"
+                  fill="currentColor"
+                >
+                  <textPath href="#rkltSealPath" startOffset="0%">
+                    {isAr ? orbitingTextAr : orbitingTextEn}
+                  </textPath>
+                </text>
+              </g>
+            </svg>
+
+            {/* Central Solid Seal Core with Chamfered Brass Rim */}
+            <div className="rklt-seal-core">
+              <span className="rklt-seal-text">
                 {isAr ? (
                   <>
                     <span>ابدأ</span>
-                    <span>معنا</span>
+                    <span>الشراكة</span>
                   </>
                 ) : (
                   <>
-                    <span>WORK</span>
+                    <span>PARTNER</span>
                     <span>WITH US</span>
                   </>
                 )}
               </span>
-              <span className="rklt-badge-arrow">
-                <Icon name="whatsapp" size={16} />
+              <span className="rklt-seal-arrow" aria-hidden="true">
+                <Icon name="whatsapp" size={15} />
               </span>
-            </span>
+            </div>
           </a>
 
-          {/* MASSIVE HERO HEADLINE */}
+          {/* MASSIVE HERO DISPLAY HEADLINE */}
           <h2
             ref={headlineRef}
-            className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] tracking-tight leading-[0.98] text-[#091a21] [html[data-theme=night]_&]:text-white uppercase mb-8"
+            className="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-[6.5rem] tracking-tight leading-[0.98] text-[#091a21] [html[data-theme=night]_&]:text-white uppercase mb-6"
           >
             {isAr ? (
               <>
-                <span className="service-cta-line block">جاهز لنقل</span>
-                <span className="service-cta-line block">شحناتك</span>
+                <span className="service-cta-line block">فلنبدأ</span>
                 <span className="service-cta-line block text-[#a87318] [html[data-theme=night]_&]:text-[#e2b34a]">
-                  بذكاء؟
+                  شراكتنا.
                 </span>
               </>
             ) : (
               <>
-                <span className="service-cta-line block">READY TO</span>
-                <span className="service-cta-line block">MOVE</span>
+                <span className="service-cta-line block">LET&apos;S</span>
                 <span className="service-cta-line block text-[#a87318] [html[data-theme=night]_&]:text-[#e2b34a]">
-                  SMARTER?
+                  PARTNER UP.
                 </span>
               </>
             )}
           </h2>
 
-          {/* EDITORIAL SUBTITLE */}
-          <p className="max-w-xl text-base sm:text-lg text-[#2d5661] [html[data-theme=night]_&]:text-white/70 leading-relaxed font-sans mb-10">
+          {/* EDITORIAL REASSURING SUBTITLE */}
+          <p className="max-w-xl text-base sm:text-lg md:text-xl text-[#2d5661] [html[data-theme=night]_&]:text-white/75 font-sans font-medium leading-relaxed mb-10">
             {isAr
-              ? "نحن هنا لمساعدتكم على تنمية أعمالكم دون عناء أو انتظار. لا مراكز اتصال آلية، بل خبراء نقل وتخليص جمركي متمرسون ومستعدون للمساعدة فوراً."
-              : "We are here to help you grow without hassle. No call centres. No runaround. Just experienced freight specialists ready to help."}
+              ? "دقة، سرعة، وموثوقية في كل ميل."
+              : "Precision, speed and reliability in every mile."}
           </p>
 
+          {/* SECONDARY ACTION BUTTONS & TRUST BADGES */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono mb-12">
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3.5 rounded-full bg-[#091a21] text-white [html[data-theme=night]_&]:bg-white [html[data-theme=night]_&]:text-[#091a21] font-bold uppercase tracking-wider hover:opacity-90 transition-opacity inline-flex items-center gap-2 shadow-lg"
+            >
+              <Icon name="whatsapp" size={15} />
+              <span>{isAr ? "بدء محادثة واتساب" : "Start Conversation"}</span>
+            </a>
+
+            <a
+              href={`tel:${siteConfig.phoneClean}`}
+              className="px-6 py-3.5 rounded-full border border-black/15 [html[data-theme=night]_&]:border-white/20 text-[#091a21] [html[data-theme=night]_&]:text-white font-bold uppercase tracking-wider hover:border-black/30 [html[data-theme=night]_&]:hover:border-white/40 transition-colors inline-flex items-center gap-2"
+            >
+              <Icon name="phone" size={14} />
+              <span>{siteConfig.phone}</span>
+            </a>
+          </div>
+
           {/* Direct Communication Badges / Highlights */}
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-mono uppercase tracking-wider text-[#091a21]/60 [html[data-theme=night]_&]:text-white/50 border-t border-black/10 [html[data-theme=night]_&]:border-white/10 pt-8 w-full max-w-lg">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-mono uppercase tracking-wider text-[#091a21]/60 [html[data-theme=night]_&]:text-white/50 border-t border-black/10 [html[data-theme=night]_&]:border-white/10 pt-8 w-full max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#a87318] [html[data-theme=night]_&]:bg-[#e2b34a]" />
-              <span>{isAr ? "استجابة فورية" : "Direct Dispatch"}</span>
+              <span>{isAr ? "تأسست عام ١٩٩٤ · خبرة +٣٠ عاماً" : "Est. 1994 · 30+ Years Mastery"}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#a87318] [html[data-theme=night]_&]:bg-[#e2b34a]" />
-              <span>{isAr ? "تخليص جمركي مرخص ٤١٢" : "Licensed Broker #412"}</span>
+              <span>{isAr ? "وساطة جمركية مرخصة #٤١٢" : "Licensed Customs Broker #412"}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#a87318] [html[data-theme=night]_&]:bg-[#e2b34a]" />
-              <span>{isAr ? "موانئ العقبة والمطار" : "Aqaba & AMM Hubs"}</span>
+              <span>{isAr ? "موانئ العقبة ومطار عمّان الدولي" : "Aqaba Gateway & QAIA Air Hub"}</span>
             </div>
           </div>
         </div>
