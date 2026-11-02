@@ -43,9 +43,9 @@ export const homeContentEn = {
   },
   servicesTeaser: {
     eyebrow: "Core Capabilities",
-    title: "Engineered for your critical shipments.",
+    title: "Services, engineered to your delivery needs.",
     subtitle:
-      "How can we help? Services that cover the shipment, from the booking to the handover.",
+      "From quayside customs clearance to high-precision cross-border haulage, our operations are tailored to match your cargo schedules and compliance demands.",
     viewAll: "View full service catalog",
     items: [
       {
@@ -79,6 +79,22 @@ export const homeContentEn = {
         desc: "Licensed Jordanian brokerage navigating documentation, tariff classifications, and rapid border approvals.",
         icon: "shield-check",
         anchor: "customs",
+      },
+      {
+        id: "reefer",
+        numeral: "05",
+        title: "Reefer & Cold Chain",
+        desc: "Active temperature-controlled transport preserving perishable and pharmaceutical cargo across regional borders.",
+        icon: "reefer",
+        anchor: "reefer",
+      },
+      {
+        id: "project",
+        numeral: "06",
+        title: "Project & Heavy Lift",
+        desc: "Engineered transport planning and multi-axle trailers for oversized industrial and energy infrastructure.",
+        icon: "compass",
+        anchor: "project",
       },
     ],
   },
